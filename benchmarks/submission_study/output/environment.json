@@ -1,0 +1,30 @@
+{
+  "cpu_model": "INTEL(R) XEON(R) PLATINUM 8573C",
+  "system": "Linux",
+  "kernel": "6.18.44",
+  "machine": "x86_64",
+  "logical_cpus_visible": 9,
+  "cpu_quota": "800000 100000",
+  "memory_limit_bytes": "21474836480",
+  "python": "3.12.14",
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+  "solver_OpenMP_threads": 4,
+  "BLAS_threads": 1,
+  "timing_environment": "managed shared Linux environment; experiments run serially; timings are not dedicated-node measurements",
+  "packages": {
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "pandas": "2.2.3",
+    "trimesh": "5.1.0",
+    "libigl": "2.6.3",
+    "scikit-image": "0.25.2",
+    "embreex": "4.4.0",
+    "matplotlib": "3.10.8",
+    "pillow": "12.3.0",
+    "mitsuba": "3.9.1",
+    "drjit": "1.5.0",
+    "manifold3d": "3.5.3",
+    "oidn": "0.2.1",
+    "cmake": "4.1.0"
+  }
+}

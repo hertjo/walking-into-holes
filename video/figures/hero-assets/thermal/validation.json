@@ -1,0 +1,50 @@
+[
+  {
+    "panel": "initial",
+    "material_points": 16786,
+    "paths_per_point": 256,
+    "raw_section_max": 0.0227675065887532,
+    "cavities": 0,
+    "step_limit_hits": 0
+  },
+  {
+    "panel": "random",
+    "material_points": 16113,
+    "paths_per_point": 256,
+    "raw_section_max": 0.0133328929672714,
+    "cavities": 6,
+    "step_limit_hits": 0
+  },
+  {
+    "panel": "voxel",
+    "material_points": 15569,
+    "paths_per_point": 256,
+    "raw_section_max": 0.0100363246410507,
+    "cavities": 6,
+    "step_limit_hits": 0
+  },
+  {
+    "panel": "ours1",
+    "material_points": 16687,
+    "paths_per_point": 256,
+    "raw_section_max": 0.018659746282456,
+    "cavities": 1,
+    "step_limit_hits": 0
+  },
+  {
+    "panel": "ours3",
+    "material_points": 16217,
+    "paths_per_point": 256,
+    "raw_section_max": 0.0128066995875831,
+    "cavities": 3,
+    "step_limit_hits": 0
+  },
+  {
+    "panel": "ours6",
+    "material_points": 15647,
+    "paths_per_point": 256,
+    "raw_section_max": 0.0093902317395469,
+    "cavities": 6,
+    "step_limit_hits": 0
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "display_only": true,
+  "preview": false,
+  "source_seed": 2026091600,
+  "sensor_side": 1,
+  "physical_domains": "Original housing minus saved analytic ball unions; display window excluded from all PDE solves.",
+  "renderer": "Mitsuba 3.9.1",
+  "size": 1500,
+  "samples_per_pixel": 128,
+  "temperature_scale_max": 0.07,
+  "temperature_reference": "169x109x85 multigrid; approximate numerical field",
+  "field_display": "Bilinear interpolation on z=-0.03; no per-panel rescaling or denoising of scientific values.",
+  "radiance_denoising": "OIDN on display illumination only; temperature pixels replaced afterward.",
+  "geometry": "Watertight manifold booleans of tessellated ball-union channels and a common cylindrical display cut.",
+  "render_source_sha256": "feadb97c7a698befbe4ded2f09bece0bc6f439ef201eb406443d997edcb67f31"
+}

@@ -1,0 +1,25 @@
+{
+  "target": [
+    1.0,
+    0.65
+  ],
+  "initial": [
+    0.85,
+    0.85
+  ],
+  "exact_gradient": [
+    0.009196454447779534,
+    0.0156400391804498
+  ],
+  "central_difference": [
+    0.009196454450429489,
+    0.015640039186144705
+  ],
+  "repetitions": 48,
+  "scope": "oracle-state, two-parameter, fixed-topology diagnostic; not full PINN/FEniCS baseline",
+  "upstream": "https://github.com/max-wuer/ProbabilisticShape/tree/52a894588ba0235150b401f9cae97b0d2747347a",
+  "equation": "arXiv:2603.01141 equation (3.1), pushforward sign per Remark 3.1; uniform weighted starts",
+  "tolerance": 1e-08,
+  "iterations": 30,
+  "paths_per_step": 4096
+}

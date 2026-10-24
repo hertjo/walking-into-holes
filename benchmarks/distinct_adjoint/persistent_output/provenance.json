@@ -1,0 +1,8 @@
+{
+  "executable_sha256": "f0e1f7db09ac5034fd778d8a151a395a5c76f0c7b9df9d08beafe58dfff72d28",
+  "source_sha256": {
+    "run_persistent.py": "99936d9476ba3858ea5ccb6e2791879a46ac776f8580ab1937416a17df8d4b6c",
+    "adjoint.cpp": "bca7af3d54d869a57b6b3cf7f763534955cc9ea80a3cb5956531ea717e869f3b",
+    "run_benchmark.py": "8ad99562a20b109f6295428a118b7d8a63b17aae61cbda0d39a87023c448c5d0"
+  }
+}

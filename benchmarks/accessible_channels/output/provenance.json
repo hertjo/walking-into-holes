@@ -1,0 +1,10 @@
+{
+  "sources": {
+    "benchmarks/accessible_channels/run_accessible.py": "cf2858e4186aea7bd0c4e83b010c99446254cb4e06c9aa85abc87b30bfb2cb14",
+    "benchmarks/distinct_adjoint/adjoint.cpp": "bca7af3d54d869a57b6b3cf7f763534955cc9ea80a3cb5956531ea717e869f3b",
+    "benchmarks/distinct_adjoint/run_benchmark.py": "8ad99562a20b109f6295428a118b7d8a63b17aae61cbda0d39a87023c448c5d0",
+    "benchmarks/distinct_adjoint/run_persistent.py": "99936d9476ba3858ea5ccb6e2791879a46ac776f8580ab1937416a17df8d4b6c",
+    "benchmarks/engineering_housing/assets/stylized-finned-housing.ply": "82b1112418276f78acfccbe7ca410a2b65a704a660490274d206783a847e9e2c"
+  },
+  "executable_sha256": "f0e1f7db09ac5034fd778d8a151a395a5c76f0c7b9df9d08beafe58dfff72d28"
+}

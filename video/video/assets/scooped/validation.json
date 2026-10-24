@@ -1,0 +1,38 @@
+{
+  "manufactured_dirichlet_eigenmode_relative_error": 2.35915127610451e-15,
+  "grid_refinement": {
+    "ours0": {
+      "112_to_144_mean_change_relative": 0.013517849004516993
+    },
+    "budget12": {
+      "112_to_144_mean_change_relative": 0.02675378003255265
+    }
+  },
+  "time_refinement": {
+    "ours0": {
+      "max_mean_change_divided_by_steady_mean": 0.007470431910129286,
+      "comparison": "two half backward-Euler steps versus one full step on each stored interval"
+    }
+  },
+  "cooling": {
+    "ours1": {
+      "previous_design": "ours0",
+      "mean_decreases": true,
+      "max_relative_residual": 4.9073633361731216e-09,
+      "final_relative_steady_mean_error": 0.00029684192850254476
+    },
+    "ours3": {
+      "previous_design": "ours1",
+      "mean_decreases": true,
+      "max_relative_residual": 4.986732397088955e-09,
+      "final_relative_steady_mean_error": 8.177583367796615e-05
+    },
+    "ours6": {
+      "previous_design": "ours3",
+      "mean_decreases": true,
+      "max_relative_residual": 4.9888800769244955e-09,
+      "final_relative_steady_mean_error": 1.383552898914786e-05
+    }
+  },
+  "scope": "Checks of the auxiliary animation only. Residuals do not bound continuum error. Grid refinement is a sensitivity check, not a certified error bound; reported paper objectives are unchanged."
+}

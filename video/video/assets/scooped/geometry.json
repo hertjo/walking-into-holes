@@ -1,0 +1,87 @@
+{
+  "cut": "ellipsoidal scoop, display only",
+  "center": [
+    -0.025,
+    -0.15,
+    0.535
+  ],
+  "axes": [
+    0.385,
+    0.335,
+    0.49
+  ],
+  "designs": {
+    "ours0": {
+      "bowl_points": 28132,
+      "bowl_z_range": [
+        0.04500000178813934,
+        0.3615082800388336
+      ],
+      "cavities": 0,
+      "cavity_surfaces_retained": 0
+    },
+    "ours1": {
+      "bowl_points": 27917,
+      "bowl_z_range": [
+        0.04500000178813934,
+        0.3615082800388336
+      ],
+      "cavities": 1,
+      "cavity_surfaces_retained": 1
+    },
+    "ours3": {
+      "bowl_points": 27405,
+      "bowl_z_range": [
+        0.04500000178813934,
+        0.3615082800388336
+      ],
+      "cavities": 3,
+      "cavity_surfaces_retained": 3
+    },
+    "ours6": {
+      "bowl_points": 27016,
+      "bowl_z_range": [
+        0.04500000178813934,
+        0.3615082800388336
+      ],
+      "cavities": 6,
+      "cavity_surfaces_retained": 6
+    },
+    "random": {
+      "bowl_points": 27669,
+      "bowl_z_range": [
+        0.04500000178813934,
+        0.3615082800388336
+      ],
+      "cavities": 6,
+      "cavity_surfaces_retained": 6
+    },
+    "voxel": {
+      "bowl_points": 26588,
+      "bowl_z_range": [
+        0.04500000178813934,
+        0.3615082800388336
+      ],
+      "cavities": 6,
+      "cavity_surfaces_retained": 6
+    },
+    "budget6": {
+      "bowl_points": 27387,
+      "bowl_z_range": [
+        0.04500000178813934,
+        0.3615082800388336
+      ],
+      "cavities": 6,
+      "cavity_surfaces_retained": 6
+    },
+    "budget12": {
+      "bowl_points": 27677,
+      "bowl_z_range": [
+        0.04500000178813934,
+        0.3615082800388336
+      ],
+      "cavities": 12,
+      "cavity_surfaces_retained": 10
+    }
+  }
+}

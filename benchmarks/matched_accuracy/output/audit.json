@@ -1,0 +1,16 @@
+{
+  "completed_method_seed_runs": 345,
+  "compliance_runs": 40,
+  "original_runs": 140,
+  "incremental_grid_runs": 80,
+  "analytic_source_runs": 85,
+  "kernels": 4300,
+  "cached_repeats_verified": 360,
+  "maximum_residual": 9.99334527399489e-08,
+  "walk_caps": 0,
+  "cache_invalidation": "Original baseline rebuilt after edits; incremental variant retained outer masks. All additional batches made zero geometry queries",
+  "identity": "Cached values agree within eight machine epsilons after CSV serialization",
+  "maximum_cached_absolute_discrepancy": 1.3552527156068805e-20,
+  "protocol_sha256": "18e07d8e6c2d9b10810adfb8f4e901703a63814bee995dbf30a4111b01594f83",
+  "analysis_protocol_sha256": "e30b3ffaf5f7064b15f9fca7ebafb5fd5afda3c503200f30cd2e60da47692e83"
+}

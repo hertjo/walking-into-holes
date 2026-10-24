@@ -1,0 +1,133 @@
+\section{Matched-Accuracy Sparse-Query Workloads}
+\label{app:matchedaccuracy}
+
+\paragraph{Question and frozen protocol.}
+The comparison asks when evaluating a small set of topological insertion
+scores is cheaper than constructing a reusable volumetric primal--adjoint
+field. It does not presume that a grid-free method is faster. Before the
+measured sweep, we fixed four geometries, query counts $8,32,128,512$, five
+random seeds, TWoS path budgets $256,1024,4096$, and longest-axis multigrid
+counts $49,65,97,129$. The objects are the existing housing, branching
+manifold, annular spreader, and the 69,674-triangle Bunny. All use distinct
+compact primal and adjoint sources. The Bunny has sensor center
+$(0.15,-0.15,0)$ and radius $0.07$, a primary source centered at
+$(-0.15,-0.15,0)$ with radius $0.085$ and amplitude $35$, and sensor heating
+with radius $0.06$ and amplitude $4$. Thus this test differs from the earlier
+Bunny compliance crossover; it does not retrospectively replace its objective.
+
+A scrambled Sobol pool with seed 17092026 fixes feasible sites without
+consulting scores. The last admissible pool point determines a radius-$0.04$
+cavity. The 512 query sites avoid this prospective cavity by a center-distance
+margin of $0.10$. Both methods evaluate the original domain and the domain
+with this fixed cavity. The edit is a controlled workload perturbation, not
+an optimized insertion or a claimed improvement in objective value.
+Nested batches contain $8,24,96,384$ new sites, giving the stated prefix counts.
+Five paired random seeds are $1611,2711,3811,4911,6011$.
+
+\paragraph{Giving the grid its legitimate reuse.}
+The multigrid baseline uses the same masked finite-difference operator and
+geometric V-cycle as the previous study. Its primal and adjoint share the
+geometry hierarchy. The new query backend retains both solved finest-grid
+fields, so additional sites on an unchanged domain require only trilinear
+interpolation. A cavity insertion invalidates the cached fields; the common
+outer-mesh acceleration structure remains available to both methods.
+Each method--budget--seed combination has a fresh process, preventing peak
+memory from being inherited from another method. We measure mesh setup
+separately and cumulative wall time through every prefix, including field
+construction where incurred, request handling, and output writing. These
+measurements describe this implementation, not an optimized lower bound on
+multigrid query latency. All timing runs execute serially on four threads;
+method order rotates with seed. Independent reference construction is
+excluded from each method's query cost. Cached repeats must reproduce all
+primal, adjoint, and score values within eight machine epsilons after CSV
+serialization and make no geometry queries. Across 360 repeat checks the
+maximum absolute discrepancy is $1.36\times10^{-20}$.
+
+\paragraph{Accuracy and reference gates.}
+For a query prefix of size $Q$, let $s^{257}$ denote the score vector from
+MG257 and $\widehat s_{m,b,r}$ the tested method $m$, budget $b$, and seed $r$.
+We measure
+\[
+ e_{m,b,r}(Q)=\frac{\|\widehat s_{m,b,r}-s^{257}\|_2}{\|s^{257}\|_2}.
+\]
+This is reference-relative numerical error, not known continuum error.
+In particular, the grid reference and multigrid baseline share a
+ discretization family. We therefore report a refinement discrepancy
+$\delta_Q=\|s^{193}-s^{257}\|_2/\|s^{257}\|_2$ and an independent
+Monte Carlo check at 32 fixed, evenly indexed query sites. Eight independent
+8,192-path batches give mean $\bar s$ and componentwise standard errors.
+Let $\eta$ be the norm of that standard-error vector divided by the norm of
+the grid reference on those sites, and $d$ the similarly normalized
+$\|\bar s-s^{257}\|_2$. For a target $\tau$, the declared diagnostic gate is
+\[
+ \delta_Q\leq\tau/4,\qquad \eta\leq\tau/4,\qquad
+ d\leq\tau/4+2\eta.
+\]
+These gates are diagnostic tolerances, not probabilistic error certificates:
+the factor two is not a proved multivariate confidence radius, and the
+spot check does not cover every site. Grid convergence alone cannot rule out
+shared bias. A zero or nonfinite reference norm is unresolved. The primary
+target is $\tau=0.20$; $0.10$ and $0.40$ are predeclared sensitivity targets.
+No gate is relaxed after inspecting results.
+
+\paragraph{Uncertainty and selection.}
+We resample the five paired seeds 10,000 times with fixed bootstrap seed
+20260917, reporting pointwise percentile intervals for mean relative error
+and mean time. A budget is eligible only if its upper 97.5th percentile
+for mean error is at most $\tau$ and the reference gates pass. We select the
+fastest eligible tested budget within each method. Missing eligible budgets
+are reported explicitly, never converted to infinite speedups. Intervals
+for selected runtime ratios resample paired seeds jointly; they are
+descriptive after selection and are not simultaneous or selection-adjusted
+confidence statements. Timing and sampling variation do not enclose
+termination, floating-point, geometric, or discretization bias. All tested
+budgets, reference diagnostics, and unsuccessful targets accompany the paper.
+
+\input{appendix/22_matched_accuracy_results}
+
+\paragraph{Random-stream indexing audit and correction.}
+The retained legacy implementation XORs hashes of a seed, site index, and
+walk index. When a driver seed equals a walk-index offset, this construction
+can cancel or swap identifiers and reuse a stream across nominal repetitions.
+For the present five seeds and four query batches, this affects twelve
+indices at the 4,096-path budget; budgets through 1,024, the high-seed
+reference batches, and the fresh holdout seeds do not have that structural
+overlap. We correct the affected calibration draws, retain the superseded
+outputs, and enumerate the resulting stream keys to check uniqueness.
+This is a disclosed correctness amendment, not a selection based on outcomes.
+
+Let $I$ be the fixed set of affected indices. We replay their original
+paths and replacement paths with unused indices, obtaining $(U_i,P_i)$ and
+$(U'_i,P'_i)$. The corrected sufficient statistics are
+\[
+ S'_U=N\bar U+\sum_{i\in I}(U'_i-U_i),\qquad
+ S'_P=N\bar P+\sum_{i\in I}(P'_i-P_i),
+\]
+\[
+ S'_{UP}=\sum_i U_iP_i+
+       \sum_{i\in I}(U'_iP'_i-U_iP_i),\qquad
+ \widehat S'=\frac{S'_US'_P-S'_{UP}}{N(N-1)}.
+\]
+To verify the reconstruction, split each original sum into indices inside
+and outside $I$: subtraction removes exactly the old inside terms, and
+addition supplies exactly their replacements. Thus these are precisely the
+sums of the corrected $N$ pairs in exact arithmetic. Selection of $I$ depends
+only on stream identities, so it does not condition on observed path values.
+Under the ideal independent-stream model, unique keys give the intended
+independent pairs and the usual off-diagonal-product proof applies. Distinct
+PRNG keys alone are not a mathematical proof of PRNG independence.
+We check floating-point reconstruction against complete clean runs on each
+affected workload; all replay work is charged to corrected query costs.
+
+\paragraph{Fresh-seed confirmation of apparent speed wins.}
+Budgets selected from five calibration seeds are not independently validated
+by those same seeds. Before measuring the extensions, we therefore fix a
+confirmation protocol: every apparent 20\%-target speed win retains its
+selected configurations and uses 20 fresh seeds, alternating method order.
+The upper bootstrap mean-error endpoint must remain below 20\%, and the
+lower paired runtime-ratio endpoint must exceed one, to call the result a
+confirmed win. Failed confirmations remain reported. The same numerical
+reference gates apply; these pointwise checks are neither simultaneous tests
+nor continuum-error certificates. Offline tuning and reference construction
+are excluded from query costs, so this comparison is not an online accuracy
+controller.

@@ -1,0 +1,15 @@
+{
+  "geometries": [
+    "housing",
+    "branch",
+    "ring"
+  ],
+  "seeds": [
+    1611,
+    2711,
+    3811,
+    4911,
+    6011
+  ],
+  "completed": true
+}

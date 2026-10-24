@@ -1,0 +1,25 @@
+{
+  "camera": [
+    -2.8,
+    -4.5,
+    8.0
+  ],
+  "target": [
+    0.0,
+    0.0,
+    0.06
+  ],
+  "scale": 1.39,
+  "size": 1600,
+  "samples": 96,
+  "cut": -0.03,
+  "sensor_pixel": [
+    0.633772227501018,
+    0.38491694965682816
+  ],
+  "field": "MG max-axis 193; bilinear section interpolation",
+  "map": "1 - u_design / u_unperforated, clipped to [0,1] for display",
+  "low_temperature_mask": "Relative cooling is gray where baseline temperature is below 1e-4 of its section maximum.",
+  "ghost": "physical upper surface, depth tested, 9% opacity with 32% silhouettes",
+  "seed": 1611
+}

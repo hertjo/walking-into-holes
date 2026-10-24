@@ -1,0 +1,58 @@
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+*~
+*.swp
+.idea/
+.vscode/
+
+# Python environments and caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Node dependencies
+node_modules/
+
+# Native build products
+**/build/
+**/binaries/
+*.o
+*.obj
+*.so
+*.dylib
+*.dll
+*.exe
+
+# LaTeX intermediates
+*.aux
+*.blg
+*.brf
+*.fdb_latexmk
+*.fls
+*.lbl
+*.log
+*.out
+*.synctex.gz
+*.toc
+
+# Large reproducible per-run benchmark traces. Root-level summaries,
+# provenance, audits, tables, and figures inside each output/ stay tracked.
+benchmarks/*/output/*/
+video/benchmarks/*/output/*/
+
+# Render scratch frames and local exports
+video/render-parts/
+video/output/
+*.tmp
+*.part
+
+# Paper build and figure-script scratch (the figure PDFs in paper/figures/ stay tracked)
+paper/main.pdf
+paper/figure-scripts/out/
+paper/figure-scripts/assets/*
+!paper/figure-scripts/assets/channels/

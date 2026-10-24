@@ -1,0 +1,23 @@
+[
+  {
+    "stage": "refined",
+    "radius": 0.0786798401032774,
+    "max_gap": 0.06835691841100323,
+    "max_gap_over_diameter": 0.4343991950242654,
+    "passes": true
+  },
+  {
+    "stage": "straight",
+    "radius": 0.0785830902612771,
+    "max_gap": 0.0432141791951888,
+    "max_gap_over_diameter": 0.27495851239438457,
+    "passes": true
+  },
+  {
+    "stage": "topology",
+    "radius": 0.0786625700083712,
+    "max_gap": 0.056651261992600545,
+    "max_gap_over_diameter": 0.360090332584937,
+    "passes": true
+  }
+]

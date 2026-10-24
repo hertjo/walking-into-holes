@@ -1,0 +1,205 @@
+canvas { width = 800
+ height = 650 }
+Colors {
+ color ink = #302c35
+ color muted = #756e7a
+ color line = #d8d2dc
+ color ground = #faf8fb
+ color purple = #9365a8
+ color pale = #eee5f3
+ color teal = #6997aa
+ color tealpale = #eaf1f4
+ color orange = #bd824b
+ color red = #ae7778
+ color grey = #e8e5e9
+ color white = #ffffff
+}
+Global {
+  shape s1 = Text {
+    center: (0.0000,298.0000)
+    string: "Cross-fitting"
+    fontFamily: "Nimbus Roman"
+    fontSize: "27px"
+    fontWeight: "700"
+    fillColor: Colors.ink
+    textAnchor: "middle"
+  }
+  shape s2 = Text {
+    center: (-310.0000,240.0000)
+    string: "pair"
+    fontFamily: "Nimbus Roman"
+    fontSize: "25px"
+    fontWeight: "400"
+    fillColor: Colors.muted
+    textAnchor: "middle"
+  }
+  shape s3 = Text {
+    center: (-108.0000,240.0000)
+    string: "primal"
+    fontFamily: "Nimbus Roman"
+    fontSize: "25px"
+    fontWeight: "400"
+    fillColor: Colors.orange
+    textAnchor: "middle"
+  }
+  shape s4 = Text {
+    center: (166.0000,240.0000)
+    string: "adjoint"
+    fontFamily: "Nimbus Roman"
+    fontSize: "25px"
+    fontWeight: "400"
+    fillColor: Colors.teal
+    textAnchor: "middle"
+  }
+  shape s5 = Equation {
+    center: (-310.0000,181.0000)
+    string: "X_1"
+    fontSize: "31px"
+    fillColor: Colors.muted
+  }
+  shape s6 = Equation {
+    center: (-108.0000,181.0000)
+    string: "U_1"
+    fontSize: "35px"
+    fillColor: Colors.muted
+  }
+  shape s7 = Rectangle {
+    center: (166.0000,181.0000)
+    width: 150
+    height: 61
+    fillColor: Colors.tealpale
+    strokeColor: none()
+    strokeWidth: 1
+    cornerRadius: 4
+  }
+  shape s8 = Equation {
+    center: (166.0000,181.0000)
+    string: "P_1"
+    fontSize: "35px"
+    fillColor: Colors.teal
+  }
+  shape s9 = Rectangle {
+    center: (-14.0000,92.0000)
+    width: 704
+    height: 69
+    fillColor: Colors.ground
+    strokeColor: none()
+    strokeWidth: 1
+    cornerRadius: 4
+  }
+  shape s10 = Equation {
+    center: (-310.0000,92.0000)
+    string: "X_2"
+    fontSize: "31px"
+    fillColor: Colors.purple
+  }
+  shape s11 = Equation {
+    center: (-108.0000,92.0000)
+    string: "U_2"
+    fontSize: "35px"
+    fillColor: Colors.orange
+  }
+  shape s12 = Equation {
+    center: (166.0000,92.0000)
+    string: "P_2"
+    fontSize: "35px"
+    fillColor: Colors.muted
+  }
+  shape s13 = Line {
+    start: (144.0000,92.0000)
+    end: (188.0000,92.0000)
+    strokeColor: Colors.muted
+    strokeWidth: 1.8
+  }
+  shape s14 = Text {
+    center: (284.0000,92.0000)
+    string: "omit"
+    fontFamily: "Nimbus Roman"
+    fontSize: "24px"
+    fontWeight: "400"
+    fillColor: Colors.muted
+    textAnchor: "middle"
+  }
+  shape s15 = Equation {
+    center: (-310.0000,3.0000)
+    string: "X_3"
+    fontSize: "31px"
+    fillColor: Colors.muted
+  }
+  shape s16 = Equation {
+    center: (-108.0000,3.0000)
+    string: "U_3"
+    fontSize: "35px"
+    fillColor: Colors.muted
+  }
+  shape s17 = Rectangle {
+    center: (166.0000,3.0000)
+    width: 150
+    height: 61
+    fillColor: Colors.tealpale
+    strokeColor: none()
+    strokeWidth: 1
+    cornerRadius: 4
+  }
+  shape s18 = Equation {
+    center: (166.0000,3.0000)
+    string: "P_3"
+    fontSize: "35px"
+    fillColor: Colors.teal
+  }
+  shape s19 = Rectangle {
+    center: (-108.0000,92.0000)
+    width: 150
+    height: 61
+    fillColor: none()
+    strokeColor: Colors.orange
+    strokeWidth: 1.7
+    cornerRadius: 4
+  }
+  shape s20 = Line {
+    start: (-359.0000,-39.0000)
+    end: (355.0000,-39.0000)
+    strokeColor: Colors.line
+    strokeWidth: 1.1
+  }
+  shape s21 = Equation {
+    center: (0.0000,-101.0000)
+    string: "\bar P_{-2}=\frac{P_1+P_3}{2}"
+    fontSize: "34px"
+    fillColor: Colors.teal
+  }
+  shape s22 = Equation {
+    center: (0.0000,-184.0000)
+    string: "C_2=-U_2\bar P_{-2}"
+    fontSize: "37px"
+    fillColor: Colors.ink
+  }
+  shape s23 = Equation {
+    center: (0.0000,-293.0000)
+    string: "\widehat D_T=\frac{1}{N}\sum\nolimits_{i=1}^N C_i"
+    fontSize: "35px"
+    fillColor: Colors.purple
+  }
+  layer s1 below s2
+  layer s2 below s3
+  layer s3 below s4
+  layer s4 below s5
+  layer s5 below s6
+  layer s6 below s7
+  layer s7 below s8
+  layer s8 below s9
+  layer s9 below s10
+  layer s10 below s11
+  layer s11 below s12
+  layer s12 below s13
+  layer s13 below s14
+  layer s14 below s15
+  layer s15 below s16
+  layer s16 below s17
+  layer s17 below s18
+  layer s18 below s19
+  layer s19 below s20
+  layer s20 below s21
+  layer s21 below s22
+  layer s22 below s23
+}

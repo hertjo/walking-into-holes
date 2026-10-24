@@ -1,0 +1,17 @@
+{
+  "python": "3.12.14",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "logical_cpu_count": 9,
+  "packages": {
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "matplotlib": "3.10.8",
+    "pandas": "2.2.3",
+    "scikit-fem": "12.0.2",
+    "hilbertcurve": "2.0.5",
+    "qmcpy": "2.4"
+  },
+  "source_repetition_audit": "Same complete seed set; all MSE values exactly reproduced in timing rerun.",
+  "timing_scope": "Shared virtual runtime. Final Poisson run had no concurrent benchmark jobs; harmonic timing is exploratory.",
+  "linear_algebra_threads": 1
+}

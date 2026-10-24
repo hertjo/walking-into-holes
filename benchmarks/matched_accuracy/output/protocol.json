@@ -1,0 +1,73 @@
+{
+  "date": "2026-09-17",
+  "geometries": [
+    "housing",
+    "branch",
+    "ring",
+    "bunny"
+  ],
+  "counts": [
+    8,
+    32,
+    128,
+    512
+  ],
+  "seeds": [
+    1611,
+    2711,
+    3811,
+    4911,
+    6011
+  ],
+  "budgets": [
+    [
+      "twos",
+      256
+    ],
+    [
+      "twos",
+      1024
+    ],
+    [
+      "twos",
+      4096
+    ],
+    [
+      "mg",
+      49
+    ],
+    [
+      "mg",
+      65
+    ],
+    [
+      "mg",
+      97
+    ],
+    [
+      "mg",
+      129
+    ]
+  ],
+  "geometry_edit": "Insert fixed radius .04 cavity at final admissible Sobol point, never selected by score",
+  "candidates": "512 fixed admissible nested Sobol sites, clearance .10 from future cavity",
+  "sampling": "five independent paired seeds; fixed sites; nested query batches 8+24+96+384",
+  "threads": 4,
+  "epsilon": 0.0001,
+  "max_steps": 2048,
+  "mg_residual_tolerance": 1e-07,
+  "reuse": "Retain common mesh; MG retains solved primal/adjoint grids. A cavity edit invalidates those grids.",
+  "timing": "Sequential wall time through each prefix; mesh setup recorded separately; serial rotated method order",
+  "targets": [
+    0.1,
+    0.2,
+    0.4
+  ],
+  "primary_target": 0.2,
+  "accuracy": "Relative L2 score error to MG257. Reference resolution gate: MG193 versus MG257 <= target/4 for each prefix. Independent 8 x 8192-walk checks on 32 fixed sites; flag inconsistency or unresolved sampling. No continuum accuracy certificate.",
+  "selection": "Fastest measured tested budget whose upper 95% bootstrap mean relative error is below target; pointwise bootstrap, five seeds. Apply reference gate before selecting.",
+  "exclusions": "No optimization-quality claim, no formal bias bound, no universal solver ranking; all failed targets retained.",
+  "machine": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "cpu": "\t: INTEL(R) XEON(R) PLATINUM 8573C",
+  "binary_sha256": "98801eb4bed2784c6360782abe7d02c74ce894ac758f7e99e4e25964efb0e1b1"
+}

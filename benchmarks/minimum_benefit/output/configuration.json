@@ -1,0 +1,42 @@
+{
+  "protocol": "application-minimum-benefit-v2-average-trace",
+  "attempts": 6,
+  "stages": [
+    1024,
+    4096,
+    16384,
+    65536
+  ],
+  "total_delta": 0.01,
+  "delta_per_stage": 0.00020833333333333335,
+  "delta_per_stage_exact": "1/4800",
+  "confidence_log_upper": 8.5,
+  "threads": 8,
+  "seed": 2026091611,
+  "max_steps": 128,
+  "epsilon": 1e-06,
+  "radius_cap": 0.1,
+  "clearance": 0.012,
+  "scout_walks": 12,
+  "rescore_walks": 192,
+  "shortlist": 24,
+  "primary_target_fraction_of_fixed_scale": 0.001,
+  "diagnostic_target_fractions": [
+    0.001,
+    0.005,
+    0.01,
+    0.02
+  ],
+  "value_caps": {
+    "bunny": 0.06,
+    "housing": 0.18
+  },
+  "fixed_scales": {
+    "bunny": 0.002,
+    "housing": 0.015
+  },
+  "reference_blocks": 4,
+  "reference_points_per_block": 512,
+  "reference_walks": 256,
+  "scope": "Conditional on ideal sampling laws. Geometry/source safeguards do not constitute a full finite-precision probability proof."
+}

@@ -1,0 +1,49 @@
+\section{Claim Scope and Paired Comparisons}
+\label{app:claimscope}
+
+The deterministic topological derivative and the off-diagonal product
+construction are established ingredients. The claimed contribution is their
+use as a direct grid-free insertion query, the accompanying error accounting,
+and its evaluated integration into finite geometric decisions. The exact
+sphere check in \cref{app:exactcavity} is verification evidence, not a claim
+that the radial Poisson solution is new.
+
+\paragraph{Three different levels of guarantee.}
+The direct-score unbiasedness and variance statements concern ideal marginal
+PDE oracles and independent complete pairs. Finite-tolerance runs approximate
+those oracles. The general-objective insertion theorem additionally requires
+numerically usable bounds on marginal bias and the finite-radius remainder;
+we have not supplied those bounds for every displayed mesh and objective.
+The specialized Poisson-compliance validator instead avoids an unknown
+remainder through a variational bound and handles truncation through a
+one-sided construction. Its probability guarantee still assumes the stated
+conditional sampling laws; the floating-point implementation is not a
+verified sampler. The design pipelines and channel-placement heuristic are
+not certified by either theorem. Confidence bands in the plots quantify
+sampling uncertainty, not those missing numerical error budgets.
+
+\paragraph{Paired differences distinguish placement value from solver value.}
+\Cref{tab:pairedclaimscope} uses the existing paired bootstrap outputs,
+without selecting new seeds or rerunning optimization. Differences compare
+TWoS after eight refinement rounds with multigrid/proximity after eight,
+and hottest-point placement after sixteen. Positive values favor TWoS.
+The intervals are pointwise and exclude numerical bias; they are not
+simultaneous comparisons or equivalence tests. An interval containing zero
+does not prove that the methods are equivalent. The uncertainty and reference
+limitations in the main text apply to every entry.
+
+\begin{table}[t]
+\centering\small
+\caption{Paired mean cooling difference, in percentage points, with pointwise
+95\% joint bootstrap intervals. MG uses longest-axis grid count 65.}
+\label{tab:pairedclaimscope}
+\begin{tabular}{lrrr}
+\toprule
+Geometry & TWoS minus MG & TWoS minus nearest & TWoS minus hottest\\
+\midrule
+Finned housing & -0.11 [-1.24, +0.99] & +1.43 [-0.32, +3.39] & +22.25 [+12.76, +37.94] \\
+Branching manifold & +0.14 [-0.74, +1.63] & -0.93 [-1.40, -0.55] & +16.26 [+15.22, +17.43] \\
+Annular spreader & -0.32 [-1.11, +0.18] & -0.84 [-1.99, +0.66] & +11.35 [+10.39, +12.24] \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,56 @@
+{
+  "protocol": "distinct-adjoint-v1",
+  "sides": [
+    -1,
+    1
+  ],
+  "seeds": [
+    2026091500,
+    2026091501,
+    2026091502,
+    2026091503,
+    2026091504
+  ],
+  "candidates": 768,
+  "rounds": 6,
+  "radius": 0.095,
+  "sensor_radius": 0.13,
+  "sensor_clearance": 0.02,
+  "outer_clearance": 0.023,
+  "intercavity_gap": 0.025,
+  "sparse": [
+    12,
+    192
+  ],
+  "dense": [
+    48,
+    768
+  ],
+  "shortlist": 24,
+  "grid": [
+    113,
+    73,
+    57
+  ],
+  "reference_grid": [
+    169,
+    109,
+    85
+  ],
+  "threads": 8,
+  "epsilon": 0.0005,
+  "walk_cap": 1024,
+  "evaluation_blocks": 4,
+  "evaluation_points_per_block": 128,
+  "evaluation_walks": 256,
+  "methods": [
+    "twos_sparse",
+    "twos_dense",
+    "wos_hot",
+    "mg_td",
+    "mg_hot",
+    "random"
+  ],
+  "acceptance": "fixed-count fresh ranking; no finite-benefit certificate",
+  "objective": "integral q*u divided by exact integral q; q=(1-|x-c|^2/.13^2)_+^2"
+}

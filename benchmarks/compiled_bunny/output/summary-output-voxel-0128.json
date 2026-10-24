@@ -1,0 +1,34 @@
+{
+  "engine": "C++ voxel FD/CG + Embree parity",
+  "vertices": 34839,
+  "faces": 69674,
+  "source_mode": "affine",
+  "cavities": 0,
+  "cavity_radius": 0,
+  "shape": [
+    96,
+    112,
+    84
+  ],
+  "grid_cells": 903168,
+  "active_nodes": 227902,
+  "threads": 8,
+  "mesh_build_seconds": 0.00676971,
+  "classification_seconds": 0.055126485,
+  "assembly_seconds": 0.042490678,
+  "solve_seconds": 0.42914259,
+  "interpolation_seconds": 1.0346e-05,
+  "total_seconds": 0.5335398090000001,
+  "cg_iterations": 308,
+  "cg_reported_error": 9.555370287136895e-10,
+  "matrix_nonzeros": 1557628,
+  "matrix_megabytes": 18.695018768310547,
+  "accounted_working_set_megabytes": 33.36979293823242,
+  "peak_rss_megabytes": 80.6953125,
+  "max_spacing": 0.010619452631578947,
+  "timings_seconds": [
+    0.5335398090000001,
+    0.526393791,
+    0.5410781170000001
+  ]
+}

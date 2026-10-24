@@ -1,0 +1,8 @@
+{
+ "type": "Additional stronger-baseline audit, added during the original run before inspecting matched-accuracy conclusions",
+ "baseline": "Retain original-domain grid masks at each hierarchy level; update active nodes against inserted spheres; warm-start finest primal and adjoint fields; share the same residual tolerance and V-cycle",
+ "scope": "Same four geometries, five seeds, four grid budgets, two states and nested query counts as the frozen primary protocol",
+ "comparison": "Report separately from original multigrid timings; compare edited-domain TWoS against this stronger baseline before making an edit-speed claim",
+ "validation": "Cached interpolation is bitwise identical within each run; compare fresh and warm-started scores against residual-scaled numerical tolerance; edited geometry must perform zero new parity rays",
+ "selection": "Same reference gates, error targets, and paired bootstrap as primary protocol; do not change TWoS budgets or reference thresholds"
+}

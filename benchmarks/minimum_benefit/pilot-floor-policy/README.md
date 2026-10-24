@@ -1,0 +1,1 @@
+Exploratory floor-certificate run. It motivated the average-trace certificate. Final manuscript results use fresh data in ../output. This pilot is retained for provenance; its scalar summaries predate the final round-trip sample audit and are not reported as final certification results.

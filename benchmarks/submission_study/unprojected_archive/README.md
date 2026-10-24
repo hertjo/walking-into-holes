@@ -1,0 +1,1 @@
+Excluded refinement variant: a global feasibility rejection froze every cavity when any one cavity reached a constraint. These completed runs are retained as an implementation diagnostic. Final results use per-cavity feasible backtracking for every method. Initial cavity placements are unchanged and their original measured costs are retained.

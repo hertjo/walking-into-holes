@@ -1,0 +1,22 @@
+{
+  "pde": "-Delta u = 1 + 0.65*(y+0.5)",
+  "boundary": "u=0 on exterior and analytic cavity walls",
+  "section_z": 0.09,
+  "grid_shape": [
+    200,
+    160
+  ],
+  "paths_per_point": 256,
+  "epsilon": 0.0005,
+  "temperature_max": 0.025,
+  "initial_section_max": 0.0227675065887532,
+  "benefit_max": 0.0005173628631419,
+  "temperature_colormap": "inferno",
+  "benefit_colormap": "viridis",
+  "scalar_smoothing": "display-only Gaussian, sigma=1.0 grid cells; zero restored outside material",
+  "interpolation": "bilinear on display field; raw point estimates retained separately",
+  "geometry_cut": "visualization only; excluded from all PDE solves",
+  "objective": "source-weighted temperature averaged over fixed original-domain probes",
+  "benefit": "cross-index product (sum(U)^2-sum(U^2))/(N*(N-1)); normalized by initial section maximum",
+  "notes": "Fresh display evaluations separate from optimization, with a common base seed across panels; saved objective trajectories are unchanged. Ideal cooled cavities, not a fluid-flow simulation."
+}

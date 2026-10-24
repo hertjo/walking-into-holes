@@ -1,0 +1,10 @@
+{
+  "scope": "Eight-site estimator timing only; full-design measurements unchanged",
+  "original_chunk_size": 4,
+  "query_chunk_size": 1,
+  "configured_OpenMP_threads": 4,
+  "reason": "Eight sites with chunk size four schedule only two chunks. Chunk size one permits all four workers.",
+  "all_replayed_fields": "bitwise identical to retained original outputs",
+  "original_timings": "retained in estimator rows; corrected timing repeats stored separately",
+  "binary_sha256": "4650d44f78c988dbdfbd7127f691ac55d1611f3ec207abe16b8694310d1aa246"
+}

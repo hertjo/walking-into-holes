@@ -1,0 +1,71 @@
+{
+  "protocol": "accessible-through-channels-v1",
+  "sides": [
+    -1,
+    1
+  ],
+  "seeds": [
+    2026091600,
+    2026091601,
+    2026091602,
+    2026091603,
+    2026091604
+  ],
+  "methods": [
+    "twos_sparse",
+    "wos_hot",
+    "mg57",
+    "mg113",
+    "random"
+  ],
+  "candidates": 512,
+  "rounds": 6,
+  "radius": 0.075,
+  "chain_z": [
+    -0.45,
+    -0.375,
+    -0.30000000000000004,
+    -0.22500000000000003,
+    -0.15000000000000002,
+    -0.07500000000000001,
+    -5.551115123125783e-17,
+    0.07500000000000001,
+    0.14999999999999997,
+    0.22499999999999992,
+    0.3,
+    0.37499999999999994,
+    0.4499999999999999,
+    0.5249999999999999,
+    0.6000000000000001,
+    0.675,
+    0.75,
+    0.825
+  ],
+  "score_plane_z": -0.03,
+  "sensor_radius": 0.13,
+  "component_radius": 0.07,
+  "protected_gap": 0.02,
+  "channel_gap": 0.025,
+  "sparse": [
+    12,
+    192
+  ],
+  "shortlist": 24,
+  "threads": 8,
+  "epsilon": 0.0005,
+  "reference_grid": [
+    113,
+    73,
+    57
+  ],
+  "sensitivity_grid": [
+    169,
+    109,
+    85
+  ],
+  "evaluation": "four shared independent scrambled blocks of 128 sensor probes; 256 fresh walks",
+  "claim": "point TD used as a heuristic for whole-channel placement; no channel asymptotic or finite-benefit certificate",
+  "physics": "zero-temperature Dirichlet walls, prescribed volumetric source, no coolant flow",
+  "ports": "optimized horizontal positions; both chain endpoints outside fixed outer mesh z bounds",
+  "budget": "same six channels, radius, center spacing and axial extent; removed volume reported, not constrained equal"
+}

@@ -1,0 +1,100 @@
+{
+  "epsilon": 0.000125,
+  "initial_blocks": [
+    0.00873919622103441,
+    0.008723484749153517,
+    0.008827028651243789,
+    0.008718774834950684
+  ],
+  "results": [
+    {
+      "count": 2,
+      "method": "twos",
+      "seed": 2026091501,
+      "fine_block_objectives": [
+        0.005558845257612412,
+        0.005504376363217361,
+        0.005569328967767623,
+        0.005578911099136844
+      ],
+      "coarse_cooling_percent": 36.660092797048954,
+      "fine_cooling_percent": 36.55301677689251,
+      "change_pp": -0.10707602015644113
+    },
+    {
+      "count": 2,
+      "method": "voxel",
+      "seed": 2026091501,
+      "fine_block_objectives": [
+        0.005640896494844318,
+        0.005545149587782152,
+        0.00554961918620098,
+        0.005533167172624915
+      ],
+      "coarse_cooling_percent": 36.482620241835704,
+      "fine_cooling_percent": 36.38843308880112,
+      "change_pp": -0.09418715303458569
+    },
+    {
+      "count": 12,
+      "method": "twos",
+      "seed": 2026091501,
+      "fine_block_objectives": [
+        0.003983594131756918,
+        0.004017660053457354,
+        0.004000770304000164,
+        0.0040372449533134305
+      ],
+      "coarse_cooling_percent": 54.3870332734384,
+      "fine_cooling_percent": 54.18299356537492,
+      "change_pp": -0.2040397080634726
+    },
+    {
+      "count": 12,
+      "method": "voxel",
+      "seed": 2026091501,
+      "fine_block_objectives": [
+        0.0039981543592100205,
+        0.003997340977049419,
+        0.003924663668132978,
+        0.003953770135295791
+      ],
+      "coarse_cooling_percent": 54.81888884906354,
+      "fine_cooling_percent": 54.65447606958332,
+      "change_pp": -0.16441277948022304
+    }
+  ],
+  "maximum_absolute_change_pp": 0.2040397080634726,
+  "scope": "First design seed; two pre-specified full-budget endpoint counts, both TD selectors; sensitivity only, not a bias certificate.",
+  "allocation_check": [
+    {
+      "volume_units": 3,
+      "count": 12,
+      "seed": 2026091501,
+      "fine_block_objectives": [
+        0.004666598130005452,
+        0.004623590630134348,
+        0.0046573063354926995,
+        0.004648138385787708
+      ],
+      "fine_cooling_percent": 46.88154000913069,
+      "coarse_cooling_percent": 47.07426525420503,
+      "change_pp": -0.1927252450743424
+    },
+    {
+      "volume_units": 6,
+      "count": 6,
+      "seed": 2026091501,
+      "fine_block_objectives": [
+        0.004647484014670398,
+        0.004640110411902749,
+        0.004606202588184907,
+        0.004586883596500935
+      ],
+      "fine_cooling_percent": 47.20925346409596,
+      "coarse_cooling_percent": 47.35476687674381,
+      "change_pp": -0.14551341264785123
+    }
+  ],
+  "allocation_scope": "Additional first-seed audit of the half-volume comparison selected after inspecting the study, not a pre-specified check."
+}

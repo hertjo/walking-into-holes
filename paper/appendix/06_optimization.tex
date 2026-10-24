@@ -1,0 +1,217 @@
+\section{From Scores to Finite Geometry}
+\label{sec:optimization}
+
+For a general objective, an infinitesimal derivative does not by itself guarantee that a finite cavity improves the objective. We first combine a uniform finite-size remainder with statistical and algorithmic uncertainty, then give a direct quantitative certificate for the cooling model.
+
+\begin{assumption}[Usable finite-radius remainder]
+\label{ass:remainder}
+For every admissible candidate $z$ and $0<\eps\le\eps_0$, a known or
+conservatively bounded $C_z>0$ and $\alpha>0$ satisfy
+\begin{equation}
+ \left|\J(\Omega_{\eps,z})-\J(\Omega)
+ -\rho_z(\eps)\DT(z)\right|
+ \le C_z\rho_z(\eps)^{1+\alpha}.
+ \label{eq:remainderbound}
+\end{equation}
+\end{assumption}
+
+For the model analyzed in \cref{sec:problem},
+\cref{thm:localtd} establishes the existence of such a remainder bound with $\alpha=1$ in two dimensions
+and $\alpha=1/2$ in three dimensions.  Certification additionally requires a
+numerical upper bound on $C_z$, rather than only its existence.
+
+\begin{theorem}[Certified finite insertion]
+\label{thm:certificate}
+Suppose \cref{ass:remainder,eq:biasbudget} hold and, with probability at least
+$1-\delta$,
+\begin{equation}
+ |\widehat{\DT}_N-\E\widehat{\DT}_N|
+ \le r_N(\delta).
+ \label{eq:validationcoverage}
+\end{equation}
+If
+\begin{equation}
+ \boxed{
+ \widehat{\DT}_N(z)+r_N(\delta)
+ +b_{\mathrm{term}}+b_{\mathrm{cache}}
+ +C_z\rho_z(\eps)^\alpha<0,}
+ \label{eq:certificate}
+\end{equation}
+the probability of accepting a non-improving insertion is at most $\delta$. Equivalently, on an event of probability at least $1-\delta$, the test implies $\J(\Omega_{\eps,z})<\J(\Omega)$. This is an error-control statement, not a posterior probability conditional on acceptance.
+\end{theorem}
+
+\begin{corollary}[Data-dependent radius selection]
+\label{cor:adaptiveradius}
+Assume \cref{eq:remainderbound} holds simultaneously for all
+$\eps\in(0,\eps_0]$.  On the basis of the validation batch, let
+$\widehat\eps\in(0,\eps_0]$ be any measurable radius satisfying
+\cref{eq:certificate}.  Then, on an event of probability at least $1-\delta$, acceptance implies
+$\J(\Omega_{\widehat\eps,z})<\J(\Omega)$. Equivalently, the probability of accepting a non-improving radius is at most $\delta$. No union bound over radii is needed.
+\end{corollary}
+
+The certificate separates sampling error, termination bias, cache bias, and
+the asymptotic remainder.  If it fails, one can sample more, improve the PDE
+oracle, reduce $\eps$, or reject the site.
+
+\subsection{Certifying a useful amount of improvement}
+\label{sec:minbenefit}
+
+For ideal zero-Dirichlet cooling, adding a feasible cavity already lowers
+compliance by monotonicity (\cref{prop:coolingmonotonicity}). The useful
+certification target is therefore a \emph{minimum finite benefit}, optionally
+large enough to pay an explicit insertion cost.
+
+\begin{theorem}[Minimum benefit from a topological score]
+\label{thm:minbenefit}
+Under the hypotheses of \cref{thm:certificate}, set
+$b=b_{\rm term}+b_{\rm cache}$. With probability at least $1-\delta$, the
+actual benefit $B=\J(\Omega)-\J(\Omega_{\eps,z})$ satisfies
+\begin{equation}
+ \begin{split}
+ B&\ge\underline B_{\rm TD}(z,\eps),\\
+ \underline B_{\rm TD}
+ &=-\rho_z(\eps)\bigl[\widehat{\DT}_N+r_N(\delta)+b\bigr]
+   -C_z\rho_z(\eps)^{1+\alpha}.
+ \end{split}
+ \label{eq:minimumbenefit}
+\end{equation}
+The event is simultaneous over radii covered by the uniform remainder.
+Accepting only when $\underline B_{\rm TD}\ge\tau$ controls the probability
+of accepting an insertion with benefit below $\tau$ by $\delta$.
+\end{theorem}
+
+This route still requires numerical bounds on capacity, bias, and remainder;
+\cref{app:minbenefit} handles certified capacity intervals explicitly. For
+three-dimensional Poisson compliance, a variational argument supplies a
+second route with explicit finite-radius constants.
+
+\Needspace{17\baselineskip}
+\begin{theorem}[Direct finite-hole cooling benefit]
+\label{thm:coolingbenefit}
+Let $D\subset\R^3$ be bounded and Lipschitz, let $0\le f\le F$ be bounded,
+and let $-\Delta u=f$ on $D$ with zero Dirichlet data. Define
+$J(D)=\int_Dfu$. Suppose $\overline B_R(z)\Subset D$ and known local bounds
+$0\le f_-\le f\le f_+$ hold on $B_R(z)$. If
+$\Prob\{L_u\le u(z)\}\ge1-\delta$, then simultaneously for all $0<r<R$,
+with probability at least $1-\delta$,
+\begin{equation}
+ \begin{split}
+ J(D)-J(D\setminus\overline B_r(z))
+ &\ge\underline B_{\rm cool}(z,r):=4\pi r\,m^2,\\
+ m&=\frac{f_-(R^2-r^2)}6\\
+ &\quad+\frac{1-r/R}{(1+r/R)^2}
+       \left(L_u-\frac{f_+R^2}6\right)_+.
+ \end{split}
+ \label{eq:directcoolingbenefit}
+\end{equation}
+Here the new cavity also has zero Dirichlet data. Accepting only if this
+lower bound exceeds a chosen target gives the same false-acceptance control
+as \cref{thm:minbenefit}.
+\end{theorem}
+
+The proof combines the exact compliance difference-energy identity with
+ball capacity and a Poisson-kernel comparison; it needs no unknown
+asymptotic remainder. A finite, zero-terminal WoS walk with nonnegative
+source samples has expectation at most $u(z)$, enabling a one-sided
+confidence bound with a fully explicit sample range
+(\cref{prop:onesidedwos}). Setting $L_u=0$ instead yields a deterministic
+source-only bound. These conservative bounds can fail to reach the requested
+target even when an insertion is beneficial. \Cref{app:minbenefit} proves
+all steps, explicit cost and relative-benefit rules, and adaptive selection
+control. The manufactured check in \cref{app:benefitcheck} tests the formulas;
+the earlier Bunny and housing runs evaluate the ranking implementation. A separate application validation study is reported in \cref{sec:applicationvalidation}.
+
+\begin{theorem}[Average-trace finite-hole certificate]
+\label{thm:averagecertificate}
+Under the cooling hypotheses of \cref{thm:coolingbenefit}, suppose a known $I_r^+$ satisfies
+\[
+ I_r^+\ge\int_{B_r(z)}G_{B_r(z)}(z,y)f(y)\,dy.
+\]
+On the same
+state-coverage event, simultaneously for contained radii,
+\begin{equation}
+ B(z,r)\ge\underline B_{\rm avg}(z,r)
+ :=4\pi r\,(L_u-I_r^+)_+^2.
+ \label{eq:averagecertificate}
+\end{equation}
+One may use $I_r^+=f_+r^2/6$ with an upper source bound on $B_r(z)$.
+For affine $f$, the exact source integral is $f(z)r^2/6$.
+\end{theorem}
+
+The proof pairs the state-difference energy with the ball's equilibrium
+potential, bounding benefit by the squared \emph{average} cavity trace;
+the center Green identity recovers that average. The application validator
+uses the maximum of this bound and the preceding temperature-floor bound.
+\Cref{app:applicationcertificate} derives this identity, the clipped-walk
+validator, geometric guards, and the separate application experiment.
+
+\subsection{Scout--rank--validate--refine}
+
+One outer iteration is:
+\begin{enumerate}
+ \item \textbf{Scout.} Generate candidates in free space subject to boundary
+ clearance.  Evaluate a cheap \method{} map using shared unbiased caches or a
+ deliberately approximate ranking cache.
+ \item \textbf{Rank.} Keep the $m$ most promising spatially separated
+ candidates.  Non-maximum suppression avoids repeatedly validating one basin.
+ \item \textbf{Validate.} Fix one finalist using only the scouting and ranking data, then draw a separate validation batch. Alternatively, validate several survivors and allocate confidence across that entire shortlist. Use a valid bias bound for the general-objective route or the one-sided construction for cooling. A sequential implementation must use either
+ an anytime-valid confidence sequence or a predeclared stage schedule
+ $N_1<N_2<\cdots$ with error levels whose sum is at most the candidate's
+ allocated failure probability; a fixed-$N$ interval may not be repeatedly
+ inspected under optional stopping.
+ \item \textbf{Insert.} Choose the site with the largest covered benefit bound meeting the
+ target (and any explicit cost), and instantiate $K_{\eps,z}$.  If no site is certified, perform
+ only shape refinement or terminate.
+ \item \textbf{Refine.} Move existing interfaces using Differential WoS or
+ derivative WoSt~\cite{miller2024differential,yu2025robust}, with a line search
+ on independently estimated objective values.
+\end{enumerate}
+
+
+\begin{proposition}[Adaptive selection across candidates and rounds]
+\label{prop:freshvalidation}
+Let $(\mathcal F_t)_{t\ge0}$ be the history of the optimizer.  At validation
+round $t$, let the scout choose $(Z_t,\eps_t)$ using only
+$\mathcal F_{t-1}$, and let a fresh validation procedure produce an event
+$E_t$ such that
+\begin{equation}
+ \Prob(E_t^c\mid\mathcal F_{t-1})\le\delta_t
+ \quad\text{almost surely}.
+ \label{eq:conditionalcoverage}
+\end{equation}
+If the implementation accepts only when the observable test
+\cref{eq:certificate} holds, and $E_t$ is its valid coverage event, then
+\begin{equation}
+ \Prob(\text{some accepted insertion is non-improving})
+ \le\sum_{t\ge1}\delta_t.
+ \label{eq:sequentialfamilywise}
+\end{equation}
+Here $t$ indexes individual preselected candidate tests. If a round selects
+among several validation estimates, coverage must hold simultaneously for that
+shortlist, for example by allocating $\delta_t/m$ to each of $m$ candidates.
+Shared randomness across candidates is allowed; fresh data alone does not
+remove selection error within the validation shortlist.
+\end{proposition}
+
+\subsection{Practical placement and connected refinement}
+
+The original box, Bunny, and housing ranking experiments prescribe the number and radius of cavities and use fresh shortlist estimates to rank finite insertions. Their heuristic uses lower confidence scores but supplies neither a numerical remainder bound nor full coverage after selection. These experiments therefore evaluate placement quality, not the finite-insertion certificate. The count--volume study varies prescribed radii across allocations; it optimizes centers, not individual radii.
+
+For connected geometry, we select two interior terminals using topological scores and join them by a weighted candidate graph. The path initializes an overlapping ball union. Strict consecutive-ball overlap is enforced after each radius recalibration, so the removed interior is path connected. Differential WoS then proposes motions of its controls, and fresh paired objective estimates assess trial steps. This graph initialization is a finite geometric heuristic: the single-cavity theorem does not certify simultaneous insertion of the whole channel. Its endpoints remain internal, so connectedness does not imply exterior cooling access. \Cref{app:channelimplementation} gives the parameterization, regularity assumptions, chain rule, discrete volume calibration, and conditional shape-acceptance result.
+
+\subsection{Choosing a finite radius}
+
+After estimating $\DT$, choose an admissible $\eps$ satisfying the minimum-benefit test, clearance constraints, and a manufacturing lower bound. For example, maximize the covered net-benefit bound over the allowed radii; the largest feasible radius need not maximize that bound.
+\Cref{cor:adaptiveradius} shows why this data-dependent choice is valid: the
+same confidence event controls every radius because the deterministic remainder
+bound is uniform in $\eps$.  A higher-order asymptotic estimate may permit a
+larger step, but the leading-order certificate remains the fallback.
+
+\subsection{Multiple insertions}
+
+The single-hole expansion does not justify inserting many nearby cavities at
+once.  The proved policy is sequential: validate and insert one cavity, update
+the domain, then condition on that history and validate the next one using a
+fresh batch.  This is covered by \cref{prop:freshvalidation}.  Simultaneous
+insertion requires a separate uniform interaction bound and is not claimed by
+the present theorem.

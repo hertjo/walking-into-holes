@@ -1,0 +1,23 @@
+{
+  "retained_harmonic_runs": 768,
+  "retained_poisson_runs": 288,
+  "source_equal_path_mse_ratio": 19.928583598870688,
+  "source_ratio_bootstrap95": [
+    14.04964448846016,
+    28.471551357724803
+  ],
+  "source_median_runtime_ratio": 13.764192137252055,
+  "square_neighbor_equal_path_mse_ratio": 1.9647189319882647,
+  "latex_metrics": {
+    "SourceArrayMSE": "2.51\\times10^{-8}",
+    "SourceMCMSE": "5.00\\times10^{-7}",
+    "SourceRatio": "19.9",
+    "SourceArrayTime": "1.008",
+    "SourceMCTime": "0.073",
+    "NeighborRatio": "1.96",
+    "ShapeInitial": "1.35\\times10^{-3}",
+    "ShapeMinimum": "1.41\\times10^{-8}",
+    "ShapeMaximum": "9.39\\times10^{-8}",
+    "SealedEigen": "2.24\\times10^{-5}"
+  }
+}

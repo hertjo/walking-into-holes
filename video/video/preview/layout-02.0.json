@@ -1,0 +1,83 @@
+[
+  {
+    "text": "TWoS",
+    "bbox": [
+      110,
+      65,
+      183,
+      84
+    ]
+  },
+  {
+    "text": "01",
+    "bbox": [
+      2421,
+      65,
+      2450,
+      84
+    ]
+  },
+  {
+    "text": "Walking into Holes",
+    "bbox": [
+      110,
+      153,
+      728,
+      222
+    ]
+  },
+  {
+    "text": "Grid-free cavity design",
+    "bbox": [
+      113,
+      481,
+      755,
+      541
+    ]
+  },
+  {
+    "text": "Monte Carlo topological derivatives",
+    "bbox": [
+      113,
+      555,
+      654,
+      588
+    ]
+  },
+  {
+    "text": "Temperature",
+    "bbox": [
+      140,
+      1050,
+      291,
+      1076
+    ]
+  },
+  {
+    "text": "0",
+    "bbox": [
+      140,
+      1119,
+      154,
+      1137
+    ]
+  },
+  {
+    "text": "0.025",
+    "bbox": [
+      677,
+      1119,
+      740,
+      1137
+    ]
+  },
+  {
+    "text": "Idealized conduction \u00b7 cooled exterior and cavity walls",
+    "bbox": [
+      110,
+      1303,
+      750,
+      1329
+    ]
+  }
+]

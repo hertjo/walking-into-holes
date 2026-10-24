@@ -1,0 +1,142 @@
+\section{A Source-Specific Rao--Blackwellized Variant}
+\label{app:analytic-source}
+
+This extension was added after the first housing comparison exposed poor
+accuracy--cost performance of the original source-point estimator. It is
+reported as a separate ablation, with the original measurements retained.
+Analytic source integration and Rao--Blackwellization are standard variance
+reduction ideas; we make no priority claim for either. The extension applies
+to the prescribed radial polynomial loads in these benchmarks, not arbitrary
+spatial source fields.
+
+\paragraph{Step 1: construct a particular solution.}
+For $A\geq0$ and $R>0$, consider one source $f(x)=A(1-\|x-c\|^2/R^2)_+^2$, set $d=\|x-c\|$ and
+\[
+ \Psi(d)=\begin{cases}
+ AR^2\bigl(\frac16-\frac{d^2}{6R^2}
+  +\frac{d^4}{10R^4}-\frac{d^6}{42R^6}\bigr),&d\leq R,\\
+ \frac{8AR^3}{105d},&d>R.
+ \end{cases}
+\]
+Inside the source, direct differentiation gives
+\[
+ \Psi'(d)=-A\left(\frac d3-\frac{2d^3}{5R^2}
+                              +\frac{d^5}{7R^4}\right),
+ \qquad -(d^2\Psi'(d))'=d^2f(d).
+\]
+Thus $-\Delta\Psi=f$ for $0<d<R$. At the origin the derivative vanishes
+and the polynomial is smooth. Outside $R$, $1/d$ is harmonic. At $d=R$,
+the two values equal $8AR^2/105$ and the two derivatives equal $-8AR/105$.
+Consequently there is no distributional surface source at the join, and
+$-\Delta\Psi=f$ globally. Linearity permits summing sources and using the
+normalized sensor bump for the adjoint.
+
+\paragraph{Step 2: integrate a walk ball exactly.}
+Here $r$ denotes a walk-ball radius, not the inserted-cavity radius.
+For the radius-$r$ ball centered at the current walk point $x$, the Poisson
+representation gives the nonnegative source contribution
+\[
+ \begin{aligned}
+ I(x,r)&=\int_{B_r(x)}G_{B_r(x)}(x,y)f(y)\,dy\\
+       &=\Psi(\|x-c\|)-\frac1{4\pi}\int_{\mathbb S^2}\Psi(\|x+r\omega-c\|)\,d\omega.
+ \end{aligned}
+\]
+This follows by subtracting the harmonic extension of $\Psi$ from $\Psi$
+in the ball; their difference has zero boundary data and source $f$.
+For $d>0$, parameterize the polar angle by $t=\cos\theta$. With
+$s^2=d^2+r^2+2drt$, we have $dt=s\,ds/(dr)$ and therefore
+\[
+ \frac1{4\pi}\int_{\mathbb S^2}\Psi(\|x+r\omega-c\|)\,d\omega
+ =\frac{1}{2dr}\int_{|d-r|}^{d+r}s\Psi(s)\,ds.
+\]
+An antiderivative for $s\leq R$ is
+\[
+ F(s)=A\left(\frac{R^2s^2}{12}-\frac{s^4}{24}
+             +\frac{s^6}{60R^2}-\frac{s^8}{336R^4}\right).
+\]
+For $s>R$, continue it by $F(R)+8AR^3(s-R)/105$.
+Hence the mean is $[F(d+r)-F(|d-r|)]/(2dr)$. For $d=0$ it is simply
+$\Psi(r)$. If $d\geq r+R$, the source support misses the ball and $I=0$
+exactly. If $d+R\leq r$, the sphere mean is $8AR^3/(105r)$.
+These cases also avoid unnecessary cancellation in the implementation.
+
+\paragraph{Step 3: retain the same score target.}
+Let $\mathcal H_i$ contain the entire sphere-exit path of walk $i$, including
+its termination, and let $(U_i,P_i)$ denote the original source-sampled
+primal--adjoint pair. Source-point draws are independent of the sphere-exit
+draws in the ideal sampling model. Exact ball integration yields
+$\bar U_i=\mathbb E[U_i\mid\mathcal H_i]$ and
+$\bar P_i=\mathbb E[P_i\mid\mathcal H_i]$. Different walks remain independent.
+For $i\ne j$, conditional independence of their source draws gives
+\[
+ \mathbb E[U_iP_j\mid\mathcal H_1,\ldots,\mathcal H_N]
+ =\bar U_i\bar P_j.
+\]
+Summing and dividing by $N(N-1)$ proves
+\[
+ \widehat S_{\rm RB}
+ =\frac{\sum_{i\ne j}\bar U_i\bar P_j}{N(N-1)}
+ =\mathbb E[\widehat S\mid\mathcal H_1,\ldots,\mathcal H_N].
+\]
+The tower property preserves expectation. For finite second moments, total
+variance gives the precise guarantee
+\[
+ \operatorname{Var}(\widehat S)
+ =\operatorname{Var}(\widehat S_{\rm RB})
+  +\mathbb E\!\left[\operatorname{Var}(\widehat S\mid
+                \mathcal H_1,\ldots,\mathcal H_N)\right]
+ \geq\operatorname{Var}(\widehat S_{\rm RB}).
+\]
+This compares the same number of independent exit paths under exact source
+integration; it does not guarantee lower wall time. It also preserves any
+termination bias of the underlying walk model rather than removing it.
+The earlier ideal-arithmetic variance upper bounds therefore remain valid
+for this conditional estimator under the same moment assumptions.
+
+\paragraph{Numerical implementation and scope.}
+The implementation evaluates these expressions in long double and clamps
+small negative roundoff to zero. Very small $d/R$ uses the centered limit.
+These are numerical approximations to the ideal conditional expectation;
+the variance inequality is not a finite-precision certificate. An independent
+quadrature check accompanies the source. The measured extension uses the same
+sites, seeds, accuracy gates, and reference fields as the original
+study. Before measuring this variant, we additionally fix path budgets 16
+and 64 alongside the original 256, 1,024, and 4,096, to test whether reduced
+variance permits cheaper queries. It is compared to a stronger multigrid extension that retains outer
+geometry masks and warm-starts the primal and adjoint after cavity insertion.
+Both extensions are explicitly distinguished from the initially frozen sweep.
+
+\paragraph{Checking the earlier distributed-heating regime.}
+A separate Bunny experiment uses the earlier PDE type $f(x)=1+0.65x_y$
+and compliance $J=\int_D fu$, so $p=u$. It uses the new fixed query sites
+and cavity, not the exact historical site pool. Here the sphere-centered
+Green kernel is radial. Odd moments vanish, hence
+\[
+ \int_{B_r(x)}G(x,y)f(y)\,dy
+ =f(x)\int_{B_r(x)}G(x,y)\,dy=\frac{r^2}{6}f(x).
+\]
+The final equality follows by integrating
+$\int_0^r(t-t^2/r)\,dt=r^2/6$. Thus affine-source integration is exact in
+ideal arithmetic without using the radial-bump formula. TWoS estimates
+$u^2$ with the same off-diagonal product. The 257-node reference required increasing the maximum V-cycle count from
+120 to 800 while retaining the $10^{-7}$ residual tolerance; the same cap
+is available to every grid budget in this compliance workload.
+The multigrid baseline solves only
+one field and reuses it for the adjoint; it also retains its mask and
+warm-starts after insertion. This diagnostic was added after the three
+engineering-geometry results, with the same five seeds, query counts,
+reference gates, and targets. It uses the predeclared path budgets
+$16,64,256,1024,4096$. Since cavity removal restricts the volumetric heat
+source, it is a query comparison, not a fixed-total-heat design study.
+
+\paragraph{Predeclared extension stopping rule.}
+Before measuring either source-integrated extension, we fix the following
+rule. Budgets 16, 64, and 256 are measured at every query count and both states.
+Budgets 1,024 and 4,096 are measured only through the largest remaining
+unresolved prefix in each state. A case closes when a previous budget meets
+the strictest reference-resolved target among 10\%, 20\%, and 40\%, using
+the unchanged upper bootstrap mean-error rule. A case with no resolved
+reference target remains explicitly unresolved and does not trigger more
+sampling. The saved records include every stopping decision. Thus the
+extensions identify target-attaining budgets; they are not exhaustive
+high-budget error--cost fronts. The original four-workload sweep is unchanged.

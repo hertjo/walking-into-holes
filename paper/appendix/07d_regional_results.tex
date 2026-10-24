@@ -1,0 +1,51 @@
+\subsection{Protecting a region with a distinct adjoint}
+\label{sec:regional}
+
+Compliance makes the adjoint equal to the state. To test whether
+objective-aware scoring matters beyond finding hot spots, we keep the
+housing's heat sources fixed and minimize the weighted mean temperature
+of a protected sensor region. The objective is
+$J_q=\int q u/\int q$, where $q$ is a compact nonnegative bump in
+a radius-$0.13$ ball. The adjoint solves $-\Delta p=q$, and candidates
+are ranked by $up$. This differs from the hottest-point score $u$.
+Two sensor placements test the left and right sides of the same housing;
+they are two objectives, not two independent input geometries.
+All cavities must avoid the sensor region with an additional $0.02$
+gap, so no design can improve the objective by deleting the sensor.
+\Cref{app:regional} derives the normalization, adjoint, and an exact
+counterexample to hottest-point placement.
+
+Each of five paired candidate/design seeds supplies 768 candidates.
+Every method places six radius-$0.095$ cavities under the same clearance
+constraints. We compare sparse \method{} (12 scouting and 192 rescoring
+walks), a larger budget (48 and 768), WoS hottest-point placement at the
+sparse budget, deterministic multigrid hottest-point placement,
+multigrid topological derivatives, and random feasible placement.
+The 24-site rescore uses fresh walks. Paired state--adjoint queries
+share paths within each pair and use the cross-index product.
+Multigrid reuses one geometry hierarchy for its two right-hand sides.
+The primary grid is $113\times73\times57$; a supplementary sweep
+adds $57\times37\times29$, $85\times55\times43$, and
+$169\times109\times85$ without discarding unfavorable results.
+
+\input{tables/regional_summary}
+
+Complete design wall times include common candidate preparation,
+geometry setup, source queries or PDE solves, candidate filtering,
+ranking, subprocess startup, and file I/O. The retained-mesh backend
+keeps the fixed outer boundary acceleration structure alive throughout
+each six-round design, for both Monte Carlo and multigrid methods.
+Candidate filtering, fresh rescoring, and every adaptive insertion still
+execute inside the measured driver; future requests are not replayed
+ahead of those decisions. Offline reference evaluation
+is measured separately. Both a fresh WoS evaluation and a separate
+$169\times109\times85$ multigrid solution assess every final design.
+These are approximate references; first-seed designs additionally
+receive a fourfold WoS shell refinement and a $225\times145\times113$
+grid check. The designs use fixed-count ranking, not the
+compliance-only finite-benefit certificate. The comparison against
+hottest-point placement tests the adjoint's value, which is shared
+with deterministic topological derivatives; the quality--cost
+comparison tests the choice of numerical estimator.
+
+

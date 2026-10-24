@@ -1,0 +1,6 @@
+{
+ "issue": "The legacy XOR of untagged seed and walk-index hashes can cancel or swap when a driver seed equals n+571. At N=4096, twelve walk indices overlap the union of five seed labels and four batch offsets. Lower measured budgets up to 1024 do not overlap.",
+ "correction": "For every N=4096 site, replace those twelve paths by paths with walk index n+1000000. Selection depends only on stream identities, never on observed values. Reconstruct sums U, P, and UP by exact deterministic replay of old and replacement paths, preserving N=4096. Retain superseded results and charge all replay work to corrected query costs.",
+ "validation": "Enumerate all 5*512*4096 keys for the relevant benchmark family and verify uniqueness after repair. Compare repaired aggregate fields against full clean runs at selected sites in every affected workload. Floating-point sum-order differences are checked numerically, not claimed bitwise exact.",
+ "scope": "References use high seeds and do not have the structural overlap; fresh-seed holdout confirmations likewise avoid it. This is a disclosed sampling-correctness amendment, not a change to geometry, source, accuracy targets, or a result-dependent seed selection."
+}

@@ -1,0 +1,32 @@
+{
+  "extra_design_grids": [
+    [
+      57,
+      37,
+      29
+    ],
+    [
+      85,
+      55,
+      43
+    ],
+    [
+      169,
+      109,
+      85
+    ]
+  ],
+  "seeds": [
+    2026091500,
+    2026091501,
+    2026091502,
+    2026091503,
+    2026091504
+  ],
+  "sides": [
+    -1,
+    1
+  ],
+  "reference_checks": "first seed all methods, 225x145x113 and epsilon=0.000125",
+  "status": "supplementary grid sweep specified after primary first-seed pilot"
+}

@@ -1,0 +1,181 @@
+\section{A Distinct Adjoint for Regional Thermal Protection}
+\label{app:regional}
+
+\subsection{Objective, adjoint, and the insertion score}
+Fix a nonnegative weight $q$ supported in a protected region $S\Subset D$.
+Require all admissible cavities to be disjoint from $S$ and set
+$Q=\int_S q>0$. The physical source $f$ and the observation weight $q$
+serve different roles. For the zero-Dirichlet Poisson state define
+\begin{equation}
+ -\Delta u_D=f\quad\hbox{in }D,\qquad
+ J_q(D)=Q^{-1}\int_S q u_D.
+ \label{eq:regionalobjective}
+\end{equation}
+Let $p_D$ solve $-\Delta p_D=q$ in $D$ with zero boundary data. This
+unnormalized adjoint is convenient in the implementation; the actual
+adjoint for $J_q$ is $p_D/Q$.
+
+\begin{proposition}[Regional sensitivity and monotonicity]
+Under the smoothness and separation assumptions of
+\cref{thm:localtd}, the capacity-normalized derivative for a
+zero-temperature cavity at $z\notin S$ is
+\begin{equation}
+ D_TJ_q(z)=-u_D(z)p_D(z)/Q.
+ \label{eq:regionaltd}
+\end{equation}
+For finite nested domains obtained by removing cavities outside $S$,
+$J_q$ is nonincreasing. This monotonicity does not establish a minimum
+benefit, or certify a particular finite-radius prediction.
+\end{proposition}
+\begin{proof}
+\textbf{Step 1: differentiate the objective in the state.}
+For every $v\in H^1_0(D)$, the linear objective has derivative
+$j'(u)[v]=Q^{-1}\int_D qv$. The adjoint weak equation is therefore
+$\int_D\nabla v\cdot\nabla(p_D/Q)=Q^{-1}\int_D qv$.
+The fixed support and cavity exclusion keep both $q$ and $Q$ unchanged
+by every admissible insertion.
+
+\textbf{Step 2: apply the cavity expansion with this adjoint.}
+The state trace imposed on the inserted cavity is zero. Substitution
+of $h_z=0$ and adjoint $p_D/Q$ into the established local coefficient
+$-(u_D(z)-h_z)p(z)$ gives \cref{eq:regionaltd}. Multiplication by
+the positive constant $Q$ does not change candidate rankings. This
+specialization uses the classical coefficient; it is not a claim that
+the underlying topological formula is new.
+
+\textbf{Step 3: compare finite-domain states.}\par
+Write $u_D^-=\max(-u_D,0)\in H^1_0(D)$. The weak equation gives
+\[
+ -\int_D|\nabla u_D^-|^2=\int_D f u_D^-\geq0.
+\]
+Both the gradient norm and the nonnegative right-hand side must vanish.
+Poincar\'e's inequality and the zero trace imply $u_D^-=0$, hence
+$u_D\geq0$. For $D'=D\setminus K$, the difference
+$w=u_D-u_{D'}$ is weakly harmonic in $D'$, has zero outer trace, and
+has nonnegative trace $u_D$ on the new cavity. Consequently
+$w^-=\max(-w,0)$ has zero trace on all of $\partial D'$ and belongs
+to $H^1_0(D')$. The harmonic weak equation gives
+$-\int_{D'}|\nabla w^-|^2=0$. Poincar\'e's inequality again yields
+$w^-=0$, or $w\geq0$. Hence
+$J_q(D)-J_q(D')=Q^{-1}\int_S qw\geq0$. Applying this argument at
+each insertion proves the finite nested-domain statement. It supplies
+no positive quantitative lower bound beyond zero.
+\end{proof}
+
+\subsection{An exact counterexample to hottest-point placement}
+\begin{proposition}[A hottest point need not maximize topological benefit]
+On the unit ball in $\mathbb R^3$, take $f=1$ and
+$q(x)=1+b x_1$ for $0<|b|<1$. For the unnormalized linear objective
+$\int q u$, the hottest point is the origin, but the origin does not
+locally maximize the insertion benefit $up$.
+\end{proposition}
+\begin{proof}
+\textbf{Step 1: solve the state.} Writing $r=|x|$, the function
+$u=(1-r^2)/6$ vanishes on the boundary and satisfies $-\Delta u=1$,
+because $\Delta r^2=6$. Uniqueness of the weak Dirichlet solution
+identifies this function as the state. It is strictly decreasing in
+$r>0$, so its unique maximum is at the origin.
+
+\textbf{Step 2: solve the adjoint.} The product rule gives
+$\Delta(x_1r^2)=x_1\Delta r^2+2\nabla x_1\cdot\nabla r^2
+=6x_1+4x_1=10x_1$. Consequently
+\[
+ p(x)=(1-r^2)\left(\frac16+\frac{b x_1}{10}\right)
+\]
+has zero trace and satisfies $-\Delta p=1+b x_1=q$.
+Again uniqueness identifies the adjoint.
+
+\textbf{Step 3: inspect the benefit at the hottest point.}
+Direct multiplication gives
+\[
+ u(x)p(x)=(1-r^2)^2\left(\frac1{36}+\frac{b x_1}{60}\right),
+ \qquad \partial_{x_1}(up)(0)=\frac b{60}\ne0.
+\]
+Moving a sufficiently small distance in the direction
+$\operatorname{sign}(b)e_1$ therefore increases $up$, while it
+strictly decreases $u$. Thus hottest-point ranking and topological
+ranking are distinct even for the same self-adjoint Poisson operator.
+This analytic example establishes a mechanism, not the size of the
+benefit in the housing experiment.
+\end{proof}
+
+\subsection{Paired random walks and what cross-fitting removes}
+At a candidate, one walk accumulates both the physical-source
+contribution $U_i$ and the observation-source contribution $P_i$.
+The spherical exits and Green-distributed source samples are shared
+within a pair. Different complete pairs use separate random streams.
+For $N\geq2$ the implementation evaluates
+\begin{equation}
+ \widehat s=\frac{(\sum_iU_i)(\sum_iP_i)-\sum_iU_iP_i}{N(N-1)}.
+ \label{eq:regionalcross}
+\end{equation}
+\begin{proposition}[Expectation of the implemented product]
+For independent identically distributed pairs with finite second
+moments, write $\mu_U=\E U_i$, $\mu_P=\E P_i$. Then
+$\E\widehat s=\mu_U\mu_P$, whereas
+$\E[N^{-1}\sum_i U_iP_i]=\mu_U\mu_P+\Cov(U_i,P_i)$.
+\end{proposition}
+\begin{proof}
+Expanding the product of sums and subtracting its diagonal leaves
+$\sum_{i\ne j}U_iP_j$. There are exactly $N(N-1)$ ordered distinct
+pairs. For each, independence gives
+$\E[U_iP_j]=\E U_i\E P_j=\mu_U\mu_P$. Divide the sum by its
+number of terms to obtain the first assertion. For the diagonal,
+the defining identity for covariance is
+$\E[U_iP_i]=\mu_U\mu_P+\Cov(U_i,P_i)$; averaging preserves it.
+\end{proof}
+Cross-fitting removes product-correlation bias. It does not remove
+WoS termination error. In the ideal contained-ball model with
+nonnegative sources, dropping the terminal values makes each
+expectation a lower approximation of its state. The measured code
+uses the existing approximate distance and finite-precision sampling
+implementation and does not assert a rigorous bias magnitude.
+The specialized compliance certificate cannot be substituted into
+\cref{eq:regionalobjective}: its square-energy identity is specific
+to compliance. These new designs use fresh ranking at a fixed count.
+Radius-independent variance does not imply independence from the
+observation region: a very small support of $q$ can itself make source
+sampling difficult. The regional study fixes that support before varying
+the estimator budget. Its source-sampling difficulty is distinct from
+encountering a shrinking trial cavity.
+
+\subsection{Sensor normalization and protected geometry}
+The two observation regions are radius-$a=0.13$ balls centered at
+$(\pm0.55,\pm0.18,-0.03)$, with the signs chosen together. Define
+$q(x)=(1-|x-c|^2/a^2)_+^2$. Radial integration gives
+\begin{align*}
+ Q&=4\pi a^3\int_0^1 t^2(1-t^2)^2\,dt\\
+  &=4\pi a^3\left(\frac13-\frac25+\frac17\right)
+    =\frac{32\pi a^3}{105}.
+\end{align*}
+The sensor-ball volume is $4\pi a^3/3$, so its average weight is
+$8/35$. Uniform sensor-ball probes therefore estimate $J_q$ as the
+sample mean of $qu$ divided by $8/35$. Candidate centers obey
+$|z-c|\geq a+r+0.02$; by the triangle inequality every point of the
+radius-$r$ cavity is at least $0.02$ away from the protected ball.
+Thus reducing the objective cannot be accomplished by deleting
+the monitored region.
+
+\subsection{Replicated designs and numerical reference checks}
+\input{tables/regional_table}
+The benchmark retains all final geometries, per-round candidate fields,
+solver residuals, work counts, and timings. Five seeds change the shared
+candidate set and stochastic streams. The two target regions are evaluated
+separately on the same housing. Each final objective uses four independent
+scrambled Sobol blocks of 128 uniform sensor-ball probes, with 256 fresh
+WoS paths per probe. Evaluation streams are independent of selection and
+shared between methods for paired comparisons. The table reports variation
+across complete designs, not a confidence guarantee for arbitrary new inputs.
+The separate reference solver evaluates the state at the same probes.
+\input{tables/regional_checks}
+
+The primary design protocol and sampling budgets were fixed before the
+first completed seed. That seed was inspected before the other four ran.
+The supplementary grid resolutions were specified after that pilot and
+before their measurements. All are retained. No improvement in the
+cooling model or guarantee of accessible cooling follows from changing
+the observation objective. The theoretical counterexample above and
+the observed improvement over hottest-point placement show why temperature
+alone need not characterize objective sensitivity. The adjoint supplies the
+missing observation dependence in the topological formula; deterministic
+topological derivatives exploit the same information.

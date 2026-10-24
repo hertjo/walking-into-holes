@@ -1,0 +1,68 @@
+{
+  "scope": "Movie-composited labels, at 15 fixed preview times; excludes text embedded in Penrose image assets. Penrose copy was reduced separately.",
+  "before_words": 1191,
+  "after_words": 360,
+  "reduction_fraction": 0.6977329974811083,
+  "frames": {
+    "layout-41.0.json": {
+      "before": 67,
+      "after": 13
+    },
+    "layout-27.0.json": {
+      "before": 70,
+      "after": 22
+    },
+    "layout-53.0.json": {
+      "before": 91,
+      "after": 27
+    },
+    "layout-17.0.json": {
+      "before": 82,
+      "after": 35
+    },
+    "layout-02.0.json": {
+      "before": 94,
+      "after": 23
+    },
+    "layout-22.0.json": {
+      "before": 70,
+      "after": 22
+    },
+    "layout-36.0.json": {
+      "before": 67,
+      "after": 13
+    },
+    "layout-59.0.json": {
+      "before": 77,
+      "after": 27
+    },
+    "layout-79.0.json": {
+      "before": 81,
+      "after": 17
+    },
+    "layout-46.0.json": {
+      "before": 91,
+      "after": 27
+    },
+    "layout-05.0.json": {
+      "before": 94,
+      "after": 23
+    },
+    "layout-32.5.json": {
+      "before": 67,
+      "after": 8
+    },
+    "layout-71.0.json": {
+      "before": 76,
+      "after": 33
+    },
+    "layout-12.0.json": {
+      "before": 82,
+      "after": 35
+    },
+    "layout-08.0.json": {
+      "before": 82,
+      "after": 35
+    }
+  }
+}

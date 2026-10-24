@@ -1,0 +1,12 @@
+{
+  "designs": 90,
+  "selected_argmax_decisions": 480,
+  "cross_products_reconstructed": 85736,
+  "steps_no_cap": 399604213,
+  "maximum_mg_residual": 9.999839070666867e-09,
+  "min_outer_gap": 0.050897806622087954,
+  "min_sensor_gap": 0.020094582048806903,
+  "min_intercavity_gap": 0.025040272870587466,
+  "manufactured_symbolic_check": true,
+  "qualification": "numerical audit, not a proof of ideal sampling laws or statistical coverage"
+}

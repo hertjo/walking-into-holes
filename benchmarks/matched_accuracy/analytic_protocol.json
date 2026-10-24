@@ -1,0 +1,10 @@
+{
+  "type": "Source-specific Rao-Blackwellized TWoS extension, added after housing primary results",
+  "reason": "Diagnose avoidable source-point sampling variance without replacing the frozen original results",
+  "scope": "Same four geometries, sites, five seeds and original/edited states; walk budgets 16,64,256,1024,4096 frozen before any analytic-variant measurement",
+  "algorithm": "Replace Green-distributed source-point samples by the analytic ball Green integral of each prescribed compact radial polynomial source. Leave random sphere exits and cross-index products intact.",
+  "claim": "Conditional-expectation variance reduction under ideal arithmetic and shared exit paths; specialized to analytically integrable sources, not a new general-purpose source oracle",
+  "analysis": "Use unchanged reference gates, targets and paired bootstrap. Retain the original estimator as ablation. The two lower walk budgets test whether variance reduction permits cheaper queries.",
+  "finite_precision": "Long-double integral evaluation; clamp tiny negative roundoff to zero; numerical audit, not a formal rounding-bias bound",
+  "adaptive_stopping_frozen_before_extension_measurements": "Always measure 16/64/256 paths at all counts. At 1024 and 4096, measure only prefixes through the largest still-unresolved query count in each state. A case is closed when a previous budget meets the strictest reference-resolved target (10%, then 20%, then 40%) using the unchanged upper-bootstrap-mean error rule, or when no target has a resolved reference. Retain stop reasons and all measured budgets. This selects the smallest tested path budget attaining the target, not an exhaustive high-budget Pareto front."
+}

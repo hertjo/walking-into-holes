@@ -1,0 +1,15 @@
+{
+ "frozen_before_reference_results": true,
+ "primary_target": 0.20,
+ "targets": [0.10,0.20,0.40],
+ "score_error": "Euclidean norm of score-vector difference / Euclidean norm of MG257 score vector, separately at each nested prefix",
+ "grid_reference_gate": "norm(MG193-MG257)/norm(MG257) <= target/4",
+ "spot_reference_gate": "At all 32 fixed spot sites jointly, MC standard-error vector norm / norm(MG257) <= target/4 and norm(MCmean-MG257)/norm(MG257) <= target/4 + 2*relative_MC_SE. These are diagnostics, not rigorous confidence bounds.",
+ "zero_reference": "unresolved if reference norm is zero or nonfinite",
+ "bootstrap": "10000 pointwise bootstrap resamples of five paired seeds, RNG seed 20260917; mean per-seed relative error and mean measured wall time; no simultaneous or selection-adjusted inference",
+ "eligibility": "Reference gates pass and upper 97.5th bootstrap percentile of mean score error <= target",
+ "winner": "Fastest eligible tested budget by mean wall time within each method. Missing eligible methods are reported as not reaching the target, not assigned infinite speedup.",
+ "speedup": "mean multigrid cumulative time / mean TWoS cumulative time, with pointwise paired bootstrap interval for selected configurations; descriptive after budget selection",
+ "unchanged_domain": "Additional-batch times are measured after prior queries; MG's solved fields are retained. Prefix totals include initial solve and all subsequent batches. Mesh loading is reported separately.",
+ "edited_domain": "Prefix times start after insertion of one fixed cavity, forcing MG field rebuild; common outer mesh stays retained. No unmeasured interactive speed claim."
+}

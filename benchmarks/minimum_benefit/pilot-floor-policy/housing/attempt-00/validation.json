@@ -1,0 +1,55 @@
+{
+  "scope": "conditional ideal-sampling certificate; conservative box geometry and source arithmetic",
+  "distance_tree_build_seconds": 0.085347404,
+  "distance_mode": "triangle_AABB_union_lower_bound",
+  "sample_cap": 0.18,
+  "radius_cap": 0.1,
+  "stages": [
+    {
+      "site": 0,
+      "n": 1024,
+      "mean": 0.06182431747956459,
+      "mean_steps": 64.6669921875,
+      "clipped": 18,
+      "path_caps": 33,
+      "elapsed_seconds": 0.172999568,
+      "center_clearance_lower": 0.2415393026079982,
+      "embree_center_distance": 0.24153930260799827
+    },
+    {
+      "site": 0,
+      "n": 4096,
+      "mean": 0.06135855892048807,
+      "mean_steps": 63.788330078125,
+      "clipped": 63,
+      "path_caps": 97,
+      "elapsed_seconds": 0.588191986,
+      "center_clearance_lower": 0.2415393026079982,
+      "embree_center_distance": 0.24153930260799827
+    },
+    {
+      "site": 0,
+      "n": 16384,
+      "mean": 0.0611673481640651,
+      "mean_steps": 63.98944091796875,
+      "clipped": 234,
+      "path_caps": 440,
+      "elapsed_seconds": 2.316730702,
+      "center_clearance_lower": 0.2415393026079982,
+      "embree_center_distance": 0.24153930260799827
+    },
+    {
+      "site": 0,
+      "n": 65536,
+      "mean": 0.06105922307354728,
+      "mean_steps": 63.65989685058594,
+      "clipped": 1035,
+      "path_caps": 1775,
+      "elapsed_seconds": 8.031932397,
+      "center_clearance_lower": 0.2415393026079982,
+      "embree_center_distance": 0.24153930260799827
+    }
+  ],
+  "containment_failures": 0,
+  "process_seconds": 8.313300004003395
+}

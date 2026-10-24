@@ -1,0 +1,11 @@
+{
+  "type": "Additional check of the earlier distributed-heating Bunny regime, distinct from the four localized-adjoint workloads",
+  "geometry": "Same 69674-triangle Bunny and fixed 512 sites/cavity used in the new localized-adjoint test",
+  "PDE": "-Laplace u = 1 + 0.65 y, zero Dirichlet walls; compliance J=int f u, hence p=u",
+  "TWoS": "Analytic affine-source ball integration r^2 f(center)/6; off-diagonal estimate of u^2; path budgets 16,64,256,1024,4096",
+  "multigrid": "One primal solve suffices for both u and p; same four resolution budgets, solved-field/outer-mask reuse, and warm start after the edit",
+  "seeds_counts_reference": "Same five seeds, 8/32/128/512 sites, MG193/257 and eight independent 8192-walk spot batches, unchanged reference gates and 10/20/40% targets",
+  "scope": "New query experiment on an existing PDE type; not a replication of the exact old site pool or hardware, not a fixed-total-heat design experiment; added after the original three engineering-geometry results",
+  "adaptive_stopping_frozen_before_extension_measurements": "Always measure 16/64/256 paths at all counts. At 1024 and 4096, measure only prefixes through the largest still-unresolved query count in each state. A case is closed when a previous budget meets the strictest reference-resolved target (10%, then 20%, then 40%) using the unchanged upper-bootstrap-mean error rule, or when no target has a resolved reference. Retain stop reasons and all measured budgets. This selects the smallest tested path budget attaining the target, not an exhaustive high-budget Pareto front.",
+  "iteration_cap_amendment": "MG257 did not meet the unchanged 1e-7 residual tolerance within 120 cycles. Increase the maximum to 800 for this workload (including all grid budgets); retain actual time to convergence and the failure record. No tolerance relaxation."
+}

@@ -1,0 +1,184 @@
+\section{Problem and Topological Expansion}
+\label{sec:problem}
+
+\paragraph{Design task.}
+Given an outer solid, a heat source, boundary data, and geometric constraints, we select interior cavity locations to reduce a PDE-defined objective. The thermal experiments solve $-\Delta u=f$ with $u=0$ on the exterior and cavity walls. Compliance $J=\int fu$ rewards cooling where heat is generated. A common fixed original-domain normalization is used when reporting its Monte Carlo objective averages, with zero contribution from removed material. For this objective, the adjoint source equals the state source; together with the self-adjoint operator, this gives $p=u$ and normalized insertion benefit $-D_T=u^2$. Self-adjointness of the operator alone does not imply $p=u$: the regional objective $J_q=\int qu/\int q$ instead uses a distinct adjoint driven by $q$, as evaluated in \cref{sec:regional}. The cavity walls are ideal heat sinks; cooling access and coolant transport are outside this model.
+
+The analysis below treats the broader scalar, self-adjoint screened Poisson setting. Its regularity and oracle assumptions state the scope of the theorems; the 3D implementation specializes to constant conductivity and zero screening. Detailed proofs appear in \cref{app:deterministic}.
+
+\subsection{State, adjoint, and reduced objective}
+
+Let $\Omega\subset\R^d$, $d\in\{2,3\}$, be bounded and connected.  Its fixed
+outer boundary is partitioned into a relatively open Dirichlet part
+$\Gamma_D$ and a Neumann part $\Gamma_N$, with
+$\mathcal H^{d-1}(\Gamma_D)>0$.  Define
+\begin{equation}
+ V:=H^1_{\Gamma_D}(\Omega)
+ :=\{v\in H^1(\Omega):\operatorname{Tr}v=0
+       \text{ on }\Gamma_D\}
+\end{equation}
+and, for every measurable $D\subseteq\Omega$,
+\begin{equation}
+ a_D(v,w):=\int_D
+ \kappa\,\nabla v\!\cdot\!\nabla w+\sigma vw\,\mathrm dx.
+ \label{eq:bilinear}
+\end{equation}
+The state $u\in g+V$ is the unique solution of
+\begin{equation}
+ a_\Omega(u,v)=\ell_\Omega(v)
+ \qquad\forall v\in V,
+ \label{eq:stateweak}
+\end{equation}
+where $g$ is a fixed Dirichlet lift and $\ell_\Omega\in V^*$ contains the
+volume source and prescribed Neumann data.  In strong form this is
+$-\nabla\!\cdot(\kappa\nabla u)+\sigma u=f$.
+
+Let $j:L^2(\Omega)\to\R$ be the state-dependent objective and let
+$\psi\in L^\infty(\Omega)$ be an optional explicit domain cost.  We set
+\begin{equation}
+ \J(\Omega):=j(u)+\int_\Omega\psi(x)\,\mathrm dx.
+ \label{eq:baseobjective}
+\end{equation}
+The adjoint $p\in V$ is defined by
+\begin{equation}
+ a_\Omega(v,p)=j'(u)[v]
+ \qquad\forall v\in V.
+ \label{eq:adjointweak}
+\end{equation}
+For example, if
+$j(u)=\tfrac12\int_\Omega w(x)(u-u_\star)^2\,\mathrm dx$ with bounded
+$w\ge0$, then the adjoint source is $w(u-u_\star)$.
+
+\subsection{A finite Dirichlet cavity}
+
+Let $B\subset\R^d$ be a fixed bounded inclusion containing the origin.  For a
+candidate $z$ and scale $\eps>0$, put
+\begin{equation}
+ K_{\eps,z}:=z+\eps B,
+ \qquad
+ \Omega_{\eps,z}:=\Omega\setminus\overline{K_{\eps,z}}.
+\end{equation}
+On the new boundary we prescribe the constant value
+$u_{\eps,z}=h_z$; in thermal design, $h_z$ is the coolant temperature.  The
+perforated state solves the same weak equation on $\Omega_{\eps,z}$, with its
+test functions also vanishing on $\partial K_{\eps,z}$.  Extend it to all of
+$\Omega$ by the constant $h_z$ inside the cavity and denote this $H^1$
+extension by $\widetilde u_{\eps,z}$.  The perturbed reduced objective is
+\begin{equation}
+ \J(\Omega_{\eps,z})
+ :=j(\widetilde u_{\eps,z})
+   +\int_{\Omega_{\eps,z}}\psi(x)\,\mathrm dx.
+ \label{eq:perforatedobjective}
+\end{equation}
+
+The correct normalizer is the \emph{relative operator capacity}.  With
+$\widetilde v$ denoting the quasi-continuous representative of $v\in V$, set
+\begin{equation}
+ \begin{split}
+ \rho_z(\eps):=\inf\{a_\Omega(v,v):{}&v\in V,\\[-2pt]
+ &\widetilde v\ge1\text{ q.e. on }K_{\eps,z}\}.
+ \end{split}
+ \label{eq:relativecapacity}
+\end{equation}
+``Quasi-everywhere'' means outside a set of zero $H^1$ capacity; it is the
+trace notion for which \cref{eq:relativecapacity} is closed under weak
+convergence.  The infimum is attained by a unique equilibrium potential
+$q_{\eps,z}$.  Its leading scale is
+\begin{equation}
+ \rho_z(\eps)=
+ \begin{cases}
+  \displaystyle \frac{2\pi\kappa(z)}{|\log\eps|}
+       \bigl(1+o(1)\bigr), & d=2,\\[7pt]
+  \displaystyle \kappa(z)\operatorname{cap}(B)\eps
+       \bigl(1+o(1)\bigr), & d=3,
+ \end{cases}
+ \label{eq:capacityscaling}
+\end{equation}
+uniformly on compact candidate sets.  Here $\operatorname{cap}(B)$ is the
+Newtonian capacity normalized by the energy $\int_{\R^3}|\nabla v|^2$.
+
+\begin{definition}[Capacity-normalized topological derivative]
+The Dirichlet-cavity topological derivative at $z$ is
+\begin{equation}
+ \DT(z):=\lim_{\eps\downarrow0}
+ \frac{\J(\Omega_{\eps,z})-\J(\Omega)}{\rho_z(\eps)},
+ \label{eq:tddefinition}
+\end{equation}
+whenever the limit exists.
+\end{definition}
+
+\begin{assumption}[Analytic setting]
+\label{ass:regularity}
+$\Omega$ and $B$ are $C^{2,\alpha}$ domains for some $\alpha\in(0,1)$;
+$0\in\operatorname{int}B$; the mixed-boundary decomposition admits the
+Poincar\'e inequality, maximum principle, and Green kernel used in
+\cref{app:deterministic};
+$\kappa\in C^{1,\alpha}(\overline\Omega)$ satisfies
+$0<\kappa_-\le\kappa\le\kappa_+$; and
+$\sigma\in L^\infty(\Omega)$ is nonnegative.  Candidates lie in a compact
+$Z\Subset\Omega$, and $u,p\in C^{1,\alpha}(U)$ on a fixed neighborhood
+$U\Supset Z$.  The values $h_z$ are uniformly bounded on $Z$.
+\end{assumption}
+
+\begin{assumption}[Objective smoothness]
+\label{ass:objective}
+$j$ is twice Fr\'echet differentiable on an $L^2(\Omega)$ neighborhood of
+$u$, with $\|j''(v)\|$ uniformly bounded there, and
+$\psi\in L^\infty(\Omega)$.  The load restricted to a perforated domain is
+the restriction of the unperforated load, so state differences are
+$a$-harmonic away from the cavity.
+\end{assumption}
+
+\begin{theorem}[Relative-capacity asymptotics]
+\label{thm:capacityscale}
+Under \cref{ass:regularity}, the minimizer in
+\cref{eq:relativecapacity} exists, is unique, and satisfies
+\cref{eq:capacityscaling}.  Moreover, $\rho_z(\eps)>0$ and
+$\eps^d=o(\rho_z(\eps))$ uniformly for $z\in Z$.
+\end{theorem}
+
+\begin{theorem}[Quantitative local topological expansion]
+\label{thm:localtd}
+Under \cref{ass:regularity,ass:objective}, there are constants
+$C>0$ and $\eps_0>0$, independent of $z\in Z$, such that for
+$0<\eps\le\eps_0$,
+\begin{equation}
+ \left|\J(\Omega_{\eps,z})-\J(\Omega)
+ -\rho_z(\eps)\DT(z)\right|
+ \le C\rho_z(\eps)^{1+\alpha_d},
+ \label{eq:quantitativesmallhole}
+\end{equation}
+where $\alpha_2=1$ and $\alpha_3=\tfrac12$, and
+\begin{equation}
+ \boxed{\DT(z)=-\bigl(u(z)-h_z\bigr)p(z).}
+ \label{eq:localproduct}
+\end{equation}
+In particular, the limit in \cref{eq:tddefinition} exists uniformly on $Z$.
+\end{theorem}
+
+The proof in \cref{app:deterministic} constructs the equilibrium measure,
+proves its concentration on the shrinking cavity, obtains the full state
+corrector by an energy-minimizing lift, controls the nonlinear objective
+remainder in $L^2$, and only then invokes the adjoint identity.  Thus the sign
+in \cref{eq:localproduct} follows from the convention in
+\cref{eq:adjointweak}; changing that convention changes the displayed sign,
+not the algorithm.
+
+\begin{remark}[Why regular shape calculus is insufficient]
+For $d=3$, the objective change is $O(\eps)$ even though the new boundary area
+is $O(\eps^2)$; in $d=2$ it is $O(1/|\log\eps|)$.  Differentiating with
+respect to $\eps$ and then setting $\eps=0$ therefore does not recover a
+regular shape derivative.  Capacity normalization is the essential singular
+step.
+\end{remark}
+
+
+
+For connected outer and cavity boundaries, \cref{prop:notshapepath} makes
+this distinction explicit: a diffeomorphism preserves boundary connectedness,
+whereas an interior cavity creates a second boundary component.
+This elementary observation does not exclude recovering a topological
+derivative through a singular limit of shape derivatives on already
+perforated domains.  Such connections are established prior
+art~\cite{cea2000topological}; the proposition makes no novelty claim about
+the distinction itself.

@@ -1,0 +1,43 @@
+{
+  "canvas": [
+    800,
+    650
+  ],
+  "labels": [
+    {
+      "text": "Cross-fitting",
+      "x": 400,
+      "y": 27,
+      "size": 27,
+      "anchor": "middle"
+    },
+    {
+      "text": "pair",
+      "x": 90,
+      "y": 85,
+      "size": 25,
+      "anchor": "middle"
+    },
+    {
+      "text": "primal",
+      "x": 292,
+      "y": 85,
+      "size": 25,
+      "anchor": "middle"
+    },
+    {
+      "text": "adjoint",
+      "x": 566,
+      "y": 85,
+      "size": 25,
+      "anchor": "middle"
+    },
+    {
+      "text": "omit",
+      "x": 684,
+      "y": 233,
+      "size": 24,
+      "anchor": "middle"
+    }
+  ]
+}

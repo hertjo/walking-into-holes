@@ -1,0 +1,24 @@
+{
+  "Walking_into_Holes_Hero_1440p.mp4": {
+    "width": 2560,
+    "height": 1440,
+    "frames": 1968,
+    "fps": 24.0,
+    "seconds": 82.0,
+    "codec": "h264",
+    "pixel_format": "yuv420p",
+    "bytes": 9473110,
+    "sha256": "249439e58b9ea8f55064fcbf9fd7a8e354204f2def42f264192664ee9a3bd600"
+  },
+  "Walking_into_Holes_Hero_LinkedIn_1080p.mp4": {
+    "width": 1920,
+    "height": 1080,
+    "frames": 1968,
+    "fps": 24.0,
+    "seconds": 82.0,
+    "codec": "h264",
+    "pixel_format": "yuv420p",
+    "bytes": 6211335,
+    "sha256": "cf5816d6b6d6138f6775d4d46c2c9bbcfa8692324476a2db5d282d49cab4adc4"
+  }
+}

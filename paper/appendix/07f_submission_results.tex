@@ -1,0 +1,95 @@
+\subsection{Matched design pipelines on distinct geometry}
+\label{sec:submissionstudy}
+
+We next isolate three questions that a cavity-count comparison alone cannot
+answer: whether objective-aware nucleation improves subsequent boundary
+optimization; whether accessible-channel improvements survive fixed material
+and power budgets; and whether the shrinking-target comparison transfers to
+actual three-dimensional application meshes. The finned housing, branching
+manifold, and ribbed annular spreader in \cref{fig:submissiongeometries} have
+narrow gaps, branching paths, or curved transport and a thin central bridge.
+Their protected sensors and complete compact heat-source supports remain
+unchanged under every design. \Cref{app:submissionstudy} specifies the physics,
+normalizations, geometry constraints, and numerical checks.
+
+
+
+\paragraph{Nucleation followed by Differential WoS.}
+All methods place six disjoint spheres of radius $0.065$ from the same paired
+candidate pools, then optimize their centers using a common specialized
+implementation of Differential WoS~\cite{miller2024differential}.
+TWoS and deterministic topological derivatives use eight refinement rounds;
+hottest-point and random initializations also receive rounds nine through
+sixteen. Two complete deterministic baselines use longest-axis grid counts
+49 and 65. A nearest-sensor control replaces the PDE score by Euclidean
+distance to the protected sensor and receives eight refinement rounds. The curves in \cref{fig:submissionpipeline} report complete design
+costs at independently evaluated checkpoints. This comparison isolates the
+value of initialization inside a shared optimizer; it does not compare against
+the original authors' full application or assert that Differential WoS cannot
+change topology.
+
+Across five paired seeds, TWoS followed by eight refinement rounds yields
+mean sensor reductions of $65.0\%$, $16.4\%$, and $11.4\%$ on the housing,
+branching manifold, and annular spreader. The primary multigrid selector followed
+by the same refinement yields $65.1\%$, $16.3\%$, and $11.7\%$.
+Hottest-point initialization with sixteen rounds yields $42.7\%$, $0.14\%$,
+and $0.01\%$, respectively. Both TD selectors perform similarly in these
+comparisons; their numerical costs and the additional controls are reported
+in the full time--quality curves and \cref{tab:submissionpipeline}.
+The nearest-sensor control yields $63.6\%$, $17.3\%$, and $12.2\%$
+across the same three objects. On the housing it requires $7.08$ s, compared
+with $11.77$ s for TWoS.
+Thus the large contrast with hottest-point placement does not establish a
+large benefit over every informed heuristic. The cutaways show this stronger
+geometric control alongside TWoS and multigrid; the plots retain all methods.
+The bands describe uncertainty in measured mean cooling, not equivalence tests
+or guarantees for a new geometry.
+
+
+\paragraph{Accessible channels at matched volume and fixed power.}
+Six parallel open ball-union channels target total removed volume $0.0168$.
+Their common radius is recalibrated after each insertion, and independent
+scrambled-Sobol samples audit the final volume. All heat supports are protected,
+so their exact input power is invariant (\cref{prop:protectedpower}).
+\Cref{fig:submissionchannels} reports these finite designs. A pointwise
+axis score initializes the channels; it is not a topological derivative of
+an entire channel, and the radius calibration is numerical rather than certified.
+At this matched budget, TWoS yields mean reductions of $37.8\%$, $2.29\%$,
+and $1.75\%$ across the three objects, compared with $42.1\%$, $2.59\%$,
+and $1.93\%$ for the primary multigrid selector. On the housing, nearest-sensor
+placement yields $39.4\%$, and the cheaper multigrid grid attains the same
+mean reduction as the primary grid. Thus this finite-channel heuristic does
+not dominate the informed controls. \Cref{tab:submissionchannels} reports all
+methods and uncertainty intervals; the independent volume and reference audits
+remain separate from those sampling intervals.
+
+\paragraph{Variance, bias, and query cost.}
+\Cref{fig:submissionestimators} compares direct scores, common-random-number
+finite-cavity subtraction, a stronger stopped-path harmonic-correction
+baseline, and multigrid at four resolutions on eight fixed sites per object.
+Sixteen independent repeats resolve sampling variability. Relative variance
+about each method's mean is shown separately from error to a high-budget
+infinitesimal reference: finite-cavity methods retain finite-radius bias,
+while multigrid retains discretization error. The reference itself has
+sampling and termination error. Bands around variance describe uncertainty
+in the estimated variance, not a standard-deviation envelope of field values.
+\Cref{app:submissionstudy} gives the stronger finite-correction identity and
+its step-by-step proof; detailed numeric summaries accompany the source.
+At radius $0.01$ and 2,048 paths per site, the stronger harmonic-correction
+baseline has $35.7\times$ and $13.8\times$ the measured direct variance on
+the housing and branching object. These are point estimates, not confidence
+bounds. On the annular object, all recorded harmonic corrections vanish at
+radii $0.01$ and $0.02$; variance is unresolved, and collapsed bootstrap
+intervals are suppressed. At larger radii the stronger correction can have
+competitive measured variance. Direct TWoS relative RMS error at this budget
+is $14.9\%$, $25.2\%$, and $146\%$ across the three cases, while the
+reference's relative standard-error norms are $1.6\%$, $4.8\%$, and
+$16.2\%$. The annular sparse-query configuration is poorly resolved at these
+budgets; it is not evidence of uniformly accurate pointwise estimation.
+
+The maximum independent channel-volume audit deviation is $0.97\%$ of the
+target. Finer housing checks change by at most $0.44$ percentage points from
+grid 193 to 257, but MC--grid257 differences still reach $2.38$ points across
+the checked first-seed states. Sampling intervals do not absorb this numerical
+reference sensitivity (\cref{tab:submissionfinereference}).
+

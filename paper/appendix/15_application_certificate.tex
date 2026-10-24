@@ -1,0 +1,345 @@
+\section{Application Validation: Implementation and Proofs}
+\label{app:applicationcertificate}
+
+The following additions deploy the minimum-benefit rule on the Bunny and
+housing. This is a separate experiment with new seeds, geometries selected
+under an acceptance rule, and retained validation samples. It does not
+retroactively certify the earlier ranking experiments. Three elementary
+constructions make the validator usable: downward clipping of nonnegative
+walk contributions, conservative boundary-distance queries, and explicit
+source enclosures. The probability guarantee retains the ideal conditional
+sampling assumptions of \cref{prop:onesidedwos}. Numerical containment and
+source safeguards alone do not prove those sampling laws for finite-precision
+positions and a pseudorandom generator.
+
+\subsection{A sharper certificate from the average cavity trace}
+
+The temperature-floor certificate in \cref{thm:coolingbenefit} is sufficient
+but can be conservative near existing cavities or a nonuniform heat source.
+The same energy identity admits a stronger use of a center query, without
+requiring a pointwise temperature floor on the new cavity.
+
+\begin{proof}[Proof of \cref{thm:averagecertificate}]
+\textbf{Step 1: difference energy.}
+Let $u$ be the current state and $v$ the state after removing
+$K=\overline B_r(z)$, extended by zero. Set $w=u-v$ and extend it by zero
+outside $D$. As in \cref{lem:floorcapacity},
+\[
+ B=J(D)-J(D\setminus K)=\int_{\R^3}|\nabla w|^2.
+\]
+The trace of $w$ on $\partial K$ is the trace of $u$, since $v$ has zero
+trace there.
+
+\textbf{Step 2: pair with the equilibrium potential.}
+Define $P(x)=1$ for $|x-z|\le r$ and $P(x)=r/|x-z|$ otherwise. On the
+exterior of the ball it is harmonic. Its outward normal derivative for
+that exterior domain, on its inner sphere, is $+1/r$. Integration by parts
+therefore gives
+\begin{equation}
+ \int_{\R^3}\nabla w\cdot\nabla P
+ =\frac1r\int_{\partial B_r(z)}u\,dS
+ =4\pi r\,\overline u_r,
+ \label{eq:tracecapacitypairing}
+\end{equation}
+where $\overline u_r=(4\pi r^2)^{-1}\int_{\partial B_r(z)}u\,dS$.
+To justify this calculation for $H^1$ functions, first use smooth compactly
+supported approximations to the zero extension of $w$. Integrate on the
+exterior annulus with an outer sphere beyond their support, so the outer
+boundary term vanishes. Pass to the limit by gradient-norm convergence
+and the continuous trace map on an annular neighborhood of the inner
+sphere. The potential has zero interior gradient and energy $4\pi r$,
+as computed in \cref{lem:floorcapacity}.
+
+\textbf{Step 3: apply Cauchy--Schwarz to the energy pairing.}
+Squaring \cref{eq:tracecapacitypairing} and applying Cauchy--Schwarz gives
+\[
+ (4\pi r\,\overline u_r)^2
+ \le\left(\int|\nabla w|^2\right)
+       \left(\int|\nabla P|^2\right)=B\,4\pi r.
+\]
+Division by $4\pi r>0$ proves $B\ge4\pi r\,\overline u_r^2$.
+
+\textbf{Step 4: recover the average trace from a center value.}
+The centered ball Green identity gives
+\begin{equation}
+ u(z)=\overline u_r+I_r,\qquad
+ I_r=\int_{B_r(z)}G_{B_r(z)}(z,y)f(y)\,dy.
+ \label{eq:tracefromcenter}
+\end{equation}
+If $I_r\le I_r^+$ and $L_u\le u(z)$, then
+$\overline u_r\ge L_u-I_r^+$. Also $\overline u_r\ge0$ because $u\ge0$.
+Thus $\overline u_r\ge(L_u-I_r^+)_+$, and substitution into Step 3 proves
+the claimed bound. Positivity of $G$ and $f\le f_+$ on the inserted ball
+give $I_r^+=f_+r^2/6$, using $\int G=r^2/6$.
+
+\textbf{Step 5: affine sources and uniformity.}
+For $f(y)=f(z)+a\cdot(y-z)$, the integral of $G(z,y)a\cdot(y-z)$ vanishes:
+reflection $y-z\mapsto-(y-z)$ preserves the ball and the radial kernel and
+reverses this integrand's sign. Hence $I_r=f(z)r^2/6$ exactly.
+All preceding inequalities hold simultaneously for every contained radius
+on the one event $\{L_u\le u(z)\}$. They also hold together with the
+temperature-floor certificate, so their maximum is a valid benefit lower
+bound on that event. The acceptance and adaptive-selection conclusions
+follow from the same event-containment proof as \cref{prop:adaptivebenefit};
+no additional confidence allocation is needed to compare deterministic
+certificates built from the same covered state bound.
+\end{proof}
+
+This argument uses classical equilibrium-potential duality and the centered
+Green representation. Its role here is a sharper finite-insertion validator,
+not a claim that the underlying capacity identity is new. It avoids the
+harmonic minimum factor in \cref{eq:temperaturefloor}; the local source
+upper bound now concerns the inserted ball itself. The earlier floor and
+source-only bounds remain useful when the state estimate is too weak.
+
+\subsection{Clipping gives a smaller, known sample range}
+
+\begin{proposition}[Downward-clipped validation walks]
+\label{prop:clippedvalidation}
+Under the one-sided construction of \cref{prop:onesidedwos}, fix $C>0$
+before drawing a validation batch. Source samples may use a measurable
+lower source $0\le\widetilde f\le f$. Stop by a fixed step count $T$,
+possibly earlier when the accumulated nonnegative contribution reaches $C$,
+and output $W_C=\min(C,\sum_{k<\tau}S_k)$. Then
+\begin{equation}
+ 0\le W_C\le C,\qquad \E W_C\le u(z).
+ \label{eq:clippedvalidation}
+\end{equation}
+For $N$ independent complete walks, the confidence rule in
+\cref{eq:onesidedwos} holds with $A=C$.
+\end{proposition}
+\begin{proof}
+\textbf{Step 1: lower sources preserve a one-step inequality.}
+Positivity of the ball Green kernel gives
+$\int G\widetilde f\le\int Gf$. The one-ball representation therefore
+implies
+\[
+ \E[S_k+u(X_{k+1})\mid\mathcal G_k]\le u(X_k)
+\]
+at every active step. After stopping, pad with $S_k=0$ and
+$X_{k+1}=X_k$; the inequality remains true. Reaching the cap after a step
+is a permissible stopping rule because the decision uses only the history
+available at the next step.
+
+\textbf{Step 2: telescope and then clip.}
+Summing the $T$ finite conditional inequalities and taking expectations yields
+$\E\sum_{k<\tau}S_k+\E u(X_\tau)\le u(z)$.
+Since $u\ge0$ and
+$0\le W_C\le\sum_{k<\tau}S_k$, it follows that $\E W_C\le u(z)$.
+Clipping also ensures $W_C\le C$ pathwise. The bound makes no assertion
+that clipping preserves the mean; additional downward bias is expected.
+
+\textbf{Step 3: apply bounded-variable concentration.}
+The moment-generating-function proof in \cref{prop:onesidedwos}, Step 3,
+uses only independence and the range width. Substituting $C$ for $A$ gives
+\[
+ \Prob\!\left\{\overline W_C-\E W_C>
+ C\sqrt{\frac{\log(1/\delta)}{2N}}\right\}\le\delta.
+\]
+Subtract this allowance and clip the resulting state lower bound at zero.
+Step 2 and $u(z)\ge0$ prove its coverage. A smaller $C$ improves the
+sampling allowance but can increase clipping bias, so it need not improve
+the final benefit certificate.
+\end{proof}
+
+\subsection{A conservative distance query on triangle geometry}
+
+\begin{proposition}[Bounding-box distance and contained steps]
+\label{prop:boxdistance}
+Let a closed embedded triangle surface $S=\bigcup_i T_i$ bound the material
+domain, and let $Q_i\supset T_i$ be the coordinate-aligned bounding box of
+triangle $i$. For any point $x$,
+\begin{equation}
+ d_Q(x):=\min_i\operatorname{dist}(x,Q_i)
+ \le\operatorname{dist}(x,S).
+ \label{eq:boxdistance}
+\end{equation}
+If $x$ is inside the current material domain, subtracting retained spherical
+cavities gives the valid distance lower bound
+\[
+ d_*(x)=\min\left(d_Q(x),\min_j(|x-c_j|-r_j)\right).
+\]
+For $0<s<d_*(x)$, the closed ball $\overline B_s(x)$ lies strictly inside
+the material domain. A computed endpoint $x'$ is still interior whenever
+a certified upper bound on $|x'-x|$ is smaller than a certified lower bound
+on $d_*(x)$.
+\end{proposition}
+\begin{proof}
+\textbf{Step 1: set containment reverses distance.}
+For each $i$, the infimum of $|x-y|$ over the larger set $Q_i$ is at most
+its infimum over $T_i$. Taking minima over $i$ proves
+\cref{eq:boxdistance}. A box may reach into the material and give zero
+distance at an interior point; stopping there is conservative.
+
+\textbf{Step 2: evaluate the box distance.}
+If $Q=\prod_{a=1}^3[l_a,h_a]$, its nearest point is the coordinatewise
+clamping of $x_a$ to $[l_a,h_a]$. Indeed, the squared Euclidean distance is
+a sum of three independent nonnegative coordinate objectives. Thus
+\[
+ \operatorname{dist}(x,Q)^2
+ =\sum_{a=1}^3\max(l_a-x_a,x_a-h_a,0)^2.
+\]
+Lower bounds on each nonnegative coordinate gap, their squares, their sum,
+and its square root give a lower bound on the distance. The implementation
+rounds each of these elementary operations outward using adjacent binary64
+numbers, without fast-math reassociation. This statement assumes the usual
+correctly rounded IEEE arithmetic and square root for those operations.
+
+\textbf{Step 3: justify hierarchy pruning.}
+Store in every internal hierarchy node a box containing all descendant
+triangle boxes. Its lower distance is a lower bound on the distance to each
+descendant triangle. If the current returned candidate lower bound is $b$
+and a node's lower distance is at least $b$, every triangle in that node
+has true distance at least $b$, so pruning that node cannot make $b$ exceed
+the global true surface distance. Evaluating all unpruned leaves and taking
+their minimum lower bound preserves this invariant. Using lower bounds
+rather than nearest-point estimates is essential to this argument.
+
+\textbf{Step 4: include old cavities and strict containment.}
+For $x$ outside $\overline B_{r_j}(c_j)$, its distance to that sphere is
+$|x-c_j|-r_j$. Taking the minimum with the outer-surface lower bound gives
+a lower bound for the distance to every boundary of the current domain.
+If a point of $\overline B_s(x)$ left the domain, the line segment from
+interior $x$ to that point would first cross a boundary at distance at most
+$s<d_*(x)$, a contradiction. The same segment argument with
+$|x'-x|<d_*(x)$ proves the computed-endpoint claim.
+\end{proof}
+
+The initial finalist is classified by exact rational positive-axis ray
+parity, treating stored binary64 mesh coordinates as exact dyadic rationals.
+Projected bounding boxes cull triangles; the remaining projected orientation
+and intersection-sign tests use rational arithmetic. On an edge or coplanar
+hit the code retries another axis and rejects the classification if all axes
+are degenerate. For a closed embedded surface and a nondegenerate ray, each
+crossing changes interior status; the ray ends outside the bounded object,
+so an odd crossing count is equivalent to an interior origin. Prior cavity
+exclusion is checked by exact squared-distance comparison. These predicates
+presuppose the closed embedded input surface; manifold diagnostics are not
+an exhaustive proof of absence of every self-intersection.
+
+After initialization, every source location and walk endpoint passes the
+upper-distance guard in \cref{prop:boxdistance}. A guard failure invalidates
+the validation record; it is not silently counted as a zero-valued sample.
+Steps use $s=\min(s_*,0.95\,\underline d_*)$, and the source integration
+and positive accumulation are rounded downward. A rounded endpoint remaining
+inside is a geometric guarantee; it does not prove that its distribution
+is exactly the ideal uniform spherical measure.
+
+\subsection{Explicit local source bounds}
+
+\begin{proposition}[Affine and Gaussian source enclosures]
+\label{prop:sourcesenclosed}
+For $f(x)=1+a(x_2+1/2)$ with $a\ge0$, valid extrema on $B_R(z)$ are
+$f_\pm=1+a(z_2+1/2\pm R)$. For a nonnegative Gaussian mixture
+\[
+ f(x)=b+\sum_j a_j\exp\!\left(-\sum_{k=1}^3
+                     \frac{(x_k-c_{jk})^2}{w_{jk}^2}\right),
+\]
+assume $b,a_j\ge0$ and $w_{jk}>0$.
+define
+\begin{align*}
+ t_j^{\min}&=\sum_k\frac{\max(|z_k-c_{jk}|-R,0)^2}{w_{jk}^2},\\
+ t_j^{\max}&=\sum_k\frac{(|z_k-c_{jk}|+R)^2}{w_{jk}^2}.
+\end{align*}
+Then $b+\sum_j a_j e^{-t_j^{\max}}$ and
+$b+\sum_j a_j e^{-t_j^{\min}}$ are respectively lower and upper source
+bounds throughout $B_R(z)$. Moreover, for $t\ge0$ and integer $n\ge1$,
+\begin{equation}
+ \max(0,1-t/n)^n\le e^{-t}\le(1+t/n)^{-n}.
+ \label{eq:rationalexpenclosure}
+\end{equation}
+\end{proposition}
+\begin{proof}
+\textbf{Step 1: enclose coordinates.}
+Every point in $B_R(z)$ has $z_k-R\le x_k\le z_k+R$.
+Monotonicity of the affine source gives its two bounds. The triangle and
+reverse-triangle inequalities give
+\[
+ \max(|z_k-c_{jk}|-R,0)\le|x_k-c_{jk}|
+                  \le|z_k-c_{jk}|+R.
+\]
+Squaring, dividing by $w_{jk}^2>0$, and summing proves that the exponent
+argument lies in $[t_j^{\min},t_j^{\max}]$.
+
+\textbf{Step 2: enclose each exponential.}
+The function $t\mapsto e^{-t}$ is decreasing. Apply it to the exponent
+interval, multiply by $a_j\ge0$, and sum with $b$ to obtain the source
+enclosures. Optimizing each coordinate separately relaxes the ball to a box;
+this weakens the bounds but does not invalidate them.
+
+\textbf{Step 3: remove dependence on a rounded exponential function.}
+For $0\le a<1$, integration of $1/(1-s)\ge1$ over $[0,a]$ gives
+$\log(1-a)\le-a$. With $a=t/n<1$, multiply by $n$ and exponentiate to
+get the lower inequality in \cref{eq:rationalexpenclosure}; for $t\ge n$
+its left side is zero and the result is immediate. Similarly, integration
+of $1/(1+s)\le1$ gives $\log(1+a)\le a$ for $a\ge0$. Negate, multiply
+by $n$, and exponentiate to get $(1+t/n)^{-n}\ge e^{-t}$.
+The implementation uses $n=1024$, computed by ten squarings. Downward
+rounding in the lower formula and a lower denominator followed by upward
+reciprocation in the upper formula preserve the enclosures. For a sampled
+source point, only the nonnegative lower formula is used. It supplies the
+lower-source condition in \cref{prop:clippedvalidation}.
+\end{proof}
+
+\subsection{Predeclared protocol and scope of its probability statement}
+
+There are six attempted insertions per object. Each attempt scouts the
+current retained material, rescores a shortlist, and fixes one finalist
+before collecting any certificate samples. The shortlist's scores are
+used only for selection; they supply no certificate. A separate validation
+stream evaluates that finalist at the four nested sample sizes
+$N\in\{1024,4096,16384,65536\}$. We allocate
+$\delta_{tj\ell}=1/4800$ to each of the $2\cdot6\cdot4=48$ possible
+tests. Their total is exactly $0.01$. \Cref{prop:adaptivebenefit} therefore
+covers the maximum of the four bounds, selection of the containing radius,
+and all accepted updates, conditional on the stated oracle assumptions.
+
+For a conservative numerical concentration allowance, use
+\[
+ a_N=C\sqrt{8.5/(2N)}
+ \ge C\sqrt{\log(4800)/(2N)}.
+\]
+The constant needs no numerical logarithm: the positive exponential series
+gives
+$e^{17/2}>\sum_{k=0}^{25}(17/2)^k/k!>4800$, where the last comparison is
+checked as an exact rational inequality.
+Monotonicity of $\log$ proves $\log4800<8.5$.
+Sample means are recomputed by exact dyadic summation of the stored
+binary64 values, then rounded down. The allowance is rounded up, and the
+subsequent benefit expression is evaluated with lower arithmetic bounds.
+The $\pi$ lower constant is obtained from Machin's identity
+$\pi=16\arctan(1/5)-4\arctan(1/239)$ and alternating rational partial sums
+(12 terms for the first arctangent, 5 for the second). The alternating-series
+error signs give a lower first sum and upper second sum, hence a lower
+$\pi$. For completeness, the tangent double-angle formula gives
+$\tan(2\arctan(1/5))=5/12$ and
+$\tan(4\arctan(1/5))=120/119$. The tangent subtraction formula then gives
+\[\tan(4\arctan(1/5)-\arctan(1/239))=1.\] This angle lies in $(0,\pi/2)$,
+so it equals $\pi/4$, proving the stated identity. These scalar arithmetic precautions do not bound the error in the
+random walk's ideal sampling distribution.
+
+The primary targets are fixed absolute compliance reductions:
+$2\times10^{-6}$ for the Bunny and $1.5\times10^{-5}$ for the housing.
+They equal $0.1\%$ of stipulated reference scales $0.002$ and $0.015$,
+respectively. These scales are fixed design units, not confidence bounds on
+the true baseline compliance. Additional $0.5\%,1\%,2\%$ thresholds are
+diagnostic tests on the same proposals and current domains, not separately
+optimized designs. A percentage of a noisy measured baseline is never used
+as a guaranteed relative target.
+
+Only accepted cavities enter the next iteration's material domain. For
+each proposed insertion, separate objective evaluations compare its current
+and trial domains with four randomized spatial blocks, 512 original-domain
+probes per block, and 256 WoS paths per active probe. Their differences
+estimate the actual finite benefit and its block standard error; these
+approximate references do not participate in acceptance. The original-domain
+volume normalization includes zero values inside removed cavities.
+
+All four validation budgets are computed for a tightness diagnostic, even
+when an earlier budget already passes. We report that complete diagnostic
+cost. The first passing stage and its prefix time describe the smaller
+computation that a staged stopping policy could use; they do not erase the
+extra work actually executed. Selection, validation, hierarchy construction,
+and independent reference evaluation are kept distinct.
+
+\input{appendix/15b_application_certificate_results}

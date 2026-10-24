@@ -1,0 +1,8 @@
+{
+  "independently_checked_designs": 72,
+  "minimum_outer_wall": 0.012275044092369285,
+  "minimum_pair_gap": 0.016626095854212194,
+  "solver_calls_checked": 752,
+  "path_cap_hits": 0,
+  "largest_cg_reported_residual": 9.998806189548645e-10
+}

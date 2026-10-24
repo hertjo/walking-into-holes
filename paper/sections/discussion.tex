@@ -1,0 +1,52 @@
+\section{Discussion and Limitations}
+\label{sec:discussion}
+
+The principal advantage is the direct evaluation of an insertion coefficient
+using point queries on the current geometry. It is distinct from the value
+of an adjoint: deterministic topological derivatives use the same objective
+information, and sensor proximity is an effective alternative on our localized
+tasks. The complete pipeline results do not establish a universal quality or
+speed advantage. A global field can be preferable for many queries, and the
+Bunny crossover should not be transferred to another geometry without measurement.
+
+\paragraph{Choosing a solver.}
+The practical question is whether the requested output is a small set of
+insertion scores or a dense reusable field. Direct queries avoid trial-cavity
+construction and volumetric discretization, but their work grows with the
+number of queries and the required sampling accuracy. A global solve can
+amortize its setup over many sites; caching and multigrid further change that
+tradeoff. Our matched-target study varies the objective on the same Bunny and retains
+failed fresh-seed confirmations. Localized sensor objectives can favor coarse
+global solves even at eight sites. Analytic source integration helps only
+within its stated source family; the sampling and reference criteria must
+be satisfied before interpreting a timing advantage.
+An interactive or repeatedly edited workflow remains a potential application,
+not a measured speed claim of this paper.
+
+Our objects exercise detailed boundaries, narrow gaps, branching paths, and
+curved transport. They are procedural conduction benchmarks, not a representative
+sample of industrial products. Zero-temperature cavities are ideal sinks,
+not insulating air pockets; open channels do not solve fluid flow or conjugate
+heat transfer. Fixed material and power budgets remove specific confounds
+without supplying a manufacturing model. More nested cold removal lowers
+compliance in this model, so costs and feature constraints are essential
+to a meaningful cavity-count tradeoff.
+
+The asymptotic theory assumes smooth domains and separated cavities; triangle
+edges and ball-union seams do not literally meet its global smoothness
+hypothesis. The direct compliance bound has a separate Lipschitz-domain scope.
+Insulating cavities, elasticity, nonlinear PDEs, and transient problems require
+their own expansions and valid oracles. Cross-fitting removes correlation bias,
+not marginal solver bias. Bootstrap bands describe finite-sample uncertainty;
+they do not bound discretization, termination, finite-radius, or geometry error.
+The guarded validator's sampling laws still idealize pseudorandom draws and
+their floating-point propagation. Its containment checks do not constitute
+a verified finite-precision sampler.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+\method{} turns classical cavity asymptotics into grid-free insertion queries.
+Our analysis separates sampling variance from finite-decision error control.
+Matched comparisons establish a narrow sparse-query benefit and substantial
+limitations; cheaper validation and broader physical models remain open.

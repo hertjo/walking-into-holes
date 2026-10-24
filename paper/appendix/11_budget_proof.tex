@@ -1,0 +1,119 @@
+\section{Cavity Count, Volume, and Thermal Compliance}
+\label{app:cavitybudget}
+
+The following facts explain the budget experiment; they are properties of the
+classical ideal Dirichlet cooling model, not new topological-derivative claims.
+
+\begin{proposition}[Monotonicity under additional cooled material removal]
+\label{prop:coolingmonotonicity}
+Let $\Omega\subset\mathbb R^3$ be bounded and Lipschitz, let $f\in L^2(\Omega)$,
+and let $D_2\subset D_1\subset\Omega$ be nonempty Lipschitz material domains.
+For $i=1,2$, let $u_i\in H_0^1(D_i)$ solve
+$-\Delta u_i=f|_{D_i}$ weakly, with zero trace on every boundary component.
+Extend $u_i$ by zero to $\Omega$ and define
+$J_i=\int_\Omega f u_i$. Then
+\begin{equation}
+ J_1-J_2=\int_\Omega |\nabla(u_1-u_2)|^2\ge0.
+ \label{eq:coolingprojection}
+\end{equation}
+Equality holds if and only if the extended states agree. If $D_1\setminus D_2$
+contains a nonempty open set on which $f>0$ almost everywhere, the inequality
+is strict. Division by the fixed volume $|\Omega|$ preserves these conclusions.
+\end{proposition}
+\begin{proof}
+\textbf{Step 1: common function space.}
+By the definition of $H_0^1$, each $u_i$ is an $H^1$ limit of smooth functions
+compactly supported in $D_i$. Extending these approximations by zero proves
+that their extensions belong to $H_0^1(\Omega)$. The same argument gives the
+inclusion of extended spaces $H_0^1(D_2)\subset H_0^1(D_1)$. Their gradients
+vanish almost everywhere outside their respective material domains.
+
+\textbf{Step 2: existence and energy identities.}
+The bilinear form $a(v,w)=\int_\Omega\nabla v\cdot\nabla w$ is coercive on
+each extended space by Poincare's inequality on $\Omega$; the right-hand side
+$\ell(v)=\int_\Omega fv$ is bounded by Cauchy--Schwarz and Poincare.
+Lax--Milgram gives a unique weak solution in each space. Testing its weak
+equation with $u_i$ gives $a(u_i,u_i)=\ell(u_i)=J_i$.
+
+\textbf{Step 3: the cross term.}
+The space inclusion makes $u_2$ an admissible test function in the equation
+for $u_1$. Hence $a(u_1,u_2)=\ell(u_2)=J_2$. Expanding the squared gradient norm
+therefore gives $a(u_1-u_2,u_1-u_2)=J_1-2J_2+J_2$, proving
+\cref{eq:coolingprojection}. A zero norm forces $u_1=u_2$ by Poincare; the
+converse is immediate.
+
+\textbf{Step 4: strictness under positive interior heating.}
+If equality held and $U\subset D_1\setminus D_2$ were the stated open set,
+then $u_1=u_2=0$ almost everywhere on $U$, so $\nabla u_1=0$ there. Choose a
+nonnegative, nonzero $\phi\in C_c^\infty(U)$. The first weak equation would
+give $0=\int_U f\phi>0$, a contradiction. Finally, multiplication by the
+positive constant $|\Omega|^{-1}$ proves the normalized version.
+\end{proof}
+
+This proposition applies to nested removals, such as increasing the radius
+of fixed centers or adding a new cavity while retaining old ones. Replacing
+two large cavities by twelve small ones at the same removed volume does not
+produce nested material domains; monotonicity alone cannot rank those designs.
+Insulating, Robin, or fluid-coupled cavity walls require a different analysis.
+
+\begin{proposition}[Exact geometry at fixed removed volume]
+\label{prop:budgetgeometry}
+Let $n$ disjoint spherical cavities of equal radius $r_n$ have total volume
+$V>0$. Their radius, total exposed area $A_n$, and sum $S_n$ of isolated
+Newtonian capacities (energy convention) are
+\begin{align}
+ r_n&=\left(\frac{3V}{4\pi n}\right)^{1/3},\\
+ A_n&=(36\pi)^{1/3}V^{2/3}n^{1/3},\\
+ S_n&=4\pi\left(\frac{3V}{4\pi}\right)^{1/3}n^{2/3}.
+ \label{eq:budgetgeometry}
+\end{align}
+Here $S_n$ is not the capacity of the union and does not give its exact cooling
+benefit.
+\end{proposition}
+\begin{proof}
+Disjointness makes the removed volume the sum of individual ball volumes:
+$V=n(4\pi/3)r_n^3$. Solving gives the first formula. Each sphere has area
+$4\pi r_n^2$, and separation leaves that entire surface exposed; substitution
+into $n4\pi r_n^2$ gives the second formula. For completeness, the equilibrium
+potential of a radius-$r$ ball in $\mathbb R^3$ is $1$ inside and $r/|x|$
+outside, after translation to the origin. Its energy is
+\[
+ \int_{\mathbb R^3}|\nabla P|^2
+ =4\pi\int_r^\infty \frac{r^2}{s^4}s^2\,\mathrm ds=4\pi r.
+\]
+To check the minimizing property, write any smooth exterior competitor with
+the same trace and decay as $P+w$, where $w$ has zero trace at $|x|=r$.
+Integration by parts gives $\int\nabla P\cdot\nabla w=0$, since $P$ is
+harmonic outside the ball and the boundary terms vanish. Thus its energy is
+$\int|\nabla P|^2+\int|\nabla w|^2\ge\int|\nabla P|^2$; density extends the
+identity to finite-energy, zero-trace perturbations. For the equivalent
+capacity definition requiring at least one on the ball, truncating a
+competitor at one cannot increase energy and reduces to this boundary-value
+problem.
+Summing these individual energies and substituting $r_n$ proves the third
+formula. This sum treats every ball in isolation; their joint equilibrium
+potential satisfies a different exterior boundary-value problem, so no union
+capacity identity follows.
+\end{proof}
+
+Thus equal removed volume does not equalize cooling area. Classical
+small-cavity scaling suggests why fragmentation can help, but the
+single-cavity expansion is not asserted uniformly as $n\to\infty$ with
+shrinking separations. Field depletion, interactions, and geometric feasibility
+must be evaluated at the actual finite configurations. In particular, a
+penalty $\lambda V$ is constant across a fixed-volume count sweep and cannot
+resolve its count preference. A cavity-count cost, surface-area cost,
+minimum radius, wall constraint, or explicit cooling-system model may do so;
+this experiment does not identify physical values for those costs.
+
+\paragraph{A finite-design cost envelope, not a continuous optimum.}
+For the finite tested designs $d$, let $q_d=J_d/J_0$ and let $n_d$ be the
+cavity count. Given a stipulated normalized per-cavity cost $\kappa\ge0$,
+minimize $q_d+\kappa n_d$ over this finite set. Designs $a,b$ with
+$n_a\ne n_b$ tie precisely at
+$\kappa=(q_a-q_b)/(n_b-n_a)$, obtained by rearranging the two affine costs.
+The lower envelope can change minimizer only at such pairwise intersections.
+Indeed, away from intersections all pairwise differences keep their signs,
+so their ordering is constant on each open interval. This construction
+describes sensitivity to an assumed cost; neither sampling uncertainty nor
+the untested geometry space disappears when an envelope is plotted.

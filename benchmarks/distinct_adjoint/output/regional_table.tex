@@ -1,0 +1,20 @@
+\begin{table*}[t]
+\centering\small
+\caption{Regional design comparison. Reductions are means $\pm$ one standard error across five designs per sensor. Both wall-time columns include candidate preparation and the complete selection driver, averaged across sensor cases. Retained-mesh timings use one fresh server per design; dashes denote configurations not rerun with that backend. The extra multigrid resolutions are a supplementary sweep.}
+\label{tab:regional}
+\begin{tabular}{lrrrr}
+\toprule
+Method & Left reduction (\%) & Right reduction (\%) & Reload mesh (s) & Retain mesh (s) \\
+\midrule
+Random & $10.55\pm1.54$ & $10.23\pm3.14$ & 0.44 & 0.39 \\
+WoS hottest & $36.47\pm2.22$ & $29.26\pm2.24$ & 3.63 & 1.19 \\
+MG hottest & $38.15\pm1.03$ & $29.99\pm1.77$ & 6.07 & 4.88 \\
+TWoS sparse & $50.87\pm1.46$ & $50.09\pm1.34$ & 3.66 & 1.22 \\
+TWoS larger budget & $52.13\pm1.08$ & $51.84\pm0.52$ & 5.04 & 2.62 \\
+MG TD (57) & $53.50\pm0.62$ & $52.53\pm0.84$ & 2.51 & 1.41 \\
+MG TD (85) & $53.57\pm0.66$ & $52.45\pm0.82$ & 4.54 & -- \\
+MG TD (113) & $53.30\pm0.57$ & $52.15\pm0.88$ & 8.38 & 7.13 \\
+MG TD (169) & $53.57\pm0.66$ & $52.15\pm0.88$ & 40.00 & -- \\
+\bottomrule
+\end{tabular}
+\end{table*}

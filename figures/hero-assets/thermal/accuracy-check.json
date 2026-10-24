@@ -1,0 +1,8 @@
+{
+  "twos_rrmse_16384": 0.05888265588042401,
+  "voxel_rrmse_16384": 0.06885726109766406,
+  "reference_relative_score_se": 0.011602543586973277,
+  "reference_walks_per_site": 16384,
+  "reference_is_exact": false,
+  "timings_source": "Retained matched C++ output-scaling.csv, 8 threads, median of three repeats; fresh reference timing is not a performance comparison."
+}

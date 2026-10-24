@@ -1,0 +1,19 @@
+{
+  "baselines": [
+    "mg49",
+    "nearest"
+  ],
+  "nearest_rule": "Euclidean distance to sensor center; same feasibility constraints and candidate pool",
+  "longest_axis": 49,
+  "reason": "Audit a cheaper deterministic design baseline and a simple objective-aware geometric control, added during the campaign.",
+  "seeds": [
+    1611,
+    2711,
+    3811,
+    4911,
+    6011
+  ],
+  "refinement_rounds": 8,
+  "evaluation": "same independent blocks as primary comparison",
+  "all_other_constraints": "unchanged"
+}

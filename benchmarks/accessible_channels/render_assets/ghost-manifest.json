@@ -1,0 +1,30 @@
+{
+  "display_only": true,
+  "geometry": "Physical housing minus saved channels, intersected with the display window; synthetic window faces excluded.",
+  "visibility": "First shell intersection must be in front of the surviving opaque geometry.",
+  "temperature_fields_unchanged": true,
+  "detail_views": "Unobstructed; no ghost shell.",
+  "records": [
+    {
+      "method": "wos_hot",
+      "triangles": 146186,
+      "visible_pixels": 493748,
+      "edge_opacity": 0.24313725490196078,
+      "surface_opacity": 0.047058823529411764
+    },
+    {
+      "method": "twos_sparse",
+      "triangles": 141226,
+      "visible_pixels": 488120,
+      "edge_opacity": 0.24313725490196078,
+      "surface_opacity": 0.047058823529411764
+    },
+    {
+      "method": "mg57",
+      "triangles": 149567,
+      "visible_pixels": 492234,
+      "edge_opacity": 0.24313725490196078,
+      "surface_opacity": 0.047058823529411764
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "rational_radii_checked": 999,
+  "identity_residual": "exactly zero in rational arithmetic",
+  "checks": [
+    "Dirichlet cavity trace",
+    "direct objective integration = difference energy = closed form",
+    "explicit nonnegative certificate gap"
+  ],
+  "scope": "Analytic model and bound only; not the mesh solver or floating-point sampler.",
+  "rows": [
+    {
+      "radius": 0.001,
+      "normalized_benefit": 0.02780552775002222,
+      "capacity_normalized_benefit": 0.0277777222222722,
+      "trace_bound_fraction_of_benefit": 0.9989999999992016,
+      "leading_TD_relative_error": 0.0009989990008
+    },
+    {
+      "radius": 0.01,
+      "normalized_benefit": 0.02805275022222222,
+      "capacity_normalized_benefit": 0.02777222272,
+      "trace_bound_fraction_of_benefit": 0.9899999921576317,
+      "leading_TD_relative_error": 0.009899008
+    },
+    {
+      "radius": 0.05,
+      "normalized_benefit": 0.029093888888888888,
+      "capacity_normalized_benefit": 0.027639194444444445,
+      "trace_bound_fraction_of_benefit": 0.9499954648742577,
+      "leading_TD_relative_error": 0.04738
+    },
+    {
+      "radius": 0.1,
+      "normalized_benefit": 0.030252222222222222,
+      "capacity_normalized_benefit": 0.027227,
+      "trace_bound_fraction_of_benefit": 0.8999338891541484,
+      "leading_TD_relative_error": 0.08908
+    },
+    {
+      "radius": 0.25,
+      "normalized_benefit": 0.03263888888888889,
+      "capacity_normalized_benefit": 0.024479166666666666,
+      "trace_bound_fraction_of_benefit": 0.7480053191489362,
+      "leading_TD_relative_error": 0.175
+    },
+    {
+      "radius": 0.5,
+      "normalized_benefit": 0.03263888888888889,
+      "capacity_normalized_benefit": 0.016319444444444445,
+      "trace_bound_fraction_of_benefit": 0.4787234042553192,
+      "leading_TD_relative_error": 0.175
+    }
+  ]
+}

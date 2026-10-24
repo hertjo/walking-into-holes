@@ -1,0 +1,35 @@
+{
+  "designs": [
+    {
+      "tag": "budget6",
+      "source": "benchmarks/bunny_budget/output/v6-n06-s2026091501/twos",
+      "seed": 2026091501,
+      "count": 6,
+      "section_intersections": 4,
+      "radius": 0.05,
+      "removed_volume": 0.0031415926535897937,
+      "cooling_percent": 47.35476687674381,
+      "field_sites": 16055,
+      "path_cap_hits": 0,
+      "centers_sha256": "42baa4902ecdb7fbb0fc5e3983ebfe937e09667262dc077575fe57095e6107e2"
+    },
+    {
+      "tag": "budget12",
+      "source": "benchmarks/bunny_budget/output/v3-n12-s2026091501/twos",
+      "seed": 2026091501,
+      "count": 12,
+      "section_intersections": 6,
+      "radius": 0.03149802624737183,
+      "removed_volume": 0.0015707963267948967,
+      "cooling_percent": 47.07426525420503,
+      "field_sites": 16411,
+      "path_cap_hits": 0,
+      "centers_sha256": "86eb6dbcb3c447e0a88353d189bb4bc8078d7c4c41b2886d1c097049142e8330"
+    }
+  ],
+  "selection": "First pre-specified design seed, not selected by appearance or objective.",
+  "rendering": "Mitsuba, 1200px, 64 spp, OIDN display radiance; identical existing camera and display cut.",
+  "fields": "256 fresh WoS paths/site, 160x200 section at z=.09; same [0,.025] temperature scale and one-cell display-only smoothing.",
+  "labels": "Individual saved objective estimates; tradeoff plot separately averages three design seeds.",
+  "visibility": "A planar cut intersects only some of the 3D cavities; hidden cavities remain in the geometry and PDE."
+}

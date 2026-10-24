@@ -1,0 +1,10 @@
+{
+  "designs": 72,
+  "all_finite": true,
+  "minimum_outer_gap": 0.0122750440923692,
+  "minimum_pair_gap": 0.0166260958542121,
+  "maximum_volume_error": 4.336808689942018e-19,
+  "raw_results": "72 complete designs, three seeds, four randomized evaluation blocks each",
+  "uncertainty": "Shading is design-seed min/max, not a confidence interval. Block SE is conditional on saved designs and omits termination bias.",
+  "interpretation": "Ideal zero-temperature cavities; exact volume control, unequal cooling area; exploratory finite choices, no global optimum or speed claim."
+}

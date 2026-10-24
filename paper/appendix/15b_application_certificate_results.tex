@@ -1,0 +1,75 @@
+\subsection{Measured validation results}
+\label{app:applicationvalidationresults}
+
+\Cref{tab:applicationvalidation} reports a separate six-attempt design on
+each object. Eleven insertions pass the fixed absolute target at the
+first predeclared stage of 1,024 walks; the fifth housing insertion first
+passes at 4,096 walks. Later samples tighten the reported
+benefit bounds; they are not required to make these particular accept/reject
+decisions. The maximum of the four covered stage bounds supplies each
+reported lower benefit. Its sum over accepted insertions is justified by
+\cref{prop:adaptivebenefit}. Displayed cumulative lower bounds are rounded
+down, and the raw samples and full-precision bounds are retained.
+
+\begin{table}[t]
+\centering\small
+\caption{New guarded designs, with one finalist per attempt and a total
+ideal-sampling error allocation of $0.01$ across both objects and all
+48 validation stages. Compliance is unnormalized. The two numerical
+references are approximations, not exact ground truth. Times cover the
+respective kernels over six attempts; reference evaluation, process startup,
+and hierarchy construction are excluded.}
+\label{tab:applicationvalidation}
+\begin{tabular}{lrr}
+\toprule
+Quantity & Bunny & Housing\\
+\midrule
+Accepted / attempted & $6/6$ & $6/6$\\
+Target per insertion & $2\cdot10^{-6}$ & $1.5\cdot10^{-5}$\\
+Cumulative lower benefit & $5.75\cdot10^{-4}$ & $6.21\cdot10^{-3}$\\
+WoS reference benefit & $8.448\cdot10^{-4}$ & $1.020\cdot10^{-2}$\\
+Multigrid reference benefit & $8.455\cdot10^{-4}$ & $1.013\cdot10^{-2}$\\
+Scout + rescore (s) & $2.97$ & $0.53$\\
+First passing prefixes (s) & $2.82$ & $1.48$\\
+Full validation sweep (s) & $150.39$ & $52.17$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The new designs reduce the independently estimated objective by $47.18\%$
+on the Bunny and $68.65\%$ on the housing. These measured percentages use
+their respective new reference baselines and are not themselves certified
+relative reductions. The full-precision cumulative bounds are $68.1\%$
+and $61.0\%$ of the corresponding estimated absolute benefits. Per insertion,
+the average-trace bound is $2.4$--$16.9\times$ the temperature-floor bound
+on the Bunny and $59.4$--$365.4\times$ on the housing, evaluated on the
+same validation data and current domains. This compares two derived
+certificates, not two forward-solver runtimes or an external state-of-the-art
+optimization baseline.
+
+For an additional deterministic check, geometric multigrid uses grids of
+$97\times113\times85$ on the Bunny and $113\times73\times57$ on the
+housing, with relative residual tolerance $10^{-8}$. Its positive state
+values are recovered from the solver's squared-state score output, and
+objectives use the same independent spatial probes as the WoS reference.
+Its total-benefit estimates differ from WoS by $0.085\%$ and $0.645\%$,
+respectively. Every reported insertion bound lies below both approximate
+reference estimates. This agreement is a numerical consistency check; it
+does not bound either method's continuum error or establish exact coverage.
+
+The complete diagnostic collects $786{,}432$ independent-walk records under
+the statistical model and executes $45{,}470{,}847$ guarded steps with no
+containment failure. The audit recomputes all 48 state bounds from retained
+samples, checks the twelve initial classifications with exact rational
+predicates, compares conservative center distances with libigl, and tests
+240 source evaluations using high-precision arithmetic. The geometric and
+source inequalities are justified by \cref{prop:boxdistance,prop:sourcesenclosed};
+the finite audit is an implementation check, not their proof.
+
+The conservative query backend and large sample sweep are expensive. The
+first-passing prefix times in the table are recorded kernel times from the
+executed stages, illustrating what staged acceptance could save; the complete
+sweep actually ran. Neither those prefix times nor the earlier ranking-only
+speedups establish that fully validated optimization is faster than the
+deterministic baseline. Validation tightness, overhead, and the remaining
+ideal-sampling assumption are reported as separate properties.

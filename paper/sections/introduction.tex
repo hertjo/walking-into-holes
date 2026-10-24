@@ -1,0 +1,51 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Computational design chooses geometry to produce a desired physical response.
+Changing an existing boundary and deciding where a new boundary should appear
+are different decisions. We study the latter: selecting interior cavities in
+a solid to improve a PDE-defined objective. In our thermal application,
+prescribed cold cavity walls act as ideal internal heat sinks. Their placement
+changes conduction paths and the temperature of protected components. This
+model isolates a geometry-design problem; it does not simulate coolant flow.
+
+A candidate could be scored by inserting a small trial hole, solving the
+modified PDE, and subtracting objectives. Classical topological derivatives
+avoid these repeated trial solves by expressing the leading change through
+the current state and adjoint~\cite{cea2000topological,novotny2012topological}.
+Global discretized solvers already exploit this formula. We ask how to evaluate
+it directly using local random walks on the boundary representation, without
+constructing a volumetric PDE discretization or a trial cavity.
+
+Walk on Spheres and Walk on Stars provide the necessary point-query
+machinery~\cite{muller1956some,sawhney2023walk}. Differential WoS supplies
+sensitivities for existing geometry~\cite{miller2024differential}.
+Our additional query is the capacity-normalized response to creating an
+interior boundary. We call its direct estimator \emph{Topological Walk on
+Spheres} (\method{}). Primal and adjoint estimates can share a walk skeleton;
+cross-index products remove the resulting correlation bias when complete
+oracle pairs are independent. The estimator has no trial-radius parameter.
+
+The problem is therefore a missing query in the grid-free design workflow:
+\emph{where would a new boundary help?} Our contribution is the stochastic
+evaluation and deployment of classical topological sensitivity. The deterministic derivative, cross-index unbiasedness, and the
+Hoeffding decomposition are classical ingredients. The technical question
+is how their
+combination supports an insertion query and which additional assumptions
+turn that query into a finite geometric decision. We give the exact product-estimator variance,
+identify a shrinking-target variance barrier for specified finite-cavity
+couplings, and propagate sampling error, oracle bias, finite-radius error,
+and adaptive selection into explicit decision conditions. A separate
+variational argument gives a finite-benefit bound for Poisson compliance
+without an unknown asymptotic remainder. The appendix contains every
+derivation and the additional assumptions needed by implementations.
+
+The experiments distinguish placement quality from numerical performance.
+Three different solids compare complete cavity-initialization and Differential
+WoS refinement pipelines against tuned multigrid and geometric proximity.
+Matched-volume channels preserve the entire heat input. Actual-mesh estimator
+tests complement controlled statistical diagnostics, and a detailed Bunny
+study measures the crossover from sparse queries to a global solve.
+The evidence supports direct stochastic insertion scores; it also retains
+competitive deterministic and proximity controls rather than claiming
+universal design or runtime superiority.

@@ -1,0 +1,16 @@
+{
+  "name": "walking-into-holes-figures",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "render:penrose": "node scripts/render-penrose.mjs"
+  },
+  "dependencies": {
+    "@penrose/core": "3.3.1",
+    "jsdom": "26.1.0"
+  },
+  "overrides": {
+    "@xmldom/xmldom": "0.9.12"
+  }
+}

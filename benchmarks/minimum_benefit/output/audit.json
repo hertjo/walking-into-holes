@@ -1,0 +1,14 @@
+{
+  "sample_count": 786432,
+  "guarded_steps": 45470847,
+  "containment_failures": 0,
+  "stage_checks": 48,
+  "high_precision_source_comparisons": 240,
+  "exact_initial_parity_checks": 12,
+  "maximum_lower_distance_minus_libigl_distance": -9.71445146547012e-17,
+  "exact_exp_series_sum_exceeds_4800": true,
+  "exact_exp_series_sum": 4914.763587068121,
+  "total_ideal_sampling_error_budget": "48/4800 = 0.01",
+  "arithmetic_audit": "Pass: retained sample ranges, exact dyadic means, outward scalar bounds, exact initial parity, source enclosures, conditional acceptance logic.",
+  "remaining_scope": "Ideal random sampling laws and their propagation through finite-precision coordinates are not proved by these numerical audits. Input is assumed to be an embedded closed surface."
+}

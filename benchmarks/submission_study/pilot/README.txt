@@ -1,0 +1,1 @@
+DEVELOPMENT ONLY. Sources are archived in source-config-v1. These remote-source tests revealed an almost unheated sensor and rare-event gradients. They are excluded from all reported performance results. The measured campaign adds a low-power sensor self-heating component; no other geometry was selected based on numerical advantages.

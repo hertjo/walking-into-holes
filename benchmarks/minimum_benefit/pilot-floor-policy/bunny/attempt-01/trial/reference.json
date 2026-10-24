@@ -1,0 +1,12 @@
+{
+  "blocks": [
+    0.0013289537437745382,
+    0.0013126686935494211,
+    0.0013198356602187624,
+    0.0013190455003505082
+  ],
+  "mean": 0.0013201258994733074,
+  "se": 3.3515202556382405e-06,
+  "mesh_volume": 0.20543746565059454,
+  "scope": "Independent approximate WoS reference with four randomized spatial blocks; shell and geometry bias not certified."
+}

@@ -1,0 +1,22 @@
+{
+  "canvas": [
+    800,
+    650
+  ],
+  "labels": [
+    {
+      "text": "temperature",
+      "x": 461,
+      "y": 411,
+      "size": 25,
+      "anchor": "middle"
+    },
+    {
+      "text": "influence",
+      "x": 614,
+      "y": 411,
+      "size": 25,
+      "anchor": "middle"
+    }
+  ]
+}

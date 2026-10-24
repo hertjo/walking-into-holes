@@ -1,0 +1,46 @@
+{
+  "crossfit": {
+    "crossfit_bias_at_corr_0.9": -0.0007496628769844638,
+    "independent_bias_at_corr_0.9": 0.0007500066428903838,
+    "plugin_bias_at_corr_0.9": -0.009187839506554807,
+    "same_seed_bias_at_corr_0.9": -0.2707713150232355,
+    "true_td": -0.52
+  },
+  "environment": {
+    "matplotlib": "3.10.8",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "python": "3.12.14",
+    "scipy": "1.17.0"
+  },
+  "scope": "controlled diagnostics; not final 3D application results",
+  "seed": 20260912,
+  "selection": {
+    "bonferroni_false_accept_at_k256": 0.04985,
+    "fresh_false_accept_at_k256": 0.050025,
+    "naive_false_accept_at_k256": 1.0,
+    "nominal_alpha": 0.05
+  },
+  "spatial": {
+    "candidate_count": 6359,
+    "crossfit_mean_bias": -0.00012013651053498429,
+    "crossfit_p95_abs_error": 0.040132674922040174,
+    "crossfit_rmse": 0.01959990739785546,
+    "grid_size": 91,
+    "mean_wos_steps": 22.5312647428841,
+    "product_means_mean_bias": 0.0009097357507321672,
+    "product_means_p95_abs_error": 0.040299966682198124,
+    "product_means_rmse": 0.019528136510492476,
+    "same_seed_mean_bias": 0.09874760057111158,
+    "same_seed_p95_abs_error": 0.169887100034588,
+    "same_seed_rmse": 0.10779907456797891,
+    "samples_per_candidate": 96
+  },
+  "variance": {
+    "coupled_fd_loglog_slope": -1.0954362722612005,
+    "direct_loglog_slope": 5.01167619052984e-16,
+    "direct_variance_max_to_min": 1.0,
+    "independent_fd_loglog_slope": -1.8856371490679962,
+    "true_td": -0.1670843804811997
+  }
+}

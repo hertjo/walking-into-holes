@@ -1,0 +1,94 @@
+{
+  "configuration": {
+    "candidate_count": 1024,
+    "cavity_clearance": 0.014,
+    "cavity_radius": 0.05,
+    "confidence_z": 1.96,
+    "evaluation_probes": 384,
+    "evaluation_walks": 32,
+    "field_walks": 48,
+    "insertions": 6,
+    "max_wos_steps": 512,
+    "outer_clearance": 0.012,
+    "rendering_faces": 7000,
+    "scout_walks": 12,
+    "seed": 20260912,
+    "shortlist": 20,
+    "source_y_slope": 0.65,
+    "termination_epsilon": 0.0005,
+    "validation_walks": 128,
+    "voxel_shape": [
+      54,
+      64,
+      48
+    ]
+  },
+  "data_attribution": "Stanford University Computer Graphics Laboratory",
+  "environment": {
+    "libigl": "2.6.3",
+    "matplotlib": "3.10.8",
+    "numpy": "2.3.5",
+    "python": "3.12.14",
+    "scipy": "1.17.0"
+  },
+  "initial_field_agreement": {
+    "relative_rmse": 0.23276267281107718,
+    "twos_voxel_pearson": 0.911113349443603
+  },
+  "mesh_repair": {
+    "boundary_loop_lengths": [
+      22,
+      42,
+      39,
+      40,
+      80
+    ],
+    "boundary_loops_capped": 5,
+    "edge_manifold": true,
+    "euler_characteristic": 2,
+    "normalized_volume": 0.20543746094460924,
+    "repaired_faces": 69674,
+    "repaired_vertices": 34839,
+    "source_faces": 69451,
+    "source_vertices": 35947,
+    "unreferenced_vertices_removed": 1113,
+    "vertex_manifold": true
+  },
+  "methods": {
+    "Random feasible": {
+      "final_objective": 0.005408081891388292,
+      "final_objective_se": 0.00021002589902105036,
+      "initial_objective": 0.008932696118075291,
+      "python_runtime_seconds": 7.159701266995398,
+      "relative_reduction_percent": 39.4574513685174
+    },
+    "TWoS + fresh validation": {
+      "final_objective": 0.004665569114618698,
+      "final_objective_se": 0.0001579192931032963,
+      "initial_objective": 0.008932696118075291,
+      "python_runtime_seconds": 49.4007065209953,
+      "relative_reduction_percent": 47.76975447336746
+    },
+    "TWoS + reused scout": {
+      "final_objective": 0.004824285049178512,
+      "final_objective_se": 0.00016637578355210814,
+      "initial_objective": 0.008932696118075291,
+      "python_runtime_seconds": 39.17370377900079,
+      "relative_reduction_percent": 45.992956825021935
+    },
+    "Voxel adjoint TD": {
+      "final_objective": 0.004639448958839173,
+      "final_objective_se": 0.00015522936138899843,
+      "initial_objective": 0.008932696118075291,
+      "python_runtime_seconds": 12.512773274997016,
+      "relative_reduction_percent": 48.06216513454143
+    }
+  },
+  "runtime_seconds": 159.2382218089988,
+  "scope": "curved-mesh geometry/application stress test; not final equal-time result",
+  "voxel_baseline": {
+    "mean_active_nodes": 40575.833333333336,
+    "mean_matrix_megabytes": 3.264409383138021,
+    "mean_solve_seconds": 0.14268182466670018
+  }
+}

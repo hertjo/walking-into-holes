@@ -1,0 +1,42 @@
+{
+  "counts": [
+    2,
+    4,
+    6,
+    12
+  ],
+  "volume_units": [
+    3,
+    6
+  ],
+  "design_seeds": [
+    2026091501,
+    2026091502,
+    2026091503
+  ],
+  "radius_reference": 0.05,
+  "candidates": 1024,
+  "scout_walks": 12,
+  "shortlist": 20,
+  "rescore_walks": 128,
+  "voxel_grid": [
+    96,
+    112,
+    84
+  ],
+  "outer_clearance": 0.012,
+  "pair_clearance": 0.014,
+  "evaluation_blocks": 4,
+  "points_per_block": 512,
+  "evaluation_walks": 128,
+  "epsilon": 0.0005,
+  "max_steps": 512,
+  "threads_per_process": 4,
+  "evaluation_seed": 2026091520,
+  "evaluation_walk_seed": 2026091540,
+  "source_y_slope": 0.65,
+  "cooled_boundary_value": 0,
+  "protocol": "v1: fixed-volume allocations; no radius refinement; three independent design seeds",
+  "mesh_sha256": "700bdd9e0e7878b1e7d537db80d1b760ac658bf68b3dd5de5bcac4ca9e44c90f",
+  "solver_sha256": "ef01116d628b338b59f01739b7f7303f1b028aa45dcae3d8e0b31b85cf3c913a"
+}

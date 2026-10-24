@@ -1,0 +1,16 @@
+{
+  "video-capsule": {
+    "s1": "shadow",
+    "s2": "domain"
+  },
+  "video-sphere": {
+    "s1": "sphere"
+  },
+  "video-topology": {
+    "s1": "shadow",
+    "s2": "domain",
+    "s7": "shadow",
+    "s8": "domain",
+    "s14": "cavity"
+  }
+}

@@ -1,0 +1,192 @@
+\section{Independent Randomizations for Accelerated Oracles}
+\label{app:batchindependence}
+
+\begin{proposition}[Cross-fitting independent accelerated batches]
+Fix a candidate, a deterministic geometry, and $R\ge2$. For $r=1,\ldots,R$, independently
+generate a full randomized estimator pair $(A_r,B_r)$ with the same law,
+means $(a,b)$, and finite second moments.  Paths within a batch can have
+arbitrary dependence.  Define
+\begin{equation}
+ T_R=-\frac{1}{R(R-1)}\sum_{r\ne s}A_rB_s.
+\end{equation}
+Then $\E T_R=-ab$, and \cref{thm:variance,thm:concentration} apply with batch
+count $R$ and the corresponding batch moments and almost-sure bounds.
+\end{proposition}
+\begin{proof}
+For $r\ne s$, the sigma-algebras of the two complete randomizations are
+independent.  Thus $A_r$ and $B_s$ are independent and
+$\E[A_rB_s]=(\E A_r)(\E B_s)=ab$.  There are $R(R-1)$ ordered pairs;
+linearity of expectation gives $\E T_R=-ab$.  Let
+$H_{rs}=-(A_rB_s+A_sB_r)/2$.  Then
+$T_R=\binom R2^{-1}\sum_{r<s}H_{rs}$, an order-two U-statistic of the
+independent batch pairs.  Its first and degenerate second projections are
+exactly those in \cref{app:ustat}, with the law of $(A,B)$ now the batch law.
+Substitution proves the variance identity.  If $|A_r|\le M_A$ and
+$|B_r|\le M_B$, then $|H_{rs}|\le M_AM_B$.  Each disjoint pairing has
+$\lfloor R/2\rfloor$ independent kernels; the existing pairing/MGF proof
+therefore gives the stated concentration bound.  No independence within a
+batch is used at any step.
+\end{proof}
+
+\paragraph{What fails if paths are treated as independent.}
+For arbitrary dependent pairs with fixed marginal means $a,b$ and integrable
+products, direct expansion instead gives
+\begin{align}
+ \E T_N
+ &=-\frac{1}{N(N-1)}\sum_{i\ne j}
+       \left(ab+\Cov(A_i,B_j)\right)\\
+ &=-ab-\frac{1}{N(N-1)}\sum_{i\ne j}\Cov(A_i,B_j).
+ \label{eq:crossindexbias}
+\end{align}
+Deleting the diagonal removes none of these cross-index covariances.
+An exact example uses the unit disk, $u(z)=p(z)=\operatorname{Re}z$, and
+$z=0$.  For a random uniform angle $\Theta$, take
+$A_j=B_j=\cos(\Theta+2\pi j/N)$, $j=0,\ldots,N-1$, $N\ge3$.
+Every sample has the correct harmonic marginal, but
+\begin{align}
+ \sum_j A_j&=\operatorname{Re}\left(e^{i\Theta}
+                    \sum_j e^{2\pi i j/N}\right)=0,\\
+ \sum_j A_j^2&=\frac{N}{2}+\frac{1}{2}\operatorname{Re}\left(e^{2i\Theta}
+                    \sum_j e^{4\pi i j/N}\right)=\frac N2,\\
+ T_N&=-\frac{(\sum_j A_j)^2-\sum_j A_j^2}{N(N-1)}
+       \\
+    &=\frac{1}{2(N-1)}\ne 0=-u(0)p(0).
+\end{align}
+Both geometric sums vanish since their ratios are nontrivial $N$th roots
+of unity.  Cross-fitting independently randomized batch averages instead
+returns zero exactly here.  This counterexample establishes a failure of
+the iid formula; it is not a lower bound for general Array-RQMC performance.
+
+\paragraph{A common random cache is a separate independence hazard.}
+Suppose the pairs are iid only conditional on a cache $C$, with conditional
+means $a(C),b(C)$.  Conditional independence first gives
+$\E[T_N\mid C]=-a(C)b(C)$.  Taking expectation again yields
+\begin{equation}
+ \E T_N=-\E[a(C)]\E[b(C)]-\Cov(a(C),b(C)).
+\end{equation}
+Thus marginally unbiased field estimators alone do not suffice.  For example,
+$A_i=a+C+\xi_i$ and $B_i=b+C+\eta_i$, where $C$ is a symmetric random sign
+and all zero-mean noises are independent of it and each other, produce bias
+$-1$ for every $N$.  Valid alternatives are independent caches per batch,
+conditionally exact fixed means, or a rigorously bounded residual cache bias.
+
+\paragraph{Termination error remains a bias budget.}
+The batch result is unbiased for the means of the implemented oracles.
+An $\varepsilon$-shell WoS implementation does not thereby become unbiased
+for the exact PDE.  On our harmonic disk/square tests, $u,p$ are explicit
+smooth polynomials.  At a stopped point $x$ and its boundary projection $y$,
+the mean-value inequality gives
+$|u(y)-u(x)|\le L_u\varepsilon$ and
+$|p(y)-p(x)|\le L_p\varepsilon$, where $L_u,L_p$ bound their gradients.
+Optional stopping for bounded harmonic martingales then bounds the marginal
+oracle biases by the same quantities.  The product bias is at most
+$|a|L_p\varepsilon+|b|L_u\varepsilon+L_uL_p\varepsilon^2$.
+If a path cap is exhausted, our benchmark raises an error instead of silently
+projecting an interior path.  None of these diagnostics supplies a finite
+insertion certificate without the separate small-hole remainder bound.
+
+For the Poisson-compliance disk test, the source is constant and
+$u(x)=(1-|x|^2)/4$. The ball mean-value identity is
+$u(x)=r^2/4+\E[u(Y)\mid x]$, where $Y$ is uniform on the sphere of radius
+$r$ centered at $x$. Iterating and stopping at the shell gives
+\begin{equation}
+ u(x_0)=\E\!\left[\sum_{k<\tau}\frac{r_k^2}{4}\right]
+            +\E[u(X_\tau)].
+\end{equation}
+This follows first at $\tau\wedge n$, then by monotone convergence for
+the nonnegative source sum and bounded convergence for the residual state.
+At termination, $1-|X_\tau|\le\varepsilon$, so
+$0\le u(X_\tau)=(1-|X_\tau|)(1+|X_\tau|)/4\le\varepsilon/2$.
+The implemented source estimator omits this residual and consequently has
+marginal bias of magnitude at most $\varepsilon/2$. Since $0\le u\le1/4$
+and $p=u$, the general product-bias inequality gives the conservative bound
+$\varepsilon/4+\varepsilon^2/4$. Exact constant-source integration therefore
+removes source quadrature error, but not shell truncation error.
+
+\section{Oracle-State Shape Benchmark Derivation}
+\label{app:shapeoracle}
+
+The controlled shape comparison restricts the admissible domains to ellipses
+$\Omega_{a,b}=\{(x,y):x^2/a^2+y^2/b^2<1\}$ with $a,b>0$.
+Set $c=[2(a^{-2}+b^{-2})]^{-1}$ and
+\begin{equation}
+ u_{a,b}(x,y)=c(1-x^2/a^2-y^2/b^2).
+\end{equation}
+Direct differentiation gives
+$-\Delta u_{a,b}=2c(a^{-2}+b^{-2})=1$, while substitution into the ellipse
+equation gives zero boundary data.  Uniqueness of the Dirichlet problem
+therefore identifies this polynomial as the state.  The fixed target is
+$z_d=\max(u_{1,0.65},0)$, and
+$J(a,b)=\tfrac12\int_{\Omega_{a,b}}(u_{a,b}-z_d)^2$.
+This exact-state setting isolates derivative estimation; it does not reproduce
+the neural-state training or boundary metric of Schmidt and
+W\"urschmidt~\cite{schmidt2026first}.
+
+\paragraph{Probabilistic pushforward derivative.}
+For a smooth admissible velocity $V$, differentiating the Poisson problem at
+fixed spatial coordinates gives $-\Delta u'=0$ in $\Omega$ and
+$u'=-\nabla u\cdot V$ on $\partial\Omega$.  Feynman--Kac and the transport
+formula give, respectively,
+\begin{align}
+ u'(x)&=-\E_x[\nabla u(Y)\cdot V(Y)],\\
+ J'[V]&=\int_\Omega(u-z_d)u'\,dx
+          +\frac12\int_{\partial\Omega}z_d^2 V\cdot n\,ds.
+\end{align}
+All functions are bounded on the compact ellipse closure, so Fubini applies.
+If $X$ is uniform on $\Omega$ and $Y$ is a Brownian exit conditional on $X$,
+\begin{align}
+ J'[V]&=-\pi ab\,\E[(u(X)-z_d(X))\nabla u(Y)\cdot V(Y)]\\
+       &\quad+\frac12\int_{\partial\Omega}z_d^2 V\cdot n\,ds.
+\end{align}
+Splitting the volume integral into the positive and negative parts of
+$u-z_d$ recovers the signed-start representation in that work, after its
+stated pushforward sign conversion.  Uniform weighted starts estimate the
+same integral with a different proposal distribution.
+For $V_a=(x/a,0)$ and $V_b=(0,y/b)$, parameterize the boundary by
+$y(\theta)=(a\cos\theta,b\sin\theta)$.  Its normal times arclength is
+$(b\cos\theta,a\sin\theta)d\theta$, whence
+$V_a\cdot n\,ds=b\cos^2\theta\,d\theta$ and
+$V_b\cdot n\,ds=a\sin^2\theta\,d\theta$.  These are the two surface terms
+integrated by the benchmark.
+
+\paragraph{Independent deterministic check.}
+Write $x=a\xi$, $y=b\eta$ on the fixed unit disk.  With
+$q=1-\xi^2-\eta^2$, we have $u=cq$ and $dx\,dy=ab\,d\xi\,d\eta$.
+Since $\partial_a c=4c^2/a^3$, differentiation at fixed $(\xi,\eta)$ gives
+$\partial_a u=4cu/a^3$.  Inside the target ellipse,
+$\partial_xz_d=-2c_*x$, where $c_*=[2(1+0.65^{-2})]^{-1}$;
+outside it the derivative is zero almost everywhere.  The target is
+Lipschitz and its interface has area measure zero, justifying dominated
+differentiation of this finite-dimensional pullback.  Therefore
+\begin{equation}
+ \partial_a J=\int_{\Omega_{a,b}}
+ \left[(u-z_d)\left(\frac{4c}{a^3}u-\partial_xz_d\frac{x}{a}\right)
+                   +\frac{(u-z_d)^2}{2a}\right]dx\,dy.
+\end{equation}
+The formula for $\partial_b J$ follows by exchanging the coordinates and
+including the target factor $0.65^{-2}$ in $\partial_yz_d$.
+We evaluate these integrals by Gauss--Legendre radial and periodic angular
+quadrature and independently check central differences of $J$.
+
+\section{Ball-Chain Connectivity and Its Scope}
+\label{app:ballchain}
+\begin{proposition}[Strict overlap after recalibration]
+Let $r>0$ and $s_1,\ldots,s_L\in\R^d$ satisfy
+$\|s_{i+1}-s_i\|<2r$ for every $i<L$.  Then
+$\bigcup_i B_r(s_i)$ is path connected.  If every closed ball has positive
+clearance from $\partial\Omega$ and is contained in $\Omega$, their union
+does not meet the exterior boundary, irrespective of this connectedness.
+\end{proposition}
+\begin{proof}
+The midpoint $(s_i+s_{i+1})/2$ is at distance
+$\|s_{i+1}-s_i\|/2<r$ from each center, so consecutive open balls intersect.
+Every ball is convex and hence path connected.  For any two points in the
+union, choose balls containing them; join each point to its center by a
+segment, and join the intervening centers through consecutive intersection
+midpoints.  The finite concatenation lies inside the union and is a continuous
+path.  If each of finitely many closed balls has positive clearance from the
+exterior, the minimum of those clearances is positive.  Their union is thus
+separated from the exterior.  In particular, strict overlap alone cannot imply
+the absence of a sealed void island.  Tangency would only connect closed
+balls at a point and is deliberately rejected for the open-channel guarantee.
+\end{proof}

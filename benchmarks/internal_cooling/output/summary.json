@@ -1,0 +1,78 @@
+{
+  "configuration": {
+    "candidate_count": 2048,
+    "cavity_clearance": 0.035,
+    "cavity_radius": 0.115,
+    "confidence_z": 1.96,
+    "evaluation_probes": 768,
+    "evaluation_walks": 64,
+    "half_extents": [
+      1.2,
+      0.8,
+      0.45
+    ],
+    "insertions": 7,
+    "max_wos_steps": 512,
+    "outer_clearance": 0.035,
+    "scout_walks": 16,
+    "seed": 20260912,
+    "shortlist": 24,
+    "slice_walks": 96,
+    "source_x_slope": 0.45,
+    "source_y_slope": -0.25,
+    "termination_epsilon": 2e-05,
+    "validation_walks": 192,
+    "voxel_shape": [
+      49,
+      33,
+      19
+    ]
+  },
+  "environment": {
+    "matplotlib": "3.10.8",
+    "numpy": "2.3.5",
+    "python": "3.12.14",
+    "scipy": "1.17.0"
+  },
+  "initial_field_agreement": {
+    "relative_rmse": 0.1038279649833252,
+    "twos_voxel_pearson": 0.9772551171270877
+  },
+  "methods": {
+    "Random feasible": {
+      "final_objective": 0.027664040624379955,
+      "final_objective_se": 0.0009219597731862589,
+      "initial_objective": 0.037119012604506514,
+      "python_runtime_seconds": 14.518186490000517,
+      "relative_reduction_percent": 25.47204603976631
+    },
+    "TWoS + fresh validation": {
+      "final_objective": 0.02079218223606873,
+      "final_objective_se": 0.0005280083857869965,
+      "initial_objective": 0.037119012604506514,
+      "python_runtime_seconds": 22.125908068999706,
+      "relative_reduction_percent": 43.985088025901824
+    },
+    "TWoS + reused scout": {
+      "final_objective": 0.021101946903127836,
+      "final_objective_se": 0.0005312630991084154,
+      "initial_objective": 0.037119012604506514,
+      "python_runtime_seconds": 22.1349521000011,
+      "relative_reduction_percent": 43.150570496140006
+    },
+    "Voxel adjoint TD": {
+      "final_objective": 0.019982915665255868,
+      "final_objective_se": 0.0004781743691022114,
+      "initial_objective": 0.037119012604506514,
+      "python_runtime_seconds": 16.01781716199912,
+      "relative_reduction_percent": 46.165282255299545
+    }
+  },
+  "runtime_seconds": 103.58175909200509,
+  "scope": "3D analytic-geometry reference benchmark; not final equal-time mesh result",
+  "voxel_baseline": {
+    "mean_active_nodes": 24616.571428571428,
+    "mean_matrix_megabytes": 1.9989542279924666,
+    "mean_solve_seconds": 0.05154695814209325
+  }
+}

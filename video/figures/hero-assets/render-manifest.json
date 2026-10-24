@@ -1,0 +1,13 @@
+{
+  "source_mesh": "benchmarks/stanford_bunny/output/stanford-bunny-watertight.ply",
+  "source_sha256": "700bdd9e0e7878b1e7d537db80d1b760ac658bf68b3dd5de5bcac4ca9e44c90f",
+  "designs": "benchmarks/stanford_bunny/output/selected-centers.csv",
+  "renderer": "Mitsuba 3.9.1",
+  "size": 1200,
+  "samples_per_pixel": 64,
+  "geometry": "Actual saved spherical cavities, radius 0.05; icosphere subdivision 4 for display only.",
+  "cutaway": "Identical cylindrical display window: radius .355 about (x,y)=(-.025,-.18), z>.09; never part of physical design.",
+  "lighting": "Area light plus environment; physical floor shadow divided by floor-only reference.",
+  "denoising": "OIDN RT with albedo and normal guides; display radiance only, no experimental data filtered.",
+  "preview": false
+}

@@ -1,0 +1,65 @@
+[
+  {
+    "text": "TWoS",
+    "bbox": [
+      110,
+      65,
+      183,
+      84
+    ]
+  },
+  {
+    "text": "08",
+    "bbox": [
+      2421,
+      65,
+      2450,
+      84
+    ]
+  },
+  {
+    "text": "Walking into Holes",
+    "bbox": [
+      110,
+      153,
+      728,
+      222
+    ]
+  },
+  {
+    "text": "Monte Carlo",
+    "bbox": [
+      113,
+      504,
+      479,
+      553
+    ]
+  },
+  {
+    "text": "topological derivatives",
+    "bbox": [
+      113,
+      595,
+      761,
+      656
+    ]
+  },
+  {
+    "text": "Grid-free PDE-constrained design",
+    "bbox": [
+      113,
+      760,
+      650,
+      793
+    ]
+  },
+  {
+    "text": "Query  \u2192  Score  \u2192  Insert",
+    "bbox": [
+      113,
+      1030,
+      573,
+      1067
+    ]
+  }
+]

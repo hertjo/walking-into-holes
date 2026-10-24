@@ -1,0 +1,94 @@
+\begin{table}[t]
+\centering\small
+\caption{\textbf{Complete cavity-design pipelines.} Means over five paired design seeds; SD is the sample standard deviation of their evaluated cooling reductions in percentage points, including evaluation noise. Cooling intervals are pointwise 95\% bootstrap intervals jointly resampling seeds and independent evaluation blocks. Backend RSS is process high-water memory, not total driver memory; a dash denotes no PDE backend call. Times include all design stages but exclude independent evaluation. Hot and random use sixteen refinement rounds; TWoS, multigrid, and nearest-sensor use eight.}
+\label{tab:submissionpipeline}
+\begin{tabular}{llrrrrr}
+\toprule
+Geometry & Method & Cooling (\%) & SD (pp) & 95\% interval & Time (s) & RSS (MiB) \\
+\midrule
+Finned housing & TWoS & 64.99 & 1.41 & [63.72, 66.20] & 11.77 & 24.2 \\
+ & Multigrid TD (49) & 64.51 & 0.67 & [63.67, 65.26] & 7.99 & 24.2 \\
+ & Multigrid TD (65) & 65.10 & 0.59 & [64.25, 65.94] & 8.66 & 24.4 \\
+ & Nearest sensor & 63.56 & 2.60 & [61.31, 65.60] & 7.08 & 24.2 \\
+ & Hottest point & 42.74 & 16.50 & [27.88, 51.06] & 13.14 & 24.3 \\
+ & Random & 21.88 & 15.37 & [10.87, 34.92] & 10.69 & 24.1 \\
+\midrule
+Branching manifold & TWoS & 16.40 & 0.94 & [15.50, 17.38] & 51.24 & 14.1 \\
+ & Multigrid TD (49) & 16.44 & 1.99 & [14.68, 17.91] & 43.21 & 14.0 \\
+ & Multigrid TD (65) & 16.27 & 1.92 & [14.57, 17.69] & 43.76 & 14.1 \\
+ & Nearest sensor & 17.33 & 0.80 & [16.43, 18.27] & 41.49 & 14.0 \\
+ & Hottest point & 0.14 & 0.04 & [0.01, 0.35] & 13.43 & 14.0 \\
+ & Random & 5.44 & 2.01 & [3.90, 7.37] & 46.65 & 13.9 \\
+\midrule
+Annular spreader & TWoS & 11.36 & 0.88 & [10.42, 12.26] & 35.78 & 17.4 \\
+ & Multigrid TD (49) & 11.83 & 1.53 & [10.50, 13.17] & 30.30 & 17.5 \\
+ & Multigrid TD (65) & 11.68 & 1.36 & [10.50, 12.88] & 29.67 & 17.6 \\
+ & Nearest sensor & 12.19 & 2.12 & [10.26, 13.63] & 29.96 & 17.3 \\
+ & Hottest point & 0.01 & 0.00 & [0.00, 0.02] & 10.73 & 17.4 \\
+ & Random & 1.59 & 3.54 & [-0.00, 4.84] & 18.63 & 17.5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering\small
+\caption{\textbf{Matched-volume accessible channels.} Means over five paired design seeds; SD is the sample standard deviation of their evaluated cooling reductions in percentage points, including evaluation noise. Cooling intervals are pointwise 95\% bootstrap intervals jointly resampling seeds and independent evaluation blocks. Backend RSS is process high-water memory, not total driver memory; a dash denotes no PDE backend call. Times include all design stages but exclude independent evaluation. Independent removed-volume audits are reported separately; every compact heat support is preserved.}
+\label{tab:submissionchannels}
+\begin{tabular}{llrrrrr}
+\toprule
+Geometry & Method & Cooling (\%) & SD (pp) & 95\% interval & Time (s) & RSS (MiB) \\
+\midrule
+Finned housing & TWoS & 37.79 & 5.48 & [32.92, 42.35] & 4.48 & 24.1 \\
+ & Multigrid TD (49) & 42.11 & 3.00 & [39.13, 44.68] & 2.37 & 24.2 \\
+ & Multigrid TD (65) & 42.11 & 3.00 & [39.13, 44.68] & 2.84 & 24.1 \\
+ & Nearest sensor & 39.37 & 4.77 & [34.93, 43.05] & 1.69 & --- \\
+ & Hottest point & 29.48 & 5.64 & [24.56, 33.80] & 2.73 & 24.3 \\
+ & Random & 7.31 & 1.74 & [5.57, 9.29] & 2.10 & --- \\
+\midrule
+Branching manifold & TWoS & 2.29 & 0.14 & [1.74, 2.89] & 6.55 & 14.1 \\
+ & Multigrid TD (49) & 2.57 & 0.23 & [2.00, 3.20] & 1.16 & 13.9 \\
+ & Multigrid TD (65) & 2.59 & 0.16 & [2.05, 3.19] & 1.63 & 14.0 \\
+ & Nearest sensor & 2.62 & 0.18 & [2.05, 3.23] & 0.83 & --- \\
+ & Hottest point & 1.25 & 1.14 & [0.40, 2.18] & 1.60 & 14.0 \\
+ & Random & 0.93 & 0.29 & [0.57, 1.21] & 0.93 & --- \\
+\midrule
+Annular spreader & TWoS & 1.75 & 0.27 & [1.48, 1.99] & 8.14 & 17.6 \\
+ & Multigrid TD (49) & 1.89 & 0.13 & [1.73, 2.01] & 2.91 & 17.4 \\
+ & Multigrid TD (65) & 1.93 & 0.16 & [1.74, 2.12] & 2.72 & 17.3 \\
+ & Nearest sensor & 2.02 & 0.11 & [1.88, 2.15] & 1.25 & --- \\
+ & Hottest point & 0.00 & 0.00 & [-0.00, 0.01] & 2.87 & 17.3 \\
+ & Random & 0.20 & 0.25 & [0.02, 0.44] & 1.40 & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering\small
+\caption{\textbf{Independent resolution check.} First predeclared seed, before sphere refinement. Ranges span all six methods on each geometry. The grid columns give longest-axis node counts. Differences are percentage points of objective reduction. These comparisons test reference sensitivity; neither numerical method is exact ground truth.}
+\label{tab:submissionreference}
+\begin{tabular}{llrr}
+\toprule
+Study & Geometry & Grid 129 minus 97 (pp) & MC minus grid 129 (pp) \\
+\midrule
+Pipeline & Finned housing & [-1.30, -0.07] & [1.56, 3.18] \\
+Pipeline & Branching manifold & [-0.01, 0.49] & [-0.15, 1.82] \\
+Pipeline & Annular spreader & [-0.00, 0.37] & [0.00, 1.26] \\
+Channels & Finned housing & [-2.60, -0.05] & [2.03, 4.79] \\
+Channels & Branching manifold & [-0.01, 0.21] & [-0.01, 0.34] \\
+Channels & Annular spreader & [-0.11, 0.03] & [-0.08, 0.04] \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[t]
+\centering\small
+\caption{\textbf{Finer reference checks for flagged cases.} A case is refined when any method changes by more than 1 pp from grid 97 to 129, or differs by more than 2 pp between MC and grid 129. Every method in that case is checked. Ranges span all six methods; sphere states are before refinement.}
+\label{tab:submissionfinereference}
+\begin{tabular}{llrr}
+\toprule
+Study & Geometry & Grid 257 minus 193 (pp) & MC minus grid 257 (pp) \\
+\midrule
+Pipeline & Finned housing & [-0.07, 0.44] & [0.47, 2.38] \\
+Channels & Finned housing & [-0.17, 0.03] & [0.71, 2.12] \\
+\bottomrule
+\end{tabular}
+\end{table}

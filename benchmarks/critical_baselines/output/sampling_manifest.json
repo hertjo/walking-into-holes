@@ -1,0 +1,23 @@
+{
+  "seed": 20260914,
+  "repetitions": 32,
+  "batches": 4,
+  "sizes": [
+    64,
+    256,
+    1024
+  ],
+  "sites": 25,
+  "tolerance": 1e-07,
+  "cap": 256,
+  "python": "3.12.14",
+  "checks": {
+    "hilbert_1000_points": "pass",
+    "exit_geometry": "pass",
+    "antithetic_diagonal_deletion_bias": 0.5
+  },
+  "scope": "harmonic 2D disk and square; no Poisson source, GPU or optimization timing",
+  "estimator": "leave-diagonal-out across independent full batches, shared within-batch primal/adjoint",
+  "array_reference": "https://github.com/hoval58/RQMC-WoS/tree/5b4909207386438ecadd891b5fd4f3122e9dd75d",
+  "neighbor_reference": "https://arxiv.org/html/2404.17692v3#S4.SS2"
+}

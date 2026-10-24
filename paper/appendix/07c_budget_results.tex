@@ -1,0 +1,42 @@
+
+
+\subsection{Cavity count at fixed removed volume}
+\label{sec:bunnybudget}
+
+Does cooling improve because placement is better, or simply because more
+material is removed? We separate these effects with 72 Bunny designs:
+two exact volume budgets, four counts $n\in\{2,4,6,12\}$, three independent
+design seeds, and \method{}, voxel-adjoint TD, and random feasible placement.
+The budgets equal three or six radius-$0.05$ balls: $0.765\%$ or $1.529\%$
+of the original Bunny volume. Within each allocation, every cavity has
+radius $r_n=0.05(b/n)^{1/3}$, where $b\in\{3,6\}$ is the budget in ball-volume
+units. Radii follow this constraint; only centers are optimized. All methods
+share 1,024 candidates within each seed/allocation, retain outer clearance
+$0.012$ and pairwise surface gap $0.014$, and start from the unperforated domain.
+TWoS retains the 12-walk scout and independent 128-walk shortlist rescoring;
+this ranking heuristic is not a finite-insertion confidence certificate.
+The compiled voxel selector uses a finer $96\times112\times84$ FD/CG grid
+than the original Bunny design test.
+
+
+
+% The following measured paragraph is populated from the retained summaries.
+\input{tables/measured-results}
+
+All objective comparisons use four independently scrambled 512-point
+interior blocks and 128 WoS paths per active point, separate from selection.
+Removed material contributes zero under fixed original-volume normalization;
+reported percentages average paired block ratios to the initial state.
+Design ranges and conditional block standard errors are retained separately;
+three seeds do not establish equivalence or a globally optimal allocation.
+
+\paragraph{Why a preferred count needs a cost.}
+Additional nested ideal cooled removal lowers compliance exactly
+(\cref{prop:coolingmonotonicity}), whereas different equal-volume allocations
+are not nested. At fixed removed volume $V$, exposed area grows as $n^{1/3}$
+and the sum of isolated capacities as $n^{2/3}$ (\cref{prop:budgetgeometry});
+the latter is not the interacting union capacity. A volume-only penalty is
+constant within this sweep. Instead, \cref{fig:bunnybudget}c illustrates
+$J/J_0+\kappa n$ for an explicitly assumed count cost. This isolates the
+modeling choice behind a ``sweet spot'' without attributing it to the
+topological estimator or claiming an application-specific optimum.

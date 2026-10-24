@@ -1,0 +1,21 @@
+{
+  "representation": "Exact harmonic correction for finite removal, estimated by a perforated-domain exit walk and an independent original-domain state walk only on a new-cavity hit.",
+  "numerical_limits": "finite epsilon, ideal sampling, geometry approximation",
+  "binary_sha256": "62fddc276be665fe6a104cb9e66aa2524457afc0f9d39c5039fd131b56afc9fb",
+  "radii": [
+    0.08,
+    0.04,
+    0.02,
+    0.01
+  ],
+  "walks": [
+    256,
+    2048
+  ],
+  "repeats": 16,
+  "geometries": [
+    "housing",
+    "branch",
+    "ring"
+  ]
+}

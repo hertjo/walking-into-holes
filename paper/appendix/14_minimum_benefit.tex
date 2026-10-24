@@ -1,0 +1,589 @@
+\section{Minimum-Benefit Certification: Complete Derivations}
+\label{app:minbenefit}
+
+This appendix separates two routes. The general-objective route uses a
+numerically bounded asymptotic remainder. The second route uses the
+variational structure of three-dimensional, zero-Dirichlet Poisson compliance
+to bound a finite insertion directly. The latter needs no unknown remainder
+constant and permits Lipschitz outer geometry. It does not certify the
+previously reported ranking runs retrospectively; \cref{app:applicationcertificate} evaluates a separate guarded implementation. All certificates below
+concern the stated continuum PDE under their oracle assumptions, not a
+fluid-cooling model or unbounded floating-point geometry error.
+
+\subsection{What is being guaranteed?}
+
+Write the actual benefit of an insertion as
+\[
+ B(z,r)=J(D)-J(D\setminus\overline B_r(z)).
+\]
+A lower bound $\underline B(z,r)$ is useful when it exceeds a specified
+target $\tau\ge0$. The statistical statement is
+\begin{equation}
+ \Prob\{\text{accept and }B(z,r)<\tau\}\le\delta,
+ \label{eq:benefitfailure}
+\end{equation}
+including any covered data-dependent choice of radius or target. It is not
+$\Prob(B\ge\tau\mid\text{accept})\ge1-\delta$: conditioning on a rare
+acceptance can change that probability. In ideal Dirichlet cooling,
+\cref{prop:coolingmonotonicity} already supplies nonnegative benefit.
+Minimum-benefit certification asks the additional quantitative question.
+
+\begin{proof}[Proof of \cref{thm:minbenefit}]
+\textbf{Step 1: one event bounds the coefficient.}
+Let $E$ be the event in \cref{eq:validationcoverage}. Set
+$b=b_{\mathrm{term}}+b_{\mathrm{cache}}$ and
+$s=\widehat{\DT}_N+r_N(\delta)+b$. The bias assumption gives
+$\DT\le\E\widehat{\DT}_N+b$, and on $E$ the confidence bound gives
+$\E\widehat{\DT}_N\le\widehat{\DT}_N+r_N$. Thus $\DT\le s$ on $E$.
+
+\textbf{Step 2: translate derivative uncertainty into objective units.}
+The upper side of the deterministic remainder inequality gives
+\[
+ J(D_r)-J(D)\le\rho(r)\DT+C_z\rho(r)^{1+\alpha}.
+\]
+Negating both sides and substituting $\DT\le s$ proves, on $E$,
+\[
+ B(z,r)\ge-\rho(r)s-C_z\rho(r)^{1+\alpha}
+             =\underline B_{\rm TD}(z,r).
+\]
+Notice the factor $\rho$: a confidence bound on a derivative alone does not
+have the units of an actual objective improvement.
+
+\textbf{Step 3: radii and acceptance.}
+For fixed $z$, the same $E$ controls every radius for which the deterministic
+remainder bound holds uniformly. Evaluating the displayed inequality at a
+measurable selected radius preserves it. On $E$, accepting only when
+$\underline B_{\rm TD}\ge\tau$ implies $B\ge\tau$, even for a measurable
+data-dependent $\tau$. Therefore every false acceptance lies in $E^c$, and
+its probability is at most $\delta$. This reasoning allows rejection on all
+outcomes and does not presume that a feasible certified radius exists.
+\end{proof}
+
+\paragraph{Capacity must also be bounded.}
+The preceding expression uses the actual relative operator capacity, not
+merely its leading asymptotic equivalent. If only certified numerical bounds
+$0<\rho_-\le\rho\le\rho_+$ are available, a conservative replacement is
+\begin{equation}
+ \underline B_{\rm int}=
+ \begin{cases}
+ -\rho_-s-C_z\rho_+^{1+\alpha},&s<0,\\
+ -\rho_+s-C_z\rho_+^{1+\alpha},&s\ge0.
+ \end{cases}
+ \label{eq:capacityintervalbenefit}
+\end{equation}
+Indeed, $-\rho s$ is increasing in $\rho$ when $s<0$ and decreasing when
+$s\ge0$, whereas $-C_z\rho^{1+\alpha}\ge-C_z\rho_+^{1+\alpha}$ in both
+cases. Adding these two lower bounds proves the claim. Replacing $\rho$ by
+$4\pi r$ without an error allowance is generally invalid in this route.
+
+\subsection{A direct finite-hole bound for thermal compliance}
+
+Throughout the rest of this appendix, $D\subset\R^3$ is bounded and
+Lipschitz, $f\in L^\infty(D)$ satisfies $0\le f\le F$, and
+$u\in H_0^1(D)$ solves $-\Delta u=f$. For $\overline B_R(z)\Subset D$,
+let known constants $f_-,f_+$ satisfy
+$0\le f_-\le f(x)\le f_+$ almost everywhere on $B_R(z)$.
+Set $K=\overline B_r(z)$ with $0<r<R$, and let $v$ solve the same PDE on
+$D\setminus K$ with zero trace on every boundary component. Extend $v$ by
+zero on $K$. The objective is the unnormalized compliance $J(D)=\int_Dfu$.
+Constant diffusivity has been scaled to one. Different diffusivities require
+the corresponding factors in both the PDE and energy.
+
+\begin{lemma}[Positivity, boundedness, and an interior representative]
+\label{lem:benefitstatebounds}
+The state $u$ is nonnegative. If $\overline D\subset B_L(c)$, then
+\begin{equation}
+ 0\le u(x)\le F(L^2-|x-c|^2)/6\le FL^2/6
+ \label{eq:enclosingballbound}
+\end{equation}
+The inequalities hold almost everywhere in $D$. The state has a continuous representative on every compact subset of $D$.
+\end{lemma}
+\begin{proof}
+\textbf{Step 1: existence and the sign.}
+Poincare and Cauchy--Schwarz make $\int_D\nabla u\cdot\nabla\phi=\int_Df\phi$
+a coercive weak problem; Lax--Milgram gives its unique solution.
+The negative part $u^-=\max(-u,0)$ belongs to $H_0^1(D)$. Testing with it
+yields $-\int_D|\nabla u^-|^2=\int_Dfu^-\ge0$. Both sides must vanish;
+Poincare implies $u^-=0$.
+
+\textbf{Step 2: an explicit supersolution.}
+Put $Q(x)=F(L^2-|x-c|^2)/6$. Since $\Delta|x-c|^2=6$ in three dimensions,
+$-\Delta Q=F\ge f$. The trace of $u-Q$ is nonpositive. Consequently
+$(u-Q)^+\in H_0^1(D)$ is an admissible test in the difference of the two
+weak equations and gives
+\[
+ \int_D|\nabla(u-Q)^+|^2=\int_D(f-F)(u-Q)^+\le0.
+\]
+Poincare implies $u\le Q$. This proves \cref{eq:enclosingballbound}.
+
+\textbf{Step 3: point values.}
+Interior elliptic regularity for the Laplacian and bounded $f$ gives
+$u\in W_{\rm loc}^{2,p}(D)$ for finite $p$; take $p>3$ and apply the local
+Sobolev embedding to obtain a continuous (in fact locally $C^{1,\gamma}$
+for some $\gamma>0$) representative. These standard local regularity and
+trace results are the same background facts used in
+\cref{app:deterministic}~\cite{evans2010pde,gilbarg2001elliptic}.
+The almost-everywhere bounds hold everywhere for this representative in
+the interior.
+\end{proof}
+
+\begin{lemma}[From a cavity temperature floor to a finite benefit]
+\label{lem:floorcapacity}
+If $u\ge m\ge0$ on $K$, then
+\begin{equation}
+ J(D)-J(D\setminus K)\ge4\pi r m^2.
+ \label{eq:floorcapacity}
+\end{equation}
+\end{lemma}
+\begin{proof}
+\textbf{Step 1: the exact finite-domain identity.}
+The zero extension of $v$ belongs to $H_0^1(D)$ and its gradient vanishes
+almost everywhere on $K$. Testing the state equations gives
+$\int_D|\nabla u|^2=J(D)$,
+$\int_D|\nabla v|^2=J(D\setminus K)$, and
+$\int_D\nabla u\cdot\nabla v=J(D\setminus K)$.
+Expanding the square therefore gives
+\[
+ J(D)-J(D\setminus K)=\int_D|\nabla w|^2,\qquad w=u-v.
+\]
+This is \cref{eq:coolingprojection}; it is exact for finite $r$.
+
+\textbf{Step 2: turn $w$ into a capacity competitor.}
+If $m=0$, the energy identity already proves the result. Otherwise extend
+$w/m$ by zero from $D$ to $\R^3$. It belongs to the homogeneous energy space
+$\mathcal D^{1,2}(\R^3)$, defined as the completion of
+$C_c^\infty(\R^3)$ in gradient norm. It is at least one on $K$ in the
+quasi-everywhere Sobolev sense: $w=u$ there, the zero extension of $v$
+vanishes quasi-everywhere there, and the continuous $u$ is at least $m$.
+By the definition of Newtonian capacity,
+\[
+ m^{-2}\int_D|\nabla w|^2\ge\operatorname{cap}_{\R^3}(K).
+\]
+
+\textbf{Step 3: fix the capacity normalization.}
+The equilibrium potential is $P(x)=\min(1,r/|x-z|)$. Its exterior energy is
+$4\pi\int_r^\infty r^2s^{-2}\,ds=4\pi r$, and its interior energy is
+zero. To verify that no smaller energy is possible, truncate any admissible
+competitor to the interval $[0,1]$; this cannot increase gradient energy and
+sets it to one on the ball. For a smooth compactly supported such competitor
+$a$, its spherical average $A(s)$ satisfies $A(r)=1$, $A(\infty)=0$.
+Jensen and Cauchy--Schwarz give
+\begin{align*}
+ \int_{|x-z|>r}|\nabla a|^2
+ &\ge4\pi\int_r^\infty s^2|A'(s)|^2\,ds,\\
+ 1=\left|\int_r^\infty A'(s)\,ds\right|^2
+ &\le\left(\int_r^\infty s^2|A'(s)|^2\,ds\right)
+       \left(\int_r^\infty s^{-2}\,ds\right).
+\end{align*}
+The last factor is $1/r$, so the energy is at least $4\pi r$.
+Approximation in the exterior energy space with fixed trace extends this
+inequality to the admissible truncated Sobolev competitors. Equivalently,
+subtract $P$ and use the zero-trace energy-density argument of
+\cref{prop:budgetgeometry}. Thus the infimum equals $4\pi r$.
+Substituting into Step 2 proves the claimed finite-hole bound.
+\end{proof}
+
+\begin{lemma}[Explicit temperature floor from one interior value]
+\label{lem:balltemperaturefloor}
+Define $t=r/R$ and
+\begin{equation}
+ \begin{split}
+ c(t)&=(1-t)/(1+t)^2,\\
+ m(L_u;r,R)&=\frac{f_-(R^2-r^2)}6\\
+ &\quad+c(t)\left(L_u-\frac{f_+R^2}6\right)_+,
+ \end{split}
+ \label{eq:temperaturefloor}
+\end{equation}
+where $(a)_+=\max(a,0)$. For $L_u\le u(z)$, this gives the floor
+$u(x)\ge m(L_u;r,R)$ throughout $\overline B_r(z)$.
+\end{lemma}
+\begin{proof}
+\textbf{Step 1: separate the source and harmonic parts inside the ball.}
+Let $q\in H_0^1(B_R(z))$ solve $-\Delta q=f$ there. Define
+$h=u-q$ on that ball. Subtracting the weak equations gives $\Delta h=0$.
+Its trace is $u\ge0$, so the negative-part test proves $h\ge0$.
+The polynomial functions
+$q_\pm(x)=f_\pm(R^2-|x-z|^2)/6$ vanish on the sphere and solve
+$-\Delta q_\pm=f_\pm$. The positive-part comparison argument in
+\cref{lem:benefitstatebounds} applied to $q-q_+$ and $q_--q$ gives
+$q_-\le q\le q_+$. In particular,
+\[
+ h(z)=u(z)-q(z)\ge u(z)-f_+R^2/6,
+ \qquad h(z)\ge0.
+\]
+Hence $h(z)\ge(L_u-f_+R^2/6)_+$.
+
+\textbf{Step 2: derive the harmonic comparison constant.}
+Translate $z$ to zero. For $|x|=s<R$, the Poisson kernel representation is
+\[
+ h(x)=\int_{|y|=R}\frac{R^2-s^2}{4\pi R|x-y|^3}h(y)\,dS_y.
+\]
+At the center the kernel is $1/(4\pi R^2)$, so its pointwise ratio to the
+central kernel obeys
+\[
+ \frac{R(R^2-s^2)}{|x-y|^3}
+ \ge\frac{R(R^2-s^2)}{(R+s)^3}
+ =\frac{1-s/R}{(1+s/R)^2}.
+\]
+Multiplication by $h(y)\ge0$ and integration therefore imply
+$h(x)\ge c(s/R)h(0)$. Finally
+$c'(a)=(a-3)/(1+a)^3<0$ for $0\le a<1$; thus $s\le r$ gives
+$h(x)\ge c(r/R)h(z)$. The Poisson formula is valid with the continuous
+boundary values here because $\overline B_R(z)$ lies strictly inside $D$;
+the zero-Dirichlet bounded-source solution $q$ is continuous up to that sphere.
+
+\textbf{Step 3: add the two lower bounds.}
+On $\overline B_r(z)$,
+$q(x)\ge f_-(R^2-r^2)/6$. Adding the lower bound on $h$ from Steps 1--2
+gives exactly \cref{eq:temperaturefloor}. Both summands are nonnegative.
+This proof uses a finite interior ball, not a small-$r$ Taylor approximation.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:coolingbenefit}]
+Work on the event $E_u=\{L_u\le u(z)\}$. Then \cref{lem:balltemperaturefloor} supplies a
+nonnegative temperature floor on the entire inserted ball. Substitution into
+\cref{lem:floorcapacity} proves
+$B(z,r)\ge4\pi r\,m(L_u;r,R)^2=\underline B_{\rm cool}(z,r)$.
+Both lemmas hold for every admissible $0<r<R$ simultaneously on the same
+$E_u$. They also hold for every admissible $R$ if its source bounds and
+geometric containment are valid. Thus choosing a radius after observing
+$L_u$ does not require a union bound over radii. The event
+$\{\text{accept},B<\tau\}$ is contained in $E_u^c$, proving its probability
+bound. In particular, $L_u=0$ is deterministically valid and yields
+\begin{equation}
+ \underline B_{\rm source}(z,r)
+ =\frac{\pi r f_-^2(R^2-r^2)^2}{9}.
+ \label{eq:sourceonlybenefit}
+\end{equation}
+This source-only bound may be small or zero; its validity does not assert
+that it can meet the requested target. A better certified $L_u$ can improve
+the bound because $m$ is nondecreasing in $L_u$.
+\end{proof}
+
+\paragraph{Relation to the topological score.}
+For an exact value $L_u=u(z)$ and constant $f=f_0$ on $B_R(z)$,
+$u(z)\ge f_0R^2/6$ by comparison. Sending $r\downarrow0$ in
+\cref{eq:temperaturefloor} gives $m\to u(z)$ and hence
+$\underline B_{\rm cool}/(4\pi r)\to u(z)^2=-D_T(z)$.
+For merely bounded nonconstant $f$, one can instead choose interior radii
+$R(r)\to0$ with $r/R(r)\to0$ and uniformly bounded $f_+$; then $c\to1$
+and both source terms vanish, giving the same limit. These statements follow
+by direct substitution and continuity of $(\cdot)_+$, using $u(z)\ge0$.
+A conservative or noisy $L_u$ need not attain this limiting coefficient.
+The direct finite-radius bound builds on classical energy, capacity, and
+harmonic comparison; we do not claim these constituent results as new.
+
+\subsection{A one-sided WoS validator with an explicit range bound}
+
+An unbiased two-sided state estimator is not necessary for a lower
+temperature bound. Nonnegative source contributions permit a deliberately
+truncated estimator whose omitted terminal value has a known sign. This
+section specifies a separate validator, not an assumption about the existing
+application ranking code.
+
+\begin{proposition}[Finite-walk lower confidence bound]
+\label{prop:onesidedwos}
+Fix integers $T\ge1$, $N\ge1$, a radius cap $s_*>0$, and
+$\delta\in(0,1)$ before observing the validation data. Start $X_0=z$.
+At each active step $k<T$, choose a history-measurable
+$0<s_k\le s_*$ with $\overline B_{s_k}(X_k)\Subset D$. Draw a uniform
+spherical direction $\Theta_k$ and set $X_{k+1}=X_k+s_k\Theta_k$.
+Also draw $Y_k$ in that ball with density
+\[
+ \frac{6}{s_k^2}G_{B_{s_k}(X_k)}(X_k,y),\qquad
+ S_k=\frac{s_k^2}{6}f(Y_k).
+\]
+All fresh draws have their stated conditional distributions given the past;
+the source and exit draws may be independent. Stop at any history-measurable
+rule by step $T$. After stopping, set $S_k=0$ and keep $X_k$ fixed. Define
+$W=\sum_{k=0}^{T-1}S_k$. For independent identically distributed complete
+walks $W_1,\ldots,W_N$, set
+\begin{equation}
+ A=\frac{TFs_*^2}{6},\qquad
+ L_u=\max\left(0,\overline W-
+ A\sqrt{\frac{\log(1/\delta)}{2N}}\right).
+ \label{eq:onesidedwos}
+\end{equation}
+Then $\Prob\{L_u\le u(z)\}\ge1-\delta$. For $F=0$, the solution and
+estimator are identically zero and the formula is read with $A=0$.
+\end{proposition}
+\begin{proof}
+\textbf{Step 1: the one-ball identity and normalization.}
+On a strictly contained ball, decompose $u$ into the zero-boundary source
+solution and the harmonic extension of its boundary values. At the center,
+the Poisson kernel is uniform on the sphere, so
+\[
+ u(X_k)=\E[u(X_{k+1})\mid\mathcal G_k]
+      +\int_{B_{s_k}(X_k)}G(X_k,y)f(y)\,dy,
+\]
+where $\mathcal G_k$ is the history before the step. The kernel is
+$G(X_k,y)=(4\pi)^{-1}(|y-X_k|^{-1}-s_k^{-1})$. Spherical integration gives
+\[
+ \int G(X_k,y)\,dy
+ =\int_0^{s_k}(a-a^2/s_k)\,da=s_k^2/6.
+\]
+Consequently the stated density integrates to one and
+$\E[S_k\mid\mathcal G_k]=\int Gf$.
+An implementable sampler is
+$Y_k=X_k+s_k Q_k\Phi_k$, where $\Phi_k$ is uniform on $\mathbb S^2$ and
+$Q_k$ has density $6q(1-q)$ on $(0,1)$, as derived in
+\cref{prop:greenballsample}. For constant $f$, $S_k=f s_k^2/6$ is exact
+without drawing $Y_k$.
+
+\textbf{Step 2: telescope at a bounded stopping time.}
+At an active step the preceding identity is
+$\E[S_k+u(X_{k+1})\mid\mathcal G_k]=u(X_k)$.
+At a stopped step it remains true because $S_k=0$ and $X_{k+1}=X_k$.
+Each term is integrable: \cref{lem:benefitstatebounds} bounds $u$ and
+$0\le S_k\le Fs_*^2/6$. Taking expectations and summing all $T$ finite
+identities cancels consecutive state values and gives
+\begin{equation}
+ u(z)=\E W+\E u(X_T),\qquad 0\le\E W\le u(z).
+ \label{eq:truncationidentity}
+\end{equation}
+Thus shell termination and a finite path cap create downward bias, whose
+sign is sufficient for this one-sided use. No assertion of zero bias is made.
+
+\textbf{Step 3: prove the needed bounded-variable concentration.}
+For any $Z\in[0,A]$, let
+$g(\lambda)=\log\E\exp(\lambda(Z-\E Z))$.
+Boundedness permits differentiating under the expectation. Under the
+exponentially tilted distribution, $g''(\lambda)$ is the variance of $Z$.
+Every distribution supported on $[0,A]$ has variance at most $A^2/4$:
+$\Var Z=\min_c\E(Z-c)^2\le\E(Z-A/2)^2\le A^2/4$.
+Since $g(0)=g'(0)=0$, integrating the second-derivative bound twice gives
+$g(\lambda)\le\lambda^2A^2/8$ for $\lambda\ge0$.
+Independence of the $N$ walks, Markov's inequality, and this bound yield
+\[
+ \Prob\{\overline W-\E W\ge a\}
+ \le\exp(-\lambda Na+N\lambda^2A^2/8).
+\]
+For $A>0$ and $a>0$, the choice $\lambda=4a/A^2$ gives the bound
+$\exp(-2Na^2/A^2)$. With $a$ equal to the sampling allowance in
+\cref{eq:onesidedwos}, this is $\delta$.
+This supplies the one-sided Hoeffding inequality used here with all constants.
+
+\textbf{Step 4: convert it into a state bound.}
+On the complementary event, $\overline W-a\le\E W\le u(z)$ by Step 2.
+Since $u(z)\ge0$, replacing $\overline W-a$ by its maximum with zero
+preserves the inequality. This is precisely \cref{eq:onesidedwos}.
+\end{proof}
+
+\paragraph{What bias has and has not been handled.}
+In \cref{eq:truncationidentity}, the exact truncation bias is
+$u(z)-\E W=\E u(X_T)\in[0,FL^2/6]$. Its sign makes a separate magnitude
+bound unnecessary for the proposed lower certificate. This does not cover
+an approximate source integral that overestimates $f$, an unsafe distance
+query that steps outside $D$, approximate boundary data, or a correlated
+collection treated as independent walks. A rigorously known lower source
+$\widetilde f\in[0,f]$ may be substituted: the one-ball inequality becomes
+$\E[S_k+u(X_{k+1})\mid\mathcal G_k]\le u(X_k)$ and telescoping still gives
+$\E W\le u(z)$. Alternatively, if a numerical walk output $\widetilde W$
+has a certified overshoot bound $\E\widetilde W\le u(z)+\beta$ and lies in
+a known interval of width $A$, subtracting $\beta$ as well as the sampling
+radius proves the same result. An unquantified numerical overshoot is not
+covered. Increasing $T$ need not tighten the certificate because the range
+bound $A$ grows with $T$; this is a conservative construction, not an
+efficiency claim.
+
+\subsection{Costs, relative targets, selection, and repeated insertions}
+
+\begin{proposition}[Explicit costs and fixed normalization]
+\label{prop:benefitcost}
+Suppose $B\ge\underline B$ on a coverage event. If the added design cost
+obeys $\Delta C\le c_+$, the net improvement in $J+C$ obeys
+\[
+ (J+C)_{\rm old}-(J+C)_{\rm new}\ge\underline B-c_+.
+\]
+Thus $\underline B\ge\tau+c_+$ certifies net benefit at least $\tau$ on
+that event. For the objective $J/V_{\rm ref}+C$ with fixed known
+$V_{\rm ref}>0$, the corresponding bound is $\underline B/V_{\rm ref}-c_+$.
+For a relative target $B/J_0\ge\eta\ge0$, suppose $J_0>0$ and a certified
+upper bound $J_0\le U_0$ is available on a second event. Then
+$\underline B\ge\eta U_0$ suffices on the intersection of both events.
+\end{proposition}
+\begin{proof}
+\textbf{Step 1: subtract costs in the correct units.}
+By definition, the net objective reduction is $B-\Delta C$.
+The inequalities $B\ge\underline B$ and $-\Delta C\ge-c_+$ give the first
+claim by addition. Dividing only the compliance term by fixed
+$V_{\rm ref}>0$ preserves its order and gives the normalized claim.
+
+\textbf{Step 2: justify an explicit geometric cost example.}
+For one disjoint interior sphere, a stipulated cost
+$C=\lambda V_{\rm removed}+\gamma A_{\rm cavity}+\kappa n$ with nonnegative
+coefficients increases by
+\[
+ c_+=\lambda\frac{4\pi r^3}{3}+\gamma4\pi r^2+\kappa.
+\]
+The ball volume, newly exposed sphere area, and one-unit increase of count
+give these terms exactly. The formula is not asserted for overlapping
+balls or for an unspecified manufacturing cost model.
+
+\textbf{Step 3: a relative threshold uses an upper denominator bound.}
+On the intersection of the two events,
+$B\ge\underline B\ge\eta U_0\ge\eta J_0$.
+Division by $J_0>0$ proves the relative claim. If the events fail with
+probabilities at most $\delta$ and $\delta_0$, their intersection fails
+with probability at most $\delta+\delta_0$ by subadditivity; independence
+is not necessary. Plugging in an unbounded noisy estimate of $J_0$ does not
+supply this implication.
+\end{proof}
+
+\begin{proposition}[Adaptive minimum-benefit guarantees]
+\label{prop:adaptivebenefit}
+At round $t$, condition on the complete past $\mathcal F_{t-1}$, including
+all earlier geometry changes. Choose a finite shortlist of $m_t$ candidates
+before collecting their validation data. Allocate nonnegative,
+$\mathcal F_{t-1}$-measurable error levels $\delta_{tj}$ with
+$\sum_{t,j}\delta_{tj}\le\delta_{\rm total}$ almost surely.
+Assume every candidate certificate has conditional coverage at least
+$1-\delta_{tj}$ and all its deterministic hypotheses hold on the current
+domain. Select at most one insertion in the round, accepting it only if
+its covered lower benefit (or net benefit) is at least its target $\tau_t$.
+Then the probability that any accepted insertion misses its target is at
+most $\delta_{\rm total}$. On the same simultaneous event, a finite sequence
+of accepted insertions guarantees total benefit at least the sum of their
+targets, provided no other unaccounted geometry changes occur.
+\end{proposition}
+\begin{proof}
+\textbf{Step 1: cover the shortlist before choosing its winner.}
+Let $E_{tj}$ be candidate $j$'s conditional coverage event. On
+$E_t=\bigcap_{j=1}^{m_t}E_{tj}$, every displayed candidate bound is true
+at once. Any winner selected from these data is therefore covered, as is
+any radius selected using its uniform radius guarantee. Conditional
+subadditivity gives
+$\Prob(E_t^c\mid\mathcal F_{t-1})\le\sum_j\delta_{tj}$.
+Candidates may share randomness if their marginal conditional bounds remain
+valid. The data used to invent the shortlist cannot silently be reused as
+fresh validation data.
+
+\textbf{Step 2: control all rounds.}
+A false acceptance at round $t$ is a subset of $E_t^c$. Taking expectations,
+then applying countable subadditivity and Tonelli to nonnegative terms gives
+\[
+ \Prob(\text{some false acceptance})
+ \le\sum_t\E\sum_j\delta_{tj}
+ =\E\sum_{t,j}\delta_{tj}\le\delta_{\rm total}.
+\]
+Recomputing the PDE and containment data on the updated domain is essential:
+each certificate refers to that domain, not the original unperforated object.
+
+\textbf{Step 3: telescoping actual finite benefits.}
+For accepted designs $D_0,D_1,\ldots,D_k$ and their actual objective values,
+$J(D_{i-1})-J(D_i)\ge\tau_i$ holds simultaneously on the covered event.
+Summing cancels the intermediate objectives and yields
+$J(D_0)-J(D_k)\ge\sum_{i=1}^k\tau_i$. The same algebra applies to $J+C$.
+Unvalidated shape refinement between those designs would contribute an
+additional objective change and cannot be omitted from this sum.
+
+\textbf{Step 4: sample-size and stopping choices.}
+The preceding proof also covers stages indexed by $(t,j,\ell)$ if a
+predeclared sequence of fixed sample sizes is inspected with error levels
+whose total obeys the same budget. Each stage needs its own valid marginal
+coverage; the batches may be nested because subadditivity does not require
+independence across stages. A single fixed-$N$ bound repeatedly checked
+until it passes supplies no such guarantee. Within each use of
+\cref{prop:onesidedwos}, independence is still required across its complete
+walks. Selecting one site using scouting data and then drawing a single
+fresh final validation batch is the special case $m_t=1$.
+\end{proof}
+
+\subsection{An exactly solvable finite-radius check}
+\label{app:benefitcheck}
+
+\begin{proposition}[Concentric unit-ball reference]
+\label{prop:benefitballreference}
+For $D=B_1(0)$, $f=1$, and a concentric radius-$r$ cavity with $0<r<1$,
+write $s=|x|$. The original and perforated states are
+\begin{align}
+ u(s)&=(1-s^2)/6,\\
+ v(s)&=(1-s^2)/6-\frac{r(1+r)}6(1/s-1),\quad r<s<1.
+\end{align}
+Their exact compliance benefit is
+\begin{equation}
+ B_{\rm exact}(r)=\frac{\pi r(1-r)(1+r)^2}{9}
+                       +\frac{4\pi r^5}{45},\qquad J_0=\frac{4\pi}{45}.
+ \label{eq:exactballbenefit}
+\end{equation}
+The direct capacity bound using the exact temperature floor is
+$B_{\rm floor}=\pi r(1-r^2)^2/9\le B_{\rm exact}$.
+\end{proposition}
+\begin{proof}
+\textbf{Step 1: solve both radial boundary-value problems.}
+For a radial field, $\Delta a=a''+2a'/s$. Substitution shows
+$-\Delta[(1-s^2)/6]=1$ and $\Delta(1/s)=0$ for $s>0$.
+Regularity at the origin and zero trace at $s=1$ give $u$.
+On the annulus write $v=u+b(1/s-1)$; the condition $v(r)=0$ yields
+$b=-r(1+r)/6$. Zero trace at one is automatic. Uniqueness of the weak
+Dirichlet problem verifies these candidates are the desired solutions.
+
+\textbf{Step 2: compute the exact difference energy.}
+Inside the removed ball, $w=u$ and $|w'(s)|=s/3$, giving energy
+$4\pi\int_0^r(s^2/9)s^2\,ds=4\pi r^5/45$.
+Outside it, $w=r(1+r)(1/s-1)/6$. Its energy is
+\[
+ \frac{4\pi r^2(1+r)^2}{36}\int_r^1s^{-2}\,ds
+ =\frac{\pi r(1-r)(1+r)^2}{9}.
+\]
+Adding the two energies proves the benefit formula by
+\cref{eq:coolingprojection}. Direct radial integration gives
+$J_0=4\pi\int_0^1(1-s^2)s^2/6\,ds=4\pi/45$.
+
+\textbf{Step 3: independently check the lower bound.}
+The minimum of $u$ on $\overline B_r$ is $(1-r^2)/6$.
+Substituting into $4\pi rm^2$ gives the stated $B_{\rm floor}$.
+Subtracting it from the exact expression leaves
+\[
+ B_{\rm exact}-B_{\rm floor}
+ =\frac{\pi r^2(1-r)(1+r)^2}{9}+\frac{4\pi r^5}{45}\ge0.
+\]
+This checks both the capacity normalization and the sign of the guarantee
+at finite radius, independently of the asymptotic theorem.
+\end{proof}
+
+\paragraph{Reproducible check.}
+A numerical check evaluates the closed-form
+state and compliance, checks the lower bounds over a fixed radius grid,
+and runs the fixed-budget validator on this analytic geometry. It
+records the seed, sample count, stopping policy, range bound,
+confidence level, target, and actual exact benefit. It is a manufactured
+check of the formulas and implementation, not a coverage proof or a
+Bunny/housing performance measurement. The confidence statement comes from
+the preceding derivation; numerical code remains subject to the explicitly
+stated geometry, source-sampling, independence, and arithmetic assumptions.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Manufactured minimum-benefit check on the unit ball, with a
+preselected cavity radius $r=0.1$, containing radius $R=0.9$, and target
+$10\%$ of the exact original compliance. The Monte Carlo rule allocates
+$\delta=0.01$ to this one fixed test. These are numerical evaluations of
+the proved formulas, not an empirical estimate of coverage.}
+\label{tab:minimumbenefitcheck}
+\begin{tabular}{lr}
+\toprule
+Quantity & Value\\
+\midrule
+Independent walks $N$ & $65{,}536$\\
+Maximum steps $T$ / radius cap $s_*$ & $32$ / $0.35$\\
+Exact center state $u(0)$ & $0.166667$\\
+Truncated sample mean $\overline W$ & $0.162320$\\
+One-sided sampling allowance & $0.003873$\\
+State lower bound $L_u$ & $0.158447$\\
+Source-only benefit bound / $J_0$ & $8.000\%$\\
+Monte Carlo benefit bound / $J_0$ & $10.154\%$\\
+Exact finite-hole benefit / $J_0$ & $13.614\%$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For this fixed seed and budget, the source-only rule rejects the stipulated
+target and the sampled rule accepts it (\cref{tab:minimumbenefitcheck}).
+The exact energy formula agrees with independent radial quadrature to
+$4.3\times10^{-16}$ in the seven tested cases. The deterministic inequalities
+are also checked at $2{,}001$ radii below $R$; their validity for all radii
+comes from the proofs, not from this finite grid. The sample budget was not
+chosen as a solver-speed comparison, and one successful seed does not
+establish practical tightness across application geometries.

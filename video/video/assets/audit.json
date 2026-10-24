@@ -1,0 +1,10 @@
+{
+  "walk_steps_checked": 48,
+  "all_centers_and_jumps_inside_original_mesh": true,
+  "all_spheres_strictly_contained": true,
+  "all_walks_terminated_below_epsilon": true,
+  "preview_layouts_checked": 15,
+  "text_clashes": [],
+  "half_volume_verified": true,
+  "scientific_scope": "This is an asset/geometry/layout audit, not an independent revalidation of the paper or a new statistical experiment."
+}

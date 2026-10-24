@@ -1,0 +1,84 @@
+1
+00:00:00,000 --> 00:00:07,000
+Where should a new cooling cavity go?
+Predict the benefit before making the hole.
+
+2
+00:00:07,000 --> 00:00:12,000
+Switch on the same heat source in both designs.
+The exterior and cavity walls stay cold.
+
+3
+00:00:12,000 --> 00:00:19,000
+An auxiliary heat-equation simulation shows the difference.
+TWoS optimizes the steady-state design.
+
+4
+00:00:19,000 --> 00:00:23,000
+Separate 3D examples: a capsule and the Bunny.
+Every walk sphere stays inside its domain.
+
+5
+00:00:23,000 --> 00:00:27,000
+Sample uniform sphere exits.
+The lines show jumps, not Brownian paths.
+
+6
+00:00:27,000 --> 00:00:31,000
+Repeat with independent random seeds.
+Here the compliance adjoint is p = u.
+
+7
+00:00:31,000 --> 00:00:35,000
+Temperature and objective influence predict
+the effect of a small new cavity.
+
+8
+00:00:35,000 --> 00:00:39,000
+Keep one temperature estimate.
+Hold out its matching adjoint and average the others.
+
+9
+00:00:39,000 --> 00:00:43,000
+Multiply the independent factors, then average.
+The products themselves can share samples.
+
+10
+00:00:43,000 --> 00:00:47,000
+Score feasible sites in the current geometry.
+Rescore a shortlist with fresh samples.
+
+11
+00:00:47,000 --> 00:00:51,000
+Insert the selected cavity and update the domain.
+The cooling animation shows thermal relaxation.
+
+12
+00:00:51,000 --> 00:00:55,000
+The percentages remain the paper’s
+steady-state benchmark estimates.
+
+13
+00:00:55,000 --> 00:01:00,000
+With the same six-hole budget, TWoS gives
+47.8% lower heat objective in this retained run.
+
+14
+00:01:00,000 --> 00:01:05,000
+Random placement gives 39.5%;
+grid-based adjoint placement gives 48.1%.
+
+15
+00:01:05,000 --> 00:01:10,000
+Six larger cavities: 47.4% lower heat objective.
+Twelve smaller cavities: 47.1%.
+
+16
+00:01:10,000 --> 00:01:16,000
+The twelve smaller cavities remove
+half as much material as the six larger ones.
+
+17
+00:01:16,000 --> 00:01:22,000
+Walking into Holes.
+Monte Carlo topological derivatives for PDE design.

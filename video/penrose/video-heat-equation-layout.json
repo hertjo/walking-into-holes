@@ -1,0 +1,15 @@
+{
+  "canvas": [
+    1040,
+    110
+  ],
+  "labels": [
+    {
+      "text": "u = 0 on walls",
+      "x": 912,
+      "y": 54,
+      "size": 26,
+      "anchor": "middle"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "date": "2026-09-15",
+  "geometries": [
+    "housing",
+    "branch",
+    "ring"
+  ],
+  "seeds": [
+    1611,
+    2711,
+    3811,
+    4911,
+    6011
+  ],
+  "radius": 0.065,
+  "holes": 6,
+  "protected_compact_heat_sources": true,
+  "sensor_weight_integral": "32*pi*sensor_radius^3/105",
+  "candidate_count": 384,
+  "twos_walks": [
+    48,
+    1024
+  ],
+  "twos_shortlist": 16,
+  "MG_primary_max_grid": 65,
+  "refinement_rounds": {
+    "twos": 8,
+    "mg": 8,
+    "hot": 16,
+    "random": 16
+  },
+  "refinement_walks": [
+    96,
+    192
+  ],
+  "gradient_offset": 0.004,
+  "epsilon": 0.0002,
+  "channel_target_volume": 0.0168,
+  "calibration_QMC_power": 18,
+  "independent_volume_audit": "4 x 2^20",
+  "evaluation": "4 independent 256-point Sobol blocks, 1024 walks each",
+  "threads": 4,
+  "author_code_commit": "f2b10ebd44904b9c81c063d80e244f0d26868f33",
+  "exclusions": [
+    "geometry construction",
+    "common input mesh preprocessing",
+    "independent final evaluation"
+  ],
+  "claims": [
+    "bias and variance are reported separately where references resolve them",
+    "no fluid-flow model",
+    "channel score is an axis-point heuristic",
+    "local Differential WoS implementation, not the authors optimization application"
+  ],
+  "binary_sha256": "0a74f63b638e15168c7dabb3fc91c50a9eb86e56828d666f18b760c8c3a56570"
+}

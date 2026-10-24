@@ -1,0 +1,154 @@
+{
+  "step": 2,
+  "candidate_index": 563,
+  "center": [
+    -0.18319415397942063,
+    -0.25562236741185185,
+    0.01057041163556277
+  ],
+  "radius": 0.095,
+  "accepted": false,
+  "target_absolute": 1.5e-05,
+  "fixed_scale": 0.015,
+  "benefit_lower": 3.392034068594426e-06,
+  "source_only_lower": 2.7382227368878966e-07,
+  "first_passing_n": null,
+  "stages": [
+    {
+      "site": 0,
+      "n": 1024,
+      "mean": 0.0318745968181988,
+      "mean_steps": 60.5751953125,
+      "clipped": 0,
+      "path_caps": 16,
+      "elapsed_seconds": 0.187194051,
+      "center_clearance_lower": 0.20932477842806385,
+      "embree_center_distance": 0.20932477842806405,
+      "sampling_margin": 0.011596234572049674,
+      "state_lower": 0.020278362246149064,
+      "benefit_lower": 6.74526010744154e-07,
+      "source_only_lower": 2.7382227368878966e-07,
+      "geometry": {
+        "R": 0.125929949390019,
+        "f_lower": 0.18103360314385838,
+        "f_upper": 5.085941524107547,
+        "temperature_floor": 0.0007516793439184203
+      },
+      "passes": false
+    },
+    {
+      "site": 0,
+      "n": 4096,
+      "mean": 0.031486847467876576,
+      "mean_steps": 61.31103515625,
+      "clipped": 0,
+      "path_caps": 99,
+      "elapsed_seconds": 0.583775981,
+      "center_clearance_lower": 0.20932477842806385,
+      "embree_center_distance": 0.20932477842806405,
+      "sampling_margin": 0.005798117286024837,
+      "state_lower": 0.025688730181851673,
+      "benefit_lower": 1.798435405829645e-06,
+      "source_only_lower": 2.7382227368878966e-07,
+      "geometry": {
+        "R": 0.13299965210773762,
+        "f_lower": 0.16043800519102935,
+        "f_upper": 5.239556341228588,
+        "temperature_floor": 0.0012273846492467913
+      },
+      "passes": false
+    },
+    {
+      "site": 0,
+      "n": 16384,
+      "mean": 0.03158292355642083,
+      "mean_steps": 61.76605224609375,
+      "clipped": 1,
+      "path_caps": 397,
+      "elapsed_seconds": 2.151493187,
+      "center_clearance_lower": 0.20932477842806385,
+      "embree_center_distance": 0.20932477842806405,
+      "sampling_margin": 0.0028990586430124184,
+      "state_lower": 0.028683864913408356,
+      "benefit_lower": 2.795265923935716e-06,
+      "source_only_lower": 2.7382227368878966e-07,
+      "geometry": {
+        "R": 0.13653450346659696,
+        "f_lower": 0.15157861949729198,
+        "f_upper": 5.315602168531325,
+        "temperature_floor": 0.001530188136094973
+      },
+      "passes": false
+    },
+    {
+      "site": 0,
+      "n": 65536,
+      "mean": 0.0315790603447786,
+      "mean_steps": 61.71650695800781,
+      "clipped": 13,
+      "path_caps": 1650,
+      "elapsed_seconds": 8.241218227000001,
+      "center_clearance_lower": 0.20932477842806385,
+      "embree_center_distance": 0.20932477842806405,
+      "sampling_margin": 0.0014495293215062092,
+      "state_lower": 0.030129531023272326,
+      "benefit_lower": 3.392034068594426e-06,
+      "source_only_lower": 2.7382227368878966e-07,
+      "geometry": {
+        "R": 0.1383019291460266,
+        "f_lower": 0.14747603037979304,
+        "f_upper": 5.3534070009994705,
+        "temperature_floor": 0.001685634331877713
+      },
+      "passes": false
+    }
+  ],
+  "validation_seconds": 8.241218227000001,
+  "validation_build_seconds": 0.097550488,
+  "validation_process_seconds": 8.537655077998352,
+  "selection_seconds": 0.088199689,
+  "exact_initial_parity": {
+    "axis": 0,
+    "intersections": 1,
+    "rational_predicates": true
+  },
+  "containment_failures": 0,
+  "measured_trial_benefit": 0.0014788791984270487,
+  "measured_trial_benefit_se": 4.680124211324784e-05,
+  "reference_before": {
+    "blocks": [
+      0.008138783187086843,
+      0.008368273535019996,
+      0.008473639562865986,
+      0.008187549637464334
+    ],
+    "mean": 0.00829206148060929,
+    "se": 7.810027625656938e-05,
+    "mesh_volume": 1.685320075536601,
+    "scope": "Independent approximate WoS reference with four randomized spatial blocks; shell and geometry bias not certified."
+  },
+  "reference_trial": {
+    "blocks": [
+      0.00664478300267655,
+      0.006917019112492708,
+      0.00687622683625788,
+      0.006814700177301826
+    ],
+    "mean": 0.00681318228218224,
+    "se": 5.994255894267346e-05,
+    "mesh_volume": 1.685320075536601,
+    "scope": "Independent approximate WoS reference with four randomized spatial blocks; shell and geometry bias not certified."
+  },
+  "reference_after": {
+    "blocks": [
+      0.008138783187086843,
+      0.008368273535019996,
+      0.008473639562865986,
+      0.008187549637464334
+    ],
+    "mean": 0.00829206148060929,
+    "se": 7.810027625656938e-05,
+    "mesh_volume": 1.685320075536601,
+    "scope": "Independent approximate WoS reference with four randomized spatial blocks; shell and geometry bias not certified."
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "cases": 310,
+  "max_absolute_error_normalized_by_AR2": 7.33109315338745e-16,
+  "minimum_integral": 0.0,
+  "scope": "Compiled ball integral versus independently integrated Green volume source; numerical diagnostic, not rounding certification"
+}

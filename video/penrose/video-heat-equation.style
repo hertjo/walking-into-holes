@@ -1,0 +1,48 @@
+canvas { width = 1040
+ height = 110 }
+Colors {
+ color ink = #302c35
+ color muted = #756e7a
+ color line = #d8d2dc
+ color ground = #faf8fb
+ color purple = #9365a8
+ color pale = #eee5f3
+ color teal = #6997aa
+ color tealpale = #eaf1f4
+ color orange = #bd824b
+ color red = #ae7778
+ color grey = #e8e5e9
+ color white = #ffffff
+}
+Global {
+  shape s1 = Equation {
+    center: (-312.0000,1.0000)
+    string: "\frac{\partial u}{\partial\tau}"
+    fontSize: "45px"
+    fillColor: Colors.orange
+  }
+  shape s2 = Equation {
+    center: (-94.0000,1.0000)
+    string: "=\Delta u"
+    fontSize: "45px"
+    fillColor: Colors.purple
+  }
+  shape s3 = Equation {
+    center: (148.0000,1.0000)
+    string: "+\,f"
+    fontSize: "45px"
+    fillColor: Colors.orange
+  }
+  shape s4 = Text {
+    center: (392.0000,1.0000)
+    string: "u = 0 on walls"
+    fontFamily: "Nimbus Roman"
+    fontSize: "26px"
+    fontWeight: "400"
+    fillColor: Colors.teal
+    textAnchor: "middle"
+  }
+  layer s1 below s2
+  layer s2 below s3
+  layer s3 below s4
+}

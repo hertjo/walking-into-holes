@@ -1,0 +1,28 @@
+{
+  "reference": "https://doi.org/10.1007/s00158-026-04327-5",
+  "equations": [
+    4,
+    5
+  ],
+  "scope": "spectral connectivity diagnostic; no level-set optimization or performance superiority claim",
+  "domain": [
+    [
+      -1,
+      1
+    ],
+    [
+      -1,
+      1
+    ]
+  ],
+  "boundary": "Dirichlet on all exterior sides",
+  "cavity_coefficients": [
+    1,
+    1
+  ],
+  "solid_coefficients": "k0=m0=eta",
+  "discretization": "P1 triangles; centroid material labels; consistent mass",
+  "homogeneous_lambda1": 4.937775209259957,
+  "homogeneous_exact": 4.934802200544679,
+  "maximum_relative_eigen_residual": 5.957483819107481e-08
+}

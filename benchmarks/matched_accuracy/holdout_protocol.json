@@ -1,0 +1,10 @@
+{
+ "frozen_before_extension_results": true,
+ "purpose": "Verify apparent primary-target speed wins on fresh seeds, avoiding claims based only on selecting budgets from five calibration seeds",
+ "trigger": "Both methods eligible at 20% reference-relative error and calibration mean MG/TWoS-RB time ratio above one",
+ "fixed_configurations": "Retain selected TWoS budget and strongest selected MG resolution/reuse variant; no retuning on holdout results",
+ "seeds": [71011,82011,93011,104011,115011,126011,137011,148011,159011,170011,181011,192011,203011,214011,225011,236011,247011,258011,269011,280011],
+ "timing": "Fresh process per method, alternating paired method order; common mesh setup excluded and recorded; edited MG is initialized with the original field before the timed edit",
+ "validation": "The upper 97.5th percentile bootstrap mean score error must remain <=20%, and the lower 2.5th percentile paired runtime-ratio bootstrap must exceed one for a verified win",
+ "scope": "Reference gates remain unchanged; pointwise intervals, fixed sites, no continuum-error certificate or universal state-of-the-art claim. Failed confirmations remain reported."
+}

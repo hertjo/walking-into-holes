@@ -1,0 +1,33 @@
+{
+  "reason": "Both calibration-selected 64-path cells failed the fresh-seed 20% mean-error upper-bound rule. Test one fixed conservative 256-path budget in BOTH states; retain failed confirmations.",
+  "twos_budget": 256,
+  "mg_budget": 49,
+  "seeds": [
+    510011,
+    521011,
+    532011,
+    543011,
+    554011,
+    565011,
+    576011,
+    587011,
+    598011,
+    609011,
+    620011,
+    631011,
+    642011,
+    653011,
+    664011,
+    675011,
+    686011,
+    697011,
+    708011,
+    719011
+  ],
+  "states": [
+    "original",
+    "edited"
+  ],
+  "target": 0.2,
+  "acceptance": "Same reference gates, upper 97.5 percentile bootstrap mean error <=20%, lower 2.5 percentile runtime ratio >1; no further budget search"
+}

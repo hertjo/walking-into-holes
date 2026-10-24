@@ -1,0 +1,31 @@
+canvas { width = 800
+ height = 210 }
+Colors {
+ color ink = #302c35
+ color muted = #756e7a
+ color line = #d8d2dc
+ color ground = #faf8fb
+ color purple = #9365a8
+ color pale = #eee5f3
+ color teal = #6997aa
+ color tealpale = #eaf1f4
+ color orange = #bd824b
+ color red = #ae7778
+ color grey = #e8e5e9
+ color white = #ffffff
+}
+Global {
+  shape s1 = Equation {
+    center: (0.0000,50.0000)
+    string: "r_k<d(x_k,\partial\Omega)"
+    fontSize: "35px"
+    fillColor: Colors.teal
+  }
+  shape s2 = Equation {
+    center: (0.0000,-46.0000)
+    string: "U\leftarrow U+\frac{r_k^2}{6}\,f(x_k)"
+    fontSize: "38px"
+    fillColor: Colors.orange
+  }
+  layer s1 below s2
+}

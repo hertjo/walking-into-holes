@@ -1,0 +1,67 @@
+{
+  "scheme": "7-point Cartesian Dirichlet mask; backward Euler in dimensionless time",
+  "grid_shape": [
+    111,
+    111,
+    88
+  ],
+  "spacing": 0.009549549549549551,
+  "PDE": "du/dtau - Delta u = 1 + .65*(y+.5); initial u=0; all physical boundaries u=0",
+  "scope": "Auxiliary thermal visualization, not a TWoS timing or accuracy experiment. The curved display cut is absent from the solver.",
+  "designs": {
+    "ours0": {
+      "active_nodes": 235919,
+      "steady_relative_residual": 1.901713798524622e-09,
+      "steady_mean": 0.007590139867751911,
+      "steady_max": 0.021230326266589945,
+      "transient_max_relative_residual": 4.9945648917248765e-09,
+      "heating_monotone": true,
+      "final_fraction_of_steady_mean": 0.9951283419900606
+    },
+    "ours1": {
+      "active_nodes": 235321,
+      "steady_relative_residual": 1.9017808235746697e-09,
+      "steady_mean": 0.0064734510223906395,
+      "steady_max": 0.017218878264071258
+    },
+    "ours3": {
+      "active_nodes": 234118,
+      "steady_relative_residual": 1.9534190237638e-09,
+      "steady_mean": 0.0052985305586834815,
+      "steady_max": 0.01233067384785175
+    },
+    "ours6": {
+      "active_nodes": 232319,
+      "steady_relative_residual": 1.9843339957741344e-09,
+      "steady_mean": 0.004242215177194229,
+      "steady_max": 0.009914451757269826
+    },
+    "random": {
+      "active_nodes": 232312,
+      "steady_relative_residual": 1.9759873948421313e-09,
+      "steady_mean": 0.004794715687809464,
+      "steady_max": 0.01330274749706208
+    },
+    "voxel": {
+      "active_nodes": 232304,
+      "steady_relative_residual": 1.871077705924908e-09,
+      "steady_mean": 0.004252208296872933,
+      "steady_max": 0.00986491189558132
+    },
+    "budget6": {
+      "active_nodes": 232316,
+      "steady_relative_residual": 1.919278716492604e-09,
+      "steady_mean": 0.0042570270622223055,
+      "steady_max": 0.009361938918391986
+    },
+    "budget12": {
+      "active_nodes": 234115,
+      "steady_relative_residual": 1.882282872075653e-09,
+      "steady_mean": 0.004280300325275494,
+      "steady_max": 0.008998495118342116,
+      "transient_max_relative_residual": 4.996462430900662e-09,
+      "heating_monotone": true,
+      "final_fraction_of_steady_mean": 0.9999501893902141
+    }
+  }
+}

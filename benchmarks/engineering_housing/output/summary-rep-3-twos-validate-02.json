@@ -1,0 +1,23 @@
+{
+  "engine": "Embree 4",
+  "vertices": 48372,
+  "faces": 96740,
+  "source_mode": "housing",
+  "cavities": 1,
+  "cavity_radius": 0.095000000000000001,
+  "sites": 24,
+  "walks_per_site": 192,
+  "repeats": 1,
+  "threads": 8,
+  "epsilon": 0.001,
+  "mesh_build_seconds": 0.020841055000000001,
+  "runtime_seconds_median": 0.020130410000000001,
+  "runtime_seconds_min": 0.020130410000000001,
+  "paths_per_second": 228907.40923806321,
+  "distance_queries_per_second": 4395141.4799797917,
+  "mean_steps": 18.200520833333332,
+  "max_step_limit_hits": 0,
+  "mesh_input_megabytes": 2.2142486572265625,
+  "peak_rss_megabytes": 19.09765625,
+  "timings_seconds": [0.020130410000000001]
+}

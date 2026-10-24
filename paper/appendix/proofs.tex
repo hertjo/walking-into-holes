@@ -1,0 +1,1328 @@
+\section{Deterministic PDE and Capacity Proofs}
+\label{app:deterministic}
+
+This appendix proves \cref{thm:capacityscale,thm:localtd} without importing a
+small-hole expansion.  Constants denoted by $C$ may change from line to line,
+but are independent of $z\in Z$ and sufficiently small $\eps$.  We write
+$K=K_{\eps,z}$, $\Omega_\eps=\Omega_{\eps,z}$,
+$q_\eps=q_{\eps,z}$, and $\rho_\eps=\rho_z(\eps)$ when no confusion can
+arise.  The background facts used below---trace and compact embedding,
+Lax--Milgram, quasi-continuous representatives, positive distributions, and
+local Green-kernel bounds---are standard results of Sobolev and elliptic
+potential theory~\cite{evans2010pde,adams1996function,gilbarg2001elliptic}; all
+problem-specific consequences are derived explicitly.
+
+\subsection{Why regular shape calculus cannot nucleate the cavity}
+\label{app:notshapepath}
+
+\begin{proposition}[Cavity nucleation is not a regular shape path]
+\label{prop:notshapepath}
+Assume additionally that $\partial\Omega$ and $\partial B$ are connected.
+Let $V\in C^1_c(\R^d;\R^d)$ and
+$T_t=\operatorname{Id}+tV$.  For all sufficiently small $|t|$, $T_t$ is a
+$C^1$ diffeomorphism, $T_t(\Omega)$ is diffeomorphic to $\Omega$, and
+$\partial T_t(\Omega)=T_t(\partial\Omega)$ is connected.  Hence no such
+regular perturbation satisfies
+\begin{equation}
+ T_t(\Omega)=\Omega\setminus\overline{(z+\eps B)}
+ \label{eq:noshapepath}
+\end{equation}
+for any $\eps>0$ with $z+\eps\overline B\Subset\Omega$, because the right-hand
+side has the two disjoint boundary components $\partial\Omega$ and
+$z+\eps\partial B$.  Consequently \cref{eq:tddefinition} is not a directional
+shape derivative along a regular deformation of the unperforated domain.
+\end{proposition}
+
+\begin{proof}[Proof of \cref{prop:notshapepath}]
+We separate the analytic and topological parts.
+
+\textbf{Step 1: $T_t$ is a local diffeomorphism for small $t$.}
+Because $V\in C^1_c(\R^d;\R^d)$, the quantity
+$L:=\|DV\|_{L^\infty(\R^d)}$ is finite.  Choose $|t|L<1$.  Then
+\begin{equation}
+ DT_t(x)=I+tDV(x)
+\end{equation}
+is invertible at every $x$: indeed,
+$\|tDV(x)\|<1$, so the Neumann series
+$\sum_{k=0}^{\infty}(-tDV(x))^k$ converges to $DT_t(x)^{-1}$.
+The inverse-function theorem therefore makes $T_t$ a local $C^1$
+diffeomorphism.
+
+\textbf{Step 2: $T_t$ is globally injective and proper.}
+For any $x,y\in\R^d$, the mean-value estimate gives
+\begin{align}
+ \|T_t(x)-T_t(y)\|
+ &\ge \|x-y\|-|t|\,\|V(x)-V(y)\|\\
+ &\ge (1-|t|L)\|x-y\|.
+ \label{eq:bilipschitzlower}
+\end{align}
+Thus $T_t(x)=T_t(y)$ implies $x=y$.  Since $V$ has compact support,
+$T_t(x)=x$ outside a compact set; hence $T_t$ is proper.  A proper injective
+local diffeomorphism has open and closed image in connected $\R^d$, so its
+image is all of $\R^d$.  Therefore $T_t$ is a global $C^1$ diffeomorphism.
+
+\textbf{Step 3: a diffeomorphism preserves the boundary.}
+A homeomorphism preserves closure and interior.  Hence
+\begin{align}
+ \partial T_t(\Omega)
+ &=\overline{T_t(\Omega)}\setminus\operatorname{int}T_t(\Omega)\\
+ &=T_t(\overline\Omega)\setminus T_t(\operatorname{int}\Omega)
+ =T_t(\partial\Omega).
+ \label{eq:boundarymapped}
+\end{align}
+Because $\partial\Omega$ is connected and $T_t$ is continuous,
+$T_t(\partial\Omega)$ is connected.
+
+\textbf{Step 4: an interior cavity creates a second boundary component.}
+Put $K_{\eps,z}=z+\eps\overline B\Subset\Omega$ and
+$\Omega_{\eps,z}=\Omega\setminus K_{\eps,z}$.  Positive separation of
+$K_{\eps,z}$ and $\partial\Omega$ implies
+\begin{equation}
+ \partial\Omega_{\eps,z}
+ =\partial\Omega\,\dot\cup\,(z+\eps\partial B).
+ \label{eq:perforatedboundary}
+\end{equation}
+Both sets are nonempty, closed in the relative boundary, and separated by a
+positive distance.  Since each is connected by assumption, they are exactly
+two distinct connected components.  Therefore
+$\partial\Omega_{\eps,z}$ is disconnected.
+
+\textbf{Step 5: contradiction.}
+If \cref{eq:noshapepath} held, \cref{eq:boundarymapped} would make the boundary
+of its left-hand side connected, whereas \cref{eq:perforatedboundary} makes
+the boundary of its right-hand side disconnected.  This is impossible.
+Regular Eulerian shape calculus differentiates $J(T_t(\Omega))$ at $t=0$;
+the perforated family does not lie on any such path.  Its capacity-normalized
+limit is therefore a genuinely singular topological derivative rather than a
+directional derivative at the original unperforated domain.  The argument
+does not rule out additional asymptotic analysis of shape derivatives on
+domains with pre-existing positive-radius cavities.
+\end{proof}
+
+\subsection{Functional-analytic foundation}
+
+Equip $V=H^1_{\Gamma_D}(\Omega)$ with
+\begin{equation}
+ \|v\|_a^2:=a_\Omega(v,v).
+ \label{eq:energynorm}
+\end{equation}
+
+\begin{proposition}[Boundedness and coercivity]
+\label{prop:coercivity}
+There are constants $c_a,C_a>0$ such that for all $v,w\in V$,
+\begin{equation}
+ |a_\Omega(v,w)|\le C_a\|v\|_{H^1}\|w\|_{H^1},
+ \qquad
+ a_\Omega(v,v)\ge c_a\|v\|_{H^1}^2.
+ \label{eq:coercivity}
+\end{equation}
+The same coercivity constant applies to every perforated test space after
+zero extension across the cavity.
+\end{proposition}
+
+\begin{proof}
+\textbf{Step 1: boundedness.}
+H\"older's inequality and the coefficient bounds give
+\begin{align}
+ |a_\Omega(v,w)|
+ &\le \kappa_+\|\nabla v\|_2\|\nabla w\|_2
+   +\|\sigma\|_\infty\|v\|_2\|w\|_2\\
+ &\le C_a\|v\|_{H^1}\|w\|_{H^1}.
+\end{align}
+
+\textbf{Step 2: a Poincar\'e inequality.}
+Because the trace vanishes on a boundary subset of positive
+$(d-1)$-dimensional measure, there is $C_P<\infty$ such that
+\begin{equation}
+ \|v\|_{L^2(\Omega)}\le C_P\|\nabla v\|_{L^2(\Omega)}
+ \qquad(v\in V).
+ \label{eq:mixedpoincare}
+\end{equation}
+Indeed, if this failed, a normalized sequence with unit $L^2$ norm and
+vanishing gradients would converge in $L^2$ to a nonzero constant; continuity
+of the trace would force that constant to vanish on $\Gamma_D$, a
+contradiction.
+
+\textbf{Step 3: coercivity.}
+Since $\sigma\ge0$ and $\kappa\ge\kappa_-$,
+\begin{equation}
+ a_\Omega(v,v)\ge\kappa_-\|\nabla v\|_2^2
+ \ge\frac{\kappa_-}{1+C_P^2}\|v\|_{H^1}^2.
+\end{equation}
+If $v$ is a perforated-domain test function, its zero extension across $K$
+belongs to $V$ because its trace on $\partial K$ is zero.  Applying the same
+inequality to that extension proves the final assertion.
+\end{proof}
+
+\begin{proposition}[Well-posed state, adjoint, and perforated state]
+\label{prop:wellposedness}
+The weak problems in \cref{eq:stateweak,eq:adjointweak} have unique solutions.
+For every sufficiently small $\eps$, the perforated state with trace $g$ on
+$\Gamma_D$ and $h_z$ on $\partial K$ also exists uniquely.  Its extension by
+$h_z$ inside $K$ belongs to $H^1(\Omega)$.
+\end{proposition}
+
+\begin{proof}
+\textbf{Step 1: the state.}
+Choose the fixed lift $g\in H^1(\Omega)$ and write $u=g+u_0$ with $u_0\in V$.
+Then
+\begin{equation}
+ a_\Omega(u_0,v)=\ell_\Omega(v)-a_\Omega(g,v)
+ \qquad(v\in V).
+\end{equation}
+The right side is a bounded linear functional.  Boundedness and coercivity
+from \cref{prop:coercivity} allow the Lax--Milgram theorem to give a unique
+$u_0$, hence a unique $u$.
+
+\textbf{Step 2: the adjoint.}
+Because $j'(u)$ is bounded on $L^2(\Omega)$, its restriction to $V$ is bounded
+by the continuous embedding $V\hookrightarrow L^2$.  Another application of
+Lax--Milgram gives a unique $p\in V$ satisfying
+\cref{eq:adjointweak}.
+
+\textbf{Step 3: the perforated state.}
+Define
+\begin{equation}
+ V_\eps:=\{v\in H^1(\Omega_\eps):
+ \operatorname{Tr}v=0\text{ on }\Gamma_D\cup\partial K\}.
+\end{equation}
+Since $K\Subset\Omega$, a smooth cutoff supplies an $H^1(\Omega_\eps)$ lift
+with outer trace $g$ and inner trace $h_z$.  Subtracting that lift reduces the
+problem to $V_\eps$.  The zero-extension argument in
+\cref{prop:coercivity} supplies uniform coercivity, so Lax--Milgram again gives
+existence and uniqueness.
+
+\textbf{Step 4: extension across the cavity.}
+The trace of $u_{\eps,z}$ on $\partial K$ equals the trace of the constant
+function $h_z$ inside $K$.  The Sobolev gluing lemma therefore shows that the
+piecewise definition $\widetilde u_{\eps,z}=u_{\eps,z}$ on $\Omega_\eps$ and
+$\widetilde u_{\eps,z}=h_z$ on $K$ belongs to $H^1(\Omega)$.
+\end{proof}
+
+\subsection{Equilibrium potential and capacitary measure}
+
+Let
+\begin{equation}
+ \mathcal A_{\eps,z}:=\{v\in V:\widetilde v\ge1
+ \text{ quasi-everywhere on }K_{\eps,z}\}.
+\end{equation}
+
+\begin{lemma}[Equilibrium potential]
+\label{lem:equilibrium}
+The class $\mathcal A_{\eps,z}$ is nonempty, closed, and convex.  It has a
+unique minimum-energy element $q_\eps$.  This minimizer satisfies
+\begin{align}
+ 0\le q_\eps&\le1\quad\text{quasi-everywhere},\notag\\
+ q_\eps&=1\quad\text{quasi-everywhere on }K,
+ \label{eq:qrange}\\
+ a_\Omega(q_\eps,\varphi)&=0
+ \quad\text{if }\varphi\in V
+ \text{ and }\widetilde\varphi=0\text{ q.e. on }K.
+ \label{eq:qharmonic}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+\textbf{Step 1: nonemptiness and convexity.}
+Because $K\Subset\Omega$, a compactly supported smooth cutoff equal to one on
+a neighborhood of $K$ belongs to $\mathcal A_{\eps,z}$.  Convexity is
+immediate from the pointwise inequality.
+
+\textbf{Step 2: weak closedness.}
+Let $v_n\in\mathcal A_{\eps,z}$ converge weakly in $V$ to $v$.  Mazur's lemma
+provides convex combinations of tails of $(v_n)$ that converge strongly to
+$v$ in $V$.  A subsequence of a strongly $H^1$-convergent sequence converges
+quasi-everywhere.  Every convex combination remains at least one
+quasi-everywhere on $K$, hence so does $v$.  Thus $v\in\mathcal A_{\eps,z}$.
+
+\textbf{Step 3: existence and uniqueness.}
+A minimizing sequence is bounded by coercivity.  Weak compactness and the
+preceding closure give a weak limit in $\mathcal A_{\eps,z}$; weak lower
+semicontinuity of the squared Hilbert norm gives a minimizer.  Strict
+convexity of $a_\Omega(v,v)$ on $V$ gives uniqueness.
+
+\textbf{Step 4: truncation.}
+The map $T(s)=\min(1,\max(0,s))$ is one-Lipschitz, satisfies
+$|T(s)|\le|s|$, and preserves the constraint on $K$.  The Sobolev chain rule
+therefore gives
+\begin{equation}
+ a_\Omega(T(q_\eps),T(q_\eps))
+ \le a_\Omega(q_\eps,q_\eps).
+\end{equation}
+Uniqueness forces $T(q_\eps)=q_\eps$, proving \cref{eq:qrange}.
+
+\textbf{Step 5: harmonicity away from the obstacle.}
+If $\widetilde\varphi=0$ quasi-everywhere on $K$, then
+$q_\eps+t\varphi$ is admissible for every $t\in\R$.  Differentiating its
+quadratic energy at $t=0$ in both signs gives
+$a_\Omega(q_\eps,\varphi)=0$.
+\end{proof}
+
+\begin{lemma}[Capacitary measure and localization]
+\label{lem:capacitymeasure}
+There is a finite positive Radon measure $\mu_\eps$ supported on $\overline K$
+such that
+\begin{equation}
+ a_\Omega(q_\eps,v)=\int_{\overline K}\widetilde v\,\mathrm d\mu_\eps
+ \quad(v\in V),
+ \qquad
+ \mu_\eps(\overline K)=\rho_\eps.
+ \label{eq:measureidentity}
+\end{equation}
+Consequently, for every $v\in V\cap C^1(U)$,
+\begin{equation}
+ |a_\Omega(q_\eps,v)-\rho_\eps v(z)|
+ \le \eps R_B\rho_\eps\|\nabla v\|_{L^\infty(U)},
+ \label{eq:capacitylocalization}
+\end{equation}
+where $B\subset B_{R_B}(0)$.
+\end{lemma}
+
+\begin{proof}
+\textbf{Step 1: positivity.}
+For every nonnegative $\varphi\in C_c^\infty(\Omega)$ and $t>0$,
+$q_\eps+t\varphi$ is admissible.  Minimality gives
+\begin{equation}
+ 0\le\frac{a(q_\eps+t\varphi,q_\eps+t\varphi)
+               -a(q_\eps,q_\eps)}{2t}
+ =a(q_\eps,\varphi)+\frac t2a(\varphi,\varphi).
+\end{equation}
+Letting $t\downarrow0$ yields $a(q_\eps,\varphi)\ge0$.  Thus
+$\varphi\mapsto a(q_\eps,\varphi)$ is a positive distribution and hence a
+positive Radon measure $\mu_\eps$.
+
+\textbf{Step 2: support.}
+By \cref{eq:qharmonic}, this distribution vanishes on every test function
+supported in $\Omega\setminus\overline K$.  Therefore
+$\operatorname{supp}\mu_\eps\subseteq\overline K$.
+
+\textbf{Step 3: obtain the mass without extending the measure identity.}
+Choose $\chi\in C_c^\infty(U)$ with $\chi=1$ on a neighborhood of $K$.
+The function $q_\eps-\chi$ belongs to $V$ and vanishes quasi-everywhere
+on $K$. Thus \cref{eq:qharmonic}, applied directly in $V$, gives
+\[
+ \rho_\eps=a(q_\eps,q_\eps)=a(q_\eps,\chi)
+ =\int\chi\,d\mu_\eps=\mu_\eps(K).
+\]
+The integral identity here is used only for the smooth compactly supported
+function $\chi$, for which Steps 1--2 already prove it.
+
+\textbf{Step 4: the measure does not charge polar sets.}
+For a compact capacity-zero set $F\subset K$, the smooth-cutoff
+characterization of Sobolev capacity gives nonnegative
+$\eta_n\in C_c^\infty(\Omega)$ that are at least one near $F$ and satisfy
+$\|\eta_n\|_a\to0$. This interior characterization agrees with the relative
+capacity: multiply admissible approximations by a fixed interior cutoff,
+use norm equivalence, and the usual smooth approximation characterization
+of Sobolev capacity. Only compact subsets of $K\Subset\Omega$ are needed.
+Positivity and the already established smooth-test identity imply
+\[
+ \mu_\eps(F)\le\int\eta_n\,d\mu_\eps
+ =a(q_\eps,\eta_n)
+ \le\rho_\eps^{1/2}\|\eta_n\|_a\longrightarrow0.
+\]
+Inner regularity of the finite Radon measure then proves the same assertion
+for every Borel capacity-zero subset of $K$.
+
+\textbf{Step 5: extend locally by an energy bound.}
+For $\varphi\in C_c^\infty(\Omega)$, use the smooth nonnegative functions
+$T_\delta(\varphi)=\sqrt{\varphi^2+\delta^2}-\delta$.
+They have the same compact support, converge to $|\varphi|$, and satisfy
+$\|T_\delta(\varphi)\|_a\le\|\varphi\|_a$ by the chain rule and $\sigma\ge0$.
+Consequently, dominated convergence on the finite measure space gives
+\[
+ \int|\varphi|\,d\mu_\eps
+ =\lim_{\delta\downarrow0}a(q_\eps,T_\delta(\varphi))
+ \le\rho_\eps^{1/2}\|\varphi\|_a.
+\]
+If smooth compactly supported $\varphi_n$ converge to $w\in H^1_0(\Omega)$,
+this inequality makes them Cauchy in $L^1(\mu_\eps)$. A subsequence converges
+quasi-everywhere to $\widetilde w$ and, by Step 4, also $\mu_\eps$-almost
+everywhere. Its $L^1(\mu_\eps)$ limit is therefore $\widetilde w$.
+Passing to the limit in the smooth-test identity proves
+$a(q_\eps,w)=\int\widetilde w\,d\mu_\eps$ for $w\in H^1_0(\Omega)$.
+
+\textbf{Step 6: extend to the mixed-boundary space by localization.}
+For an arbitrary $v\in V$, $\chi v\in H^1_0(\Omega)$, while
+$v-\chi v$ vanishes on $K$. Orthogonality in \cref{eq:qharmonic} and Step 5 give
+\[
+ a(q_\eps,v)=a(q_\eps,\chi v)
+ =\int_K\chi\widetilde v\,d\mu_\eps
+ =\int_K\widetilde v\,d\mu_\eps.
+\]
+This avoids assuming that $C_c^\infty(\Omega)$ is dense in $V$, which would
+be false when nonzero traces are allowed on $\Gamma_N$.
+
+\textbf{Step 7: localization of a smooth observable.}
+For $v\in V\cap C^1(U)$, every $x\in K$ obeys $|x-z|\le\eps R_B$.
+Using the mass from Step 3,
+\begin{align}
+ |a(q_\eps,v)-\rho_\eps v(z)|
+ &=\left|\int_K(v(x)-v(z))\,d\mu_\eps(x)\right|\\
+ &\le\eps R_B\|\nabla v\|_{L^\infty(U)}\rho_\eps.
+\end{align}
+This proves \cref{eq:capacitylocalization} and completes the extension argument.
+\end{proof}
+
+\subsection{Capacity scale}
+
+\begin{proof}[Proof of \cref{thm:capacityscale}]
+Existence and uniqueness follow from \cref{lem:equilibrium}; coercivity and
+the fact that $K$ contains a ball imply $\rho_\eps>0$.
+
+\paragraph{The three-dimensional upper bound.}
+Let $P_B$ be the Newtonian equilibrium potential of $B$:
+$P_B=1$ quasi-everywhere on $B$, $P_B\to0$ at infinity, and
+\begin{equation}
+ \int_{\R^3}|\nabla P_B|^2\,\mathrm dy=\operatorname{cap}(B).
+ \label{eq:newtoniancapacity}
+\end{equation}
+Choose a fixed cutoff $\chi\in C_c^\infty(\Omega)$ that equals one on a
+neighborhood of $Z$.  The function
+\begin{equation}
+ v_{\eps,z}(x):=\chi(x)P_B((x-z)/\eps)
+\end{equation}
+is admissible for all sufficiently small $\eps$.  After the change of
+variables $x=z+\eps y$, local uniform convergence
+$\kappa(z+\eps y)\to\kappa(z)$ and the finite energy of $P_B$ yield
+\begin{equation}
+ \int_\Omega\kappa|\nabla v_{\eps,z}|^2\,\mathrm dx
+ =\eps\kappa(z)\operatorname{cap}(B)+o(\eps).
+ \label{eq:capupper3dgrad}
+\end{equation}
+The terms in which the gradient hits $\chi$ occur a fixed positive distance
+from $z$, where $P_B((x-z)/\eps)=O(\eps)$; they are $O(\eps^2)$.  Likewise
+$\int\sigma v_{\eps,z}^2=O(\eps^2)=o(\eps)$.  Minimality of $q_\eps$ gives
+\begin{equation}
+ \limsup_{\eps\downarrow0}\frac{\rho_\eps}{\eps}
+ \le\kappa(z)\operatorname{cap}(B).
+ \label{eq:capupper3d}
+\end{equation}
+
+\paragraph{The three-dimensional lower bound.}
+Define $Q_\eps(y)=q_\eps(z+\eps y)$ on
+$(\Omega-z)/\eps$. The upper bound makes $\int|\nabla Q_\eps|^2$ uniformly bounded. Moreover, Sobolev embedding and coercivity on the fixed domain give $\|q_\eps\|_{L^6(\Omega)}\le C\rho_\eps^{1/2}=O(\eps^{1/2})$. Rescaling yields a uniform $L^6$ bound for $Q_\eps$. Local weak compactness and a diagonal subsequence therefore give a limit $Q$ with $Q\in L^6(\R^3)$ and $\nabla Q\in L^2(\R^3)$, hence $Q\in D^{1,2}(\R^3)$. The cavity constraint passes to the limit by weak closedness on any fixed ball containing $B$, so $Q\ge1$ quasi-everywhere on $B$.  For every fixed $R$,
+uniform convergence of the coefficient and weak lower semicontinuity give
+\begin{align}
+ \liminf_{\eps\downarrow0}\frac{\rho_\eps}{\eps}
+ &\ge\liminf_{\eps\downarrow0}
+ \int_{B_R}\kappa(z+\eps y)|\nabla Q_\eps|^2\,\mathrm dy\\
+ &\ge\kappa(z)\int_{B_R}|\nabla Q|^2\,\mathrm dy.
+\end{align}
+Letting $R\to\infty$ and then using the variational definition in
+\cref{eq:newtoniancapacity} yields
+\begin{equation}
+ \liminf_{\eps\downarrow0}\frac{\rho_\eps}{\eps}
+ \ge\kappa(z)\operatorname{cap}(B).
+ \label{eq:caplower3d}
+\end{equation}
+Together, \cref{eq:capupper3d,eq:caplower3d} prove the $d=3$ formula.
+
+\paragraph{The two-dimensional upper bound.}
+By compactness, choose $r_0>0$ so that
+\begin{equation}
+ B_{2r_0}(z)\Subset\Omega\qquad\text{for every }z\in Z.
+\end{equation}
+Let $B\subset B_{R_B}(0)$.  Put
+$L_\eps=\log(r_0/(\eps R_B))$ and use the radial competitor
+\begin{equation}
+ v(r)=
+ \begin{cases}
+ 1,&r\le\eps R_B,\\
+ \log(r_0/r)/L_\eps,&\eps R_B<r<r_0,\\
+ 0,&r\ge r_0.
+ \end{cases}
+\end{equation}
+A direct polar-coordinate calculation gives
+\begin{equation}
+ \int_{\eps R_B}^{r_0}|v'(r)|^2\,2\pi r\,\mathrm dr
+ =\frac{2\pi}{L_\eps}.
+ \label{eq:annulusenergy}
+\end{equation}
+Uniform continuity of $\kappa$ and then $r_0\downarrow0$ show
+\begin{equation}
+ \limsup_{\eps\downarrow0}
+ |\log\eps|\rho_\eps\le2\pi\kappa(z).
+ \label{eq:capupper2d}
+\end{equation}
+The zero-order energy is $O(L_\eps^{-2})+O(\eps^2)$ and therefore does not
+alter this limit.
+
+\paragraph{The two-dimensional lower bound.}
+Choose $r_B>0$ with $B_{r_B}(0)\subset B$.  Fix $r_0$ as above and let
+$\delta>0$ be such that
+$\kappa(x)\ge\kappa(z)-\delta$ on $B_{r_0}(z)$.  For an admissible $v$, let
+$c$ be its circular mean on $\partial B_{r_0}(z)$.  Applying Cauchy--Schwarz
+to the radial derivative of the circular mean gives
+\begin{equation}
+ \int_{B_{r_0}(z)\setminus B_{\eps r_B}(z)}|\nabla v|^2\,\mathrm dx
+ \ge\frac{2\pi(1-c)_+^2}{\log(r_0/(\eps r_B))}.
+ \label{eq:annuluslower}
+\end{equation}
+On the fixed exterior domain $\Omega\setminus B_{r_0}(z)$, the trace theorem,
+the Poincar\'e inequality on functions vanishing at $\Gamma_D$, and
+\cref{eq:coercivity} give
+\begin{equation}
+ a_{\Omega\setminus B_{r_0}(z)}(v,v)\ge C_0c^2
+ \label{eq:outerresistance}
+\end{equation}
+with $C_0>0$ uniform on $Z$.  Minimizing the sum of
+$A(1-c)_+^2+C_0c^2$, where
+$A=2\pi(\kappa(z)-\delta)/\log(r_0/(\eps r_B))$, gives
+\begin{equation}
+ \rho_\eps\ge\frac{AC_0}{A+C_0}.
+\end{equation}
+First let $\eps\downarrow0$ and then $\delta\downarrow0$ to obtain
+\begin{equation}
+ \liminf_{\eps\downarrow0}|\log\eps|\rho_\eps
+ \ge2\pi\kappa(z).
+ \label{eq:caplower2d}
+\end{equation}
+This and \cref{eq:capupper2d} prove the $d=2$ formula.
+
+\paragraph{Uniformity and comparison with volume.}
+All cutoffs, radii, trace constants, and coefficient moduli can be chosen
+uniformly because $Z$ is compactly contained in $\Omega$.  A contradiction
+argument applied to any sequence $z_n\in Z$, $\eps_n\downarrow0$ upgrades the
+pointwise limits to uniform ones.  Finally,
+$\eps^3=o(\eps)$ in $d=3$ and
+$\eps^2=o(1/|\log\eps|)$ in $d=2$, proving
+$\eps^d=o(\rho_\eps)$.
+\end{proof}
+
+\subsection{Potential and corrector estimates}
+
+\begin{lemma}[$L^2$ size of the equilibrium potential]
+\label{lem:qLtwo}
+For $d\in\{2,3\}$,
+\begin{equation}
+ \|q_\eps\|_{L^2(\Omega)}\le C\rho_\eps.
+ \label{eq:qLtwo}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The coercive mixed-boundary operator has a positive Green kernel $G(x,y)$.
+For $y$ in the fixed interior neighborhood $U$, its local singularity and
+regular part satisfy
+\begin{equation}
+ 0\le G(x,y)\le C
+ \begin{cases}
+ 1+|\log|x-y||,&d=2,\\
+ |x-y|^{-1}+1,&d=3.
+ \end{cases}
+ \label{eq:greenbound}
+\end{equation}
+These bounds follow by freezing the uniformly elliptic principal coefficient,
+using the Laplace fundamental solution as a local parametrix, and applying the
+maximum principle plus interior elliptic estimates to the regular remainder.
+Both right sides are square-integrable in $x$ on a bounded domain, uniformly
+for $y\in U$; hence
+$\sup_{y\in U}\|G(\cdot,y)\|_2\le C_G$.
+
+By \cref{eq:measureidentity}, $q_\eps$ is the unique weak solution of
+$Lq_\eps=\mu_\eps$ with homogeneous outer conditions, so
+\begin{equation}
+ q_\eps(x)=\int_KG(x,y)\,\mathrm d\mu_\eps(y).
+\end{equation}
+Minkowski's integral inequality and
+$\mu_\eps(K)=\rho_\eps$ yield
+\begin{equation}
+ \|q_\eps\|_2
+ \le\int_K\|G(\cdot,y)\|_2\,\mathrm d\mu_\eps(y)
+ \le C_G\rho_\eps.
+\end{equation}
+\end{proof}
+
+\begin{lemma}[State corrector]
+\label{lem:statecorrector}
+Let $w_\eps:=\widetilde u_{\eps,z}-u$ and define
+\begin{equation}
+ r_\eps:=w_\eps+(u(z)-h_z)q_\eps.
+ \label{eq:correctordefinition}
+\end{equation}
+Then
+\begin{align}
+ \|r_\eps\|_a&\le C\eps^{d/2},
+ \label{eq:correctorenergy}\\
+ |a_\Omega(r_\eps,p)|&\le C\eps^{d/2},
+ \label{eq:correctoradjoint}\\
+ \|w_\eps\|_{L^2(\Omega)}&\le C\rho_\eps.
+ \label{eq:stateLtwo}
+\end{align}
+In particular, $a_\Omega(r_\eps,p)=o(\rho_\eps)$ uniformly on $Z$.
+\end{lemma}
+
+\begin{proof}
+\textbf{Step 1: the corrector equation and trace.}
+The state equations on $\Omega_\eps$ imply that $w_\eps$ is $a$-harmonic
+against every test function vanishing on both the outer Dirichlet boundary and
+$\partial K$.  The same is true of $q_\eps$ by
+\cref{eq:qharmonic}.  Therefore $r_\eps$ is $a$-harmonic on
+$\Omega_\eps$.  On the cavity boundary,
+\begin{equation}
+ r_\eps=h_z-u+(u(z)-h_z)=u(z)-u.
+ \label{eq:correctortrace}
+\end{equation}
+
+\textbf{Step 2: a localized lift.}
+Choose $R>R_B$ and $\chi\in C_c^\infty(B_{2R}(0))$ with
+$\chi=1$ on $B_R(0)$.  For sufficiently small $\eps$, define
+\begin{equation}
+ \eta_\eps(x):=\chi((x-z)/\eps)(u(z)-u(x)).
+\end{equation}
+It has the trace in \cref{eq:correctortrace}.  Local $C^1$ regularity gives
+$|u(z)-u(x)|\le C\eps$ on its support and
+\begin{align}
+ |\nabla\eta_\eps|
+ &\le\eps^{-1}|\nabla\chi((x-z)/\eps)|
+              \cdot|u(z)-u(x)|\notag\\
+ &\quad+|\chi((x-z)/\eps)|\cdot|\nabla u(x)|\notag\\
+ &\le C.
+\end{align}
+Because the support has volume $O(\eps^d)$,
+\begin{equation}
+ a_\Omega(\eta_\eps,\eta_\eps)\le C\eps^d.
+ \label{eq:liftenergy}
+\end{equation}
+
+\textbf{Step 3: energy minimality.}
+On $\Omega_\eps$, both $r_\eps$ and $\eta_\eps$ have the same boundary trace.
+Thus $r_\eps-\eta_\eps$ is an admissible homogeneous test function, and
+$a_{\Omega_\eps}(r_\eps,r_\eps-\eta_\eps)=0$.  Consequently
+\begin{equation}
+ a_{\Omega_\eps}(\eta_\eps,\eta_\eps)
+ =a_{\Omega_\eps}(r_\eps,r_\eps)
+  +a_{\Omega_\eps}(\eta_\eps-r_\eps,\eta_\eps-r_\eps).
+\end{equation}
+Inside $K$, the extension of $r_\eps$ equals $u(z)-u(x)$ and has energy
+$O(\eps^d)$.  Combining this fact with \cref{eq:liftenergy} proves
+\cref{eq:correctorenergy}.
+
+\textbf{Step 4: adjoint pairing.}
+Cauchy--Schwarz in the energy inner product gives
+\begin{equation}
+ |a(r_\eps,p)|\le\|r_\eps\|_a\|p\|_a
+ \le C\eps^{d/2},
+\end{equation}
+which is \cref{eq:correctoradjoint}.
+
+\textbf{Step 5: $L^2$ size of the state perturbation.}
+From \cref{eq:correctordefinition}, Poincar\'e's inequality, and
+\cref{lem:qLtwo},
+\begin{align}
+ \|w_\eps\|_2
+ &\le |u(z)-h_z|\,\|q_\eps\|_2+\|r_\eps\|_2\\
+ &\le C\rho_\eps+C\eps^{d/2}.
+\end{align}
+The capacity scales show $\eps^{d/2}=o(\rho_\eps)$ for $d=2,3$, proving
+\cref{eq:stateLtwo}.  The same comparison applied to
+\cref{eq:correctoradjoint} proves the final statement.
+\end{proof}
+
+\subsection{Objective expansion}
+
+\begin{proof}[Proof of \cref{thm:localtd}]
+Fix $z\in Z$ and abbreviate $a_z=u(z)-h_z$.
+
+\textbf{Step 1: Taylor expansion of the state objective.}
+By \cref{eq:stateLtwo}, $w_\eps\to0$ in $L^2$.  The integral form of the
+second-order Fr\'echet remainder is
+\begin{equation}
+ j(u+w_\eps)-j(u)-j'(u)[w_\eps]
+ =\int_0^1(1-t)j''(u+tw_\eps)[w_\eps,w_\eps]\,\mathrm dt.
+\end{equation}
+The uniform bound on $j''$ and \cref{eq:stateLtwo} imply
+\begin{equation}
+ |j(u+w_\eps)-j(u)-j'(u)[w_\eps]|
+ \le C\rho_\eps^2.
+ \label{eq:objectiveTaylorbound}
+\end{equation}
+
+\textbf{Step 2: explicit domain cost.}
+The only explicit domain change is
+\begin{equation}
+ \left|\int_{\Omega_\eps}\psi-\int_\Omega\psi\right|
+ =\left|\int_K\psi\right|
+ \le\|\psi\|_\infty|B|\eps^d.
+ \label{eq:domaincostbound}
+\end{equation}
+
+\textbf{Step 3: adjoint substitution.}
+The extension $w_\eps$ has zero trace on $\Gamma_D$, hence belongs to $V$.
+By \cref{eq:adjointweak,eq:correctordefinition},
+\begin{equation}
+ j'(u)[w_\eps]
+ =a_\Omega(w_\eps,p)
+ =-a_z a_\Omega(q_\eps,p)+a_\Omega(r_\eps,p).
+ \label{eq:adjointcorrector}
+\end{equation}
+
+\textbf{Step 4: localization of the capacitary charge.}
+Applying \cref{eq:capacitylocalization} to the locally $C^1$ adjoint gives
+\begin{equation}
+ a_\Omega(q_\eps,p)
+ =\rho_\eps p(z)+e_{\eps,z},
+ \qquad |e_{\eps,z}|\le C\eps\rho_\eps.
+ \label{eq:adjointlocalization}
+\end{equation}
+Combining \cref{eq:correctoradjoint,eq:adjointcorrector,eq:adjointlocalization}
+yields
+\begin{equation}
+ j'(u)[w_\eps]
+ =-\rho_\eps(u(z)-h_z)p(z)
+  +O(\eps\rho_\eps)+O(\eps^{d/2}).
+ \label{eq:firstvariationfinal}
+\end{equation}
+
+\textbf{Step 5: collect and express the remainder in capacity units.}
+Equations \cref{eq:objectiveTaylorbound,eq:domaincostbound,eq:firstvariationfinal}
+give
+\begin{align}
+ &\left|\J(\Omega_{\eps,z})-\J(\Omega)
+ +\rho_\eps(u(z)-h_z)p(z)\right|\notag\\
+ &\hspace{16mm}\le
+ C\left(\rho_\eps^2+\eps\rho_\eps
+        +\eps^{d/2}+\eps^d\right).
+ \label{eq:rawremainder}
+\end{align}
+For $d=3$, $\rho_\eps\asymp\eps$, so every term on the right is bounded by
+$C\rho_\eps^{3/2}$.  For $d=2$,
+$\rho_\eps\asymp1/|\log\eps|$, and the elementary limit
+$\eps|\log\eps|^m\to0$ for every fixed $m$ shows that every term is bounded by
+$C\rho_\eps^2$.  This proves \cref{eq:quantitativesmallhole} with
+$\alpha_3=1/2$ and $\alpha_2=1$.
+
+\textbf{Step 6: identify the derivative.}
+Divide \cref{eq:rawremainder} by $\rho_\eps>0$ and let $\eps\downarrow0$.
+The normalized remainder vanishes, so the limit in
+\cref{eq:tddefinition} exists and equals
+$-(u(z)-h_z)p(z)$.  Every constant above is uniform on $Z$, proving uniform
+convergence and \cref{eq:localproduct}.
+\end{proof}
+\section{Cross-Fitted Estimator Proofs}
+\label{app:ustat}
+
+Fix a candidate $z$.  Write
+\begin{equation}
+ A_i:=U_i-h_z,\qquad B_i:=P_i,
+ \qquad \mu_A:=\E A_i,\quad\mu_B:=\E B_i,
+\end{equation}
+and $X_i=(A_i,B_i)$.  Under the exact-oracle assumption,
+$\theta:=-\mu_A\mu_B=\DT(z)$.
+
+\subsection{Algebra and unbiasedness}
+
+\begin{lemma}[Linear-time identity]
+\label{lem:lineartime}
+For every $N\ge2$,
+\begin{equation}
+ \sum_{i\ne j}A_iB_j
+ =\left(\sum_{i=1}^NA_i\right)
+  \left(\sum_{j=1}^NB_j\right)
+  -\sum_{i=1}^NA_iB_i.
+ \label{eq:lineartimeproof}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Distributivity gives
+$(\sum_iA_i)(\sum_jB_j)=\sum_{i,j}A_iB_j$.  The index set of this double sum
+is the disjoint union of the diagonal $\{i=j\}$ and the off-diagonal
+$\{i\ne j\}$.  Subtracting the diagonal proves the identity.  Thus the
+estimator needs three scalar sums and $O(N)$ arithmetic.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:unbiased}]
+\textbf{Step 1: factor only across different sample pairs.}
+For $i\ne j$, $X_i$ and $X_j$ are independent.  Therefore $A_i$ and $B_j$ are
+independent even though $A_i$ and $B_i$ need not be, and
+\begin{equation}
+ \E[-A_iB_j]=-(\E A_i)(\E B_j)=-\mu_A\mu_B=\theta.
+ \label{eq:crossmean}
+\end{equation}
+
+\textbf{Step 2: average the ordered terms.}
+There are exactly $N(N-1)$ ordered pairs $(i,j)$ with $i\ne j$.  Linearity of
+expectation and \cref{eq:crossmean} give
+\begin{equation}
+ \E\widehat{\DT}_N
+ =\frac{1}{N(N-1)}\sum_{i\ne j}\theta=\theta.
+\end{equation}
+Finally, \cref{eq:oraclemeans,eq:localproduct} imply
+$\theta=-(u(z)-h_z)p(z)=\DT(z)$.  At no point was
+$\E[A_iB_i]$ factored, so within-pair dependence is unrestricted.
+\end{proof}
+
+\subsection{Exact variance decomposition}
+
+Let $A_i^\circ=A_i-\mu_A$ and $B_i^\circ=B_i-\mu_B$.  Recall the symmetric
+kernel
+\begin{equation}
+ H(X_i,X_j)=-\frac12(A_iB_j+A_jB_i),
+\end{equation}
+for which
+\begin{equation}
+ \widehat{\DT}_N
+ =\binom N2^{-1}\sum_{1\le i<j\le N}H(X_i,X_j).
+ \label{eq:ustatunordered}
+\end{equation}
+
+\begin{lemma}[Hoeffding projections]
+\label{lem:projections}
+The first-order and degenerate projections are
+\begin{align}
+ h_1(X_i)
+ &:=-\frac12\left(\mu_BA_i^\circ+\mu_AB_i^\circ\right),
+ \label{eq:hprojectionone}\\
+ h_2(X_i,X_j)
+ &:=-\frac12\left(A_i^\circ B_j^\circ
+                  +A_j^\circ B_i^\circ\right).
+ \label{eq:hprojectiontwo}
+\end{align}
+They obey
+\begin{align}
+ \E h_1(X_i)&=0,\notag\\
+ \E[h_2(X_i,X_j)\mid X_i]&=0,\notag\\
+ \E[h_2(X_i,X_j)\mid X_j]&=0.
+ \label{eq:degeneracy}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+Because $X_j$ is independent of $X_i$,
+\begin{align}
+ \E[H(X_i,X_j)\mid X_i]
+ &=-\frac12(A_i\mu_B+B_i\mu_A).
+\end{align}
+Subtracting $\theta=-\mu_A\mu_B$ and collecting centered terms gives
+\cref{eq:hprojectionone}.  Next expand
+\begin{align}
+ H(X_i,X_j)
+ &=-\mu_A\mu_B
+ -\frac12\{\mu_B(A_i^\circ+A_j^\circ)
+            +\mu_A(B_i^\circ+B_j^\circ)\}\notag\\
+ &\quad-\frac12(A_i^\circ B_j^\circ+A_j^\circ B_i^\circ).
+\end{align}
+Subtracting $\theta+h_1(X_i)+h_1(X_j)$ proves
+\cref{eq:hprojectiontwo}.  Centering and independence across $i\ne j$ give
+all three identities in \cref{eq:degeneracy}.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:variance}]
+\textbf{Step 1: decompose the U-statistic.}
+Substitute
+$H=\theta+h_1(X_i)+h_1(X_j)+h_2(X_i,X_j)$ into
+\cref{eq:ustatunordered}.  Every $h_1(X_i)$ appears in $N-1$ unordered pairs,
+and $\binom N2=N(N-1)/2$, hence
+\begin{equation}
+ \widehat{\DT}_N-\theta
+ =\frac2N\sum_{i=1}^Nh_1(X_i)
+ +\binom N2^{-1}\sum_{i<j}h_2(X_i,X_j).
+ \label{eq:hoeffdingdecomposition}
+\end{equation}
+
+\textbf{Step 2: prove orthogonality.}
+For any $k$ and pair $i<j$, the covariance
+$\E[h_1(X_k)h_2(X_i,X_j)]$ is zero.  If $k$ is distinct from both indices,
+independence and centering suffice.  If $k=i$, condition on $X_i$ and use
+$\E[h_2\mid X_i]=0$; the case $k=j$ is identical.
+
+Two different degenerate terms are also uncorrelated.  Disjoint pairs are
+independent.  If $(i,j)$ and $(i,k)$ share one index, then conditioning on
+$X_i$ and using independence of $X_j,X_k$ gives zero by degeneracy.  Thus only
+identical unordered pairs contribute to the variance of the second sum.
+
+\textbf{Step 3: take variances.}
+With $\zeta_1=\Var(h_1(X_1))$ and
+$\zeta_2=\Var(h_2(X_1,X_2))$, orthogonality gives
+\begin{align}
+ \Var(\widehat{\DT}_N)
+ &=\frac{4}{N^2}N\zeta_1
+ +\binom N2^{-2}\binom N2\zeta_2\\
+ &=\frac4N\zeta_1+\frac{2}{N(N-1)}\zeta_2.
+ \label{eq:variancefromprojection}
+\end{align}
+
+\textbf{Step 4: compute $\zeta_1$.}
+Squaring \cref{eq:hprojectionone} and taking expectations gives
+\begin{equation}
+ \zeta_1=\frac14\left(
+ \mu_B^2\Var A+\mu_A^2\Var B
+ +2\mu_A\mu_B\Cov(A,B)\right),
+\end{equation}
+which is \cref{eq:zetaone}.
+
+\textbf{Step 5: compute $\zeta_2$.}
+Let $c_{AB}=\E[A_1^\circ B_1^\circ]$.  From
+\cref{eq:hprojectiontwo}, independence across sample pairs yields
+\begin{align}
+ \E h_2^2
+ &=\frac14\E\left[
+ (A_1^\circ B_2^\circ)^2+(A_2^\circ B_1^\circ)^2
+ +2A_1^\circ B_1^\circ A_2^\circ B_2^\circ\right]\\
+ &=\frac14\left(2\Var A\,\Var B+2c_{AB}^2\right),
+\end{align}
+which is \cref{eq:zetatwo}.  The second-moment assumptions make all quantities
+finite.  Since $A,B$, and $H$ are evaluated on the unperforated domain, no
+$\eps$ occurs anywhere in \cref{eq:variancefromprojection}.
+\end{proof}
+
+\subsection{Finite-sample concentration}
+
+\begin{proof}[Proof of \cref{thm:concentration}]
+Let $m=\lfloor N/2\rfloor$ and let $\Pi$ be a uniformly random permutation of
+$\{1,\ldots,N\}$, independent of the data.  Define the disjoint-pair average
+\begin{equation}
+ V_\Pi:=\frac1m\sum_{k=1}^m
+ H(X_{\Pi(2k-1)},X_{\Pi(2k)}).
+ \label{eq:permutationaverage}
+\end{equation}
+
+\textbf{Step 1: recover the U-statistic by averaging pairings.}
+A fixed unordered pair $\{i,j\}$ is selected in one of the $m$ slots with
+probability $2m/[N(N-1)]$.  Its coefficient in
+$\E_\Pi[V_\Pi\mid X_1,\ldots,X_N]$ is therefore
+\begin{equation}
+ \frac1m\frac{2m}{N(N-1)}=\binom N2^{-1}.
+\end{equation}
+Using \cref{eq:ustatunordered},
+\begin{equation}
+ \E_\Pi[V_\Pi\mid X_1,\ldots,X_N]=\widehat{\DT}_N.
+ \label{eq:pairingidentity}
+\end{equation}
+
+\textbf{Step 2: bound the moment-generating function.}
+For every $\lambda>0$, convexity of the exponential and
+\cref{eq:pairingidentity} give
+\begin{align}
+ \E\exp\{\lambda(\widehat{\DT}_N-\theta)\}
+ &\le\E\E_\Pi\exp\{\lambda(V_\Pi-\theta)\}.
+ \label{eq:mgfjensen}
+\end{align}
+Conditional on a fixed permutation, the $m$ kernel values in
+\cref{eq:permutationaverage} use disjoint independent sample pairs.  Each has
+mean $\theta$ and lies in $[-M,M]$ because
+$|A_i|\le M_U$ and $|B_i|\le M_P$.  Hoeffding's lemma (derived explicitly for a bounded interval in Step 3 of the proof of \cref{prop:onesidedwos}) therefore gives
+\begin{equation}
+ \E\exp\{\lambda(V_\Pi-\theta)\}
+ \le\exp\left(\frac{\lambda^2M^2}{2m}\right).
+ \label{eq:mgfhoeffding}
+\end{equation}
+
+\textbf{Step 3: Chernoff optimization.}
+Markov's inequality and \cref{eq:mgfhoeffding} imply
+\begin{equation}
+ \Prob(\widehat{\DT}_N-\theta\ge t)
+ \le\exp\left(-\lambda t+\frac{\lambda^2M^2}{2m}\right).
+\end{equation}
+The minimizing value is $\lambda=mt/M^2$.  Substitution produces
+\begin{equation}
+ \exp\!\left(-\frac{mt^2}{2M^2}\right).
+\end{equation}
+Applying the same argument to
+$-\widehat{\DT}_N$ and adding the two tail probabilities proves
+\cref{eq:hoeffdingtail}.
+
+\textbf{Step 4: invert the tail and cover multiple candidates.}
+Setting the right side of \cref{eq:hoeffdingtail} equal to $\delta$ gives
+\cref{eq:hoeffdingradius}.  For candidate events $F_1,\ldots,F_K$, each with
+failure probability at most $\delta/K$, Boole's inequality gives
+$\Prob(\cup_kF_k)\le\sum_k\Prob(F_k)\le\delta$.  This argument never assumes
+independence across candidate locations.
+\end{proof}
+
+\subsection{Marginal bias propagation}
+
+\begin{proof}[Proof of \cref{prop:biaspropagation}]
+Put $\bar u=\E U=u+e_U$ and $\bar p=\E P=p+e_P$, where
+$|e_U|\le\beta_U$ and $|e_P|\le\beta_P$.  The same cross-index factorization
+as in \cref{eq:crossmean} gives
+\begin{equation}
+ \E\widehat{\DT}_N=-(\bar u-h_z)\bar p.
+\end{equation}
+Subtracting $\DT=-(u-h_z)p$ and expanding yields the exact identity
+\begin{equation}
+ \E\widehat{\DT}_N-\DT
+ =-p e_U-(u-h_z)e_P-e_Ue_P.
+\end{equation}
+The triangle inequality and the marginal bounds prove
+\cref{eq:productbias}.
+\end{proof}
+
+\section{Finite-Difference Lower Bound and Complexity}
+\label{app:rareevent}
+
+\begin{proof}[Proof of \cref{thm:rarevariance}]
+\textbf{Step 1: lower-bound the per-path second moment.}
+By \cref{eq:rarezero},
+\begin{align}
+ \E Y_\eps^2
+ &=\E[Y_\eps^2\mathbf 1_{A_\eps}]
+ =\Prob(A_\eps)\E[Y_\eps^2\mid A_\eps]\\
+ &\ge c_p c_2\rho_z(\eps).
+ \label{eq:raresecondmoment}
+\end{align}
+
+\textbf{Step 2: control the squared mean.}
+By \cref{eq:raremoments},
+\begin{equation}
+ (\E Y_\eps)^2\le C_1^2\rho_z(\eps)^2.
+\end{equation}
+If $\rho_z(\eps)\le c_pc_2/(2C_1^2)$, this is at most
+$\tfrac12c_pc_2\rho_z(\eps)$.  Subtracting it from
+\cref{eq:raresecondmoment} gives
+\begin{equation}
+ \Var(Y_\eps)\ge\frac12c_pc_2\rho_z(\eps).
+ \label{eq:rareperpathvariance}
+\end{equation}
+
+\textbf{Step 3: scale the independent sample mean.}
+Independence of the $N$ replicates gives
+\begin{align}
+ \Var(\widehat{\DT}^{\mathrm{FD}}_{N,\eps})
+ &=\frac{1}{N\rho_z(\eps)^2}\Var(Y_\eps)\\
+ &\ge\frac{c_pc_2}{2N\rho_z(\eps)},
+\end{align}
+which is \cref{eq:rarevariance}.
+\end{proof}
+
+\begin{proof}[Proof of \cref{cor:ranking}]
+Apply \cref{eq:hoeffdingradius} to each candidate with failure probability
+$\delta/K$.  The common radius is at most $\Delta$ precisely when
+\begin{equation}
+ M\sqrt{\frac{2\log(2K/\delta)}{\lfloor N/2\rfloor}}
+ \le\Delta,
+\end{equation}
+which rearranges to \cref{eq:directcomplexity}.  The union bound in
+\cref{thm:concentration} then gives simultaneous error at most $\Delta$.
+For finite differencing, \cref{eq:rarevariance} and the requirement
+$\Var(\widehat{\DT}^{\mathrm{FD}}_{N,\eps})\le\Delta^2$ imply
+\cref{eq:fdcomplexity} by direct rearrangement.
+\end{proof}
+
+\section{Certification and Adaptive-Selection Proofs}
+\label{app:certificate}
+
+\begin{proof}[Proof of \cref{thm:certificate}]
+Let
+\begin{equation}
+ E:=\{|\widehat{\DT}_N-\E\widehat{\DT}_N|
+          \le r_N(\delta)\}.
+\end{equation}
+By hypothesis, $\Prob(E)\ge1-\delta$.
+
+\textbf{Step 1: upper-bound the true derivative on $E$.}
+The confidence event and \cref{eq:biasbudget} give
+\begin{align}
+ \DT(z)
+ &\le\E\widehat{\DT}_N(z)
+       +b_{\mathrm{term}}+b_{\mathrm{cache}}\\
+ &\le\widehat{\DT}_N(z)+r_N(\delta)
+       +b_{\mathrm{term}}+b_{\mathrm{cache}}.
+ \label{eq:derivativeupperbound}
+\end{align}
+
+\textbf{Step 2: insert the deterministic remainder.}
+Since $\rho_z(\eps)>0$, the upper side of
+\cref{eq:remainderbound} and \cref{eq:derivativeupperbound} imply
+\begin{align}
+ \J(\Omega_{\eps,z})-\J(\Omega)
+ &\le\rho_z(\eps)
+       \{\DT(z)+C_z\rho_z(\eps)^\alpha\}\\
+ &\le\rho_z(\eps)\{
+ \widehat{\DT}_N+r_N+b_{\mathrm{term}}\notag\\[-2pt]
+ &\hspace{23mm}{}+b_{\mathrm{cache}}
+ +C_z\rho_z(\eps)^\alpha\}.
+ \label{eq:certificatebound}
+\end{align}
+The braced term is negative by \cref{eq:certificate}; hence the objective
+change is negative on $E$.  The event has probability at least $1-\delta$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{cor:adaptiveradius}]
+The event $E$ in the preceding proof is independent of which radius is chosen.
+On $E$, \cref{eq:certificatebound} holds simultaneously for every
+$\eps\in(0,\eps_0]$ because the remainder assumption is uniform over that
+interval.  Therefore it also holds at the measurable random value
+$\widehat\eps$.  If \cref{eq:certificate} holds there, the right side is
+negative.  Thus failure can occur only on $E^c$, whose probability is at most
+$\delta$.  Since one event covers the continuum of radii, no discretization or
+union bound is required.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:freshvalidation}]
+Let $B_t$ be the event that round $t$ accepts a non-improving insertion.  The
+candidate and radius are $\mathcal F_{t-1}$-measurable.  Conditional on that
+history, the proof of \cref{thm:certificate} shows that an accepted insertion
+is improving whenever $E_t$ occurs.  Hence
+\begin{equation}
+ B_t\subseteq E_t^c
+ \quad\text{and}\quad
+ \Prob(B_t\mid\mathcal F_{t-1})
+ \le\Prob(E_t^c\mid\mathcal F_{t-1})\le\delta_t.
+\end{equation}
+Taking expectations and using the tower property gives
+$\Prob(B_t)\le\delta_t$.  Finally, countable subadditivity yields
+\begin{equation}
+ \Prob\left(\bigcup_{t\ge1}B_t\right)
+ \le\sum_{t\ge1}\Prob(B_t)
+ \le\sum_{t\ge1}\delta_t,
+\end{equation}
+which is \cref{eq:sequentialfamilywise}.  No independence between validation
+batches is used; only the conditional guarantee is required.
+\end{proof}
+
+\input{appendix/13_implementation_analysis}
+
+\section{Connected-Channel Refinement Proofs}
+\label{app:channelproofs}
+
+\begin{proof}[Proof of \cref{prop:channel-diffwos}]
+We prove the vector identity by testing it against an arbitrary translation
+$v\in\R^3$ of ball $i$.
+
+\textbf{Step 1: derive the boundary condition for the shape derivative.}
+On the interior of the exposed patch $\Gamma_i$, translation of center $i$
+has velocity $V=v$; every other open spherical patch and the outer boundary
+have $V=0$.  The proposition's shape-differentiability assumption permits
+patchwise trace differentiation; the seam itself is excluded.  Write $u_t$
+for the perturbed solution and $\dot u$ for its Eulerian shape derivative at
+$t=0$.  Differentiating the
+identity $u_t(T_t(x))=0$ for $x\in\Gamma_i$ gives
+\begin{equation}
+ \dot u(x)+\nabla u(x)\cdot V(x)=0.
+ \label{eq:channelmaterialboundary}
+\end{equation}
+The trace of $u$ is constant on $\Gamma_i$, so its tangential gradient
+vanishes there.  Hence $\nabla u=(\partial_nu)n$ and
+\begin{equation}
+ \dot u=-(n\cdot v)\partial_nu\quad\text{on }\Gamma_i.
+ \label{eq:channelshapecondition}
+\end{equation}
+The source $f$ and the outer boundary are fixed.  Differentiating the weak
+Poisson equation with test functions compactly supported in the current
+domain therefore gives
+\begin{equation}
+ -\Delta\dot u=0\quad\text{in }\Omega(q,r),
+ \label{eq:channelharmonicderivative}
+\end{equation}
+with zero trace on all stationary Dirichlet patches.  Equations
+\cref{eq:channelshapecondition,eq:channelharmonicderivative} are the standard
+differential boundary-value problem, here obtained directly from the moving
+trace.
+
+\textbf{Step 2: approximate the normal derivative on the safe patch.}
+For $x\in\Gamma_{i,\ell}^{\mathrm{safe}}$, the segment in
+\cref{eq:channelsafepatch} lies in the retained domain.  Whenever a uniform
+$C^2$ extension is available, Taylor's theorem along this segment and
+$u(x)=0$ give
+\begin{align}
+ u(x-\ell n)
+ &=u(x)-\ell\partial_nu(x)
+   +\frac{\ell^2}{2}
+     n^T\nabla^2u(x-\theta\ell n)n \\
+ &=-\ell\partial_nu(x)+O(\ell^2),
+ \label{eq:backwardnormaltaylor}
+\end{align}
+for some $\theta\in(0,1)$.  Uniform $C^2$ bounds on the regular exposed
+patches imply
+\begin{equation}
+ -\partial_nu(x)=\frac{u(x-\ell n(x))}{\ell}+O(\ell)
+ \label{eq:backwardnormalderivative}
+\end{equation}
+there.  In the proposition we use the explicitly stated uniform version
+\cref{eq:safenormaltaylor}; this separates the needed analytic estimate from
+the merely qualitative fact that $\Sigma$ has zero harmonic measure.
+Combining
+\cref{eq:channelshapecondition,eq:backwardnormalderivative} yields
+\begin{equation}
+ \dot u(x)=(n(x)\cdot v)
+ \frac{u(x-\ell n(x))}{\ell}+O(\ell\|v\|).
+ \label{eq:offsetboundarydata}
+\end{equation}
+
+\textbf{Step 3: truncate the harmonic exit representation.}
+Let $X_\tau$ denote Brownian exit from $\Omega(q,r)$, and abbreviate
+$\xi=X_\tau$ and $n_\tau=n(X_\tau)$.  The harmonic representation of
+\cref{eq:channelharmonicderivative} first gives the exact identity
+\begin{align}
+ D_{s_i}u(y)[v]
+ &=\E_y\!\left[
+   \mathbf 1_{\{I(\xi)=i\}}
+   \bigl(-(n_\tau\cdot v)\partial_nu(\xi)\bigr)\right].
+ \label{eq:exactharmonicshaperepresentation}
+\end{align}
+Write $S_{i,\ell}=\{I(\xi)=i,\,
+\xi\in\Gamma_{i,\ell}^{\mathrm{safe}}\}$.  On $S_{i,\ell}$,
+\cref{eq:safenormaltaylor} bounds the error made by replacing
+$-\partial_nu(\xi)$ with $u(\xi-\ell n_\tau)/\ell$ by $C_K\ell$.
+Because harmonic measure has total mass at most one, its contribution is at
+most $C_K\ell\|v\|$.  On $\{I(\xi)=i\}\setminus S_{i,\ell}$,
+\cref{eq:weightedseamstrip} bounds the discarded part of
+\cref{eq:exactharmonicshaperepresentation} by the same order.  Therefore
+\begin{align}
+ D_{s_i}u(y)[v]
+ &=\E_y\!\left[
+   \mathbf 1_{S_{i,\ell}}(n_\tau\cdot v)
+   \frac{u(\xi-\ell n_\tau)}{\ell}\right]
+   +O_K(\ell\|v\|).
+ \label{eq:harmonicshaperepresentation}
+\end{align}
+This is the precise point at which the quantitative strip assumption, rather
+than only measure zero of the limiting seam, is required.
+
+\textbf{Step 4: insert the nested WoS estimate.}
+Condition on $X_\tau$ on the safe event $S_{i,\ell}$.  By hypothesis,
+\begin{equation}
+ \E[U_{X_\tau-\ell n(X_\tau)}\mid X_\tau]
+ =u(X_\tau-\ell n(X_\tau)).
+\end{equation}
+Taking iterated expectations in \cref{eq:diffwoscenterestimator} and comparing
+with \cref{eq:harmonicshaperepresentation} shows that, for every $v$,
+\begin{equation}
+ v\cdot\E G_{i,\ell}(y)
+ =D_{s_i}u(y)[v]+O(\ell\|v\|).
+\end{equation}
+Duality in the finite-dimensional space $\R^3$ proves
+\cref{eq:diffwoscenterbias}.
+
+\textbf{Step 5: differentiate compliance.}
+Reynolds' transport formula gives
+\begin{equation}
+ D_{s_i}J[v]
+ =\int_{\Omega(q,r)}fD_{s_i}u[v]\,dx
+  +\int_{\partial\Omega(q,r)}fu(V\cdot n)\,dS.
+ \label{eq:channelreynolds}
+\end{equation}
+The boundary integral vanishes because $u=0$ on every moving and fixed
+Dirichlet patch. For a fixed finite interior probe set, compact-set uniformity in \cref{eq:diffwoscenterbias} directly bounds the weighted sum of estimator errors by $O(\ell)$. For the continuum objective, the additional integrable-envelope hypothesis gives
+\[
+ \begin{aligned}
+ &\left\|\int_{\Omega(q,r)}f(y)
+ \bigl(\E G_{i,\ell}(y)-\nabla_{s_i}u(y)\bigr)\,dy\right\|\\
+ &\qquad\le \ell\int_{\Omega(q,r)}|f(y)|C(y)\,dy.
+ \end{aligned}
+\]
+This proves the continuum rate under the added hypothesis. Compact-set bounds alone would not control probes approaching the boundary. Replacing the integral by a fixed weighted rule adds the separate quadrature error.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:channel-chainrule}]
+\textbf{Step 1: differentiate the dense centers.}
+For a control perturbation $\dot q=(\dot q_0,\ldots,\dot q_m)$,
+linearity of \cref{eq:channelparameterization} gives
+\begin{equation}
+ \dot s_i=\sum_{j=0}^{m}W_{ij}\dot q_j.
+ \label{eq:densecenterdifferential}
+\end{equation}
+
+\textbf{Step 2: apply the ordinary finite-dimensional chain rule.}
+At the assumed differentiability point,
+\begin{align}
+ DJ(q)[\dot q]
+ &=\sum_{i=1}^{L}G_i\cdot\dot s_i
+ =\sum_{i=1}^{L}G_i\cdot
+   \sum_{j=0}^{m}W_{ij}\dot q_j\\
+ &=\sum_{j=0}^{m}
+   \left(\sum_{i=1}^{L}W_{ij}G_i\right)\cdot\dot q_j.
+ \label{eq:channelchainproof}
+\end{align}
+Since this holds for every $\dot q$, comparison with the definition of the
+Euclidean gradient proves \cref{eq:channelchainrule}.
+
+\textbf{Step 3: compute the length gradient.}
+Put
+$e_j=(q_{j+1}-q_j)/\|q_{j+1}-q_j\|$ and assume no consecutive controls
+coincide.  Direct differentiation yields
+\begin{equation}
+ \begin{aligned}
+  \nabla_{q_0}\mathcal L&=-e_0,\\
+  \nabla_{q_j}\mathcal L&=e_{j-1}-e_j &&(1\le j<m),\\
+  \nabla_{q_m}\mathcal L&=e_{m-1}.
+ \end{aligned}
+ \label{eq:lengthgradientexplicit}
+\end{equation}
+For endpoint-fixed directions only the interior blocks contribute, so replacing
+the two endpoint blocks by zero gives the vector $c$ in the proposition and
+$D\mathcal L(q)[d]=\langle c,d\rangle$.
+
+\textbf{Step 4: verify tangency.}
+When $c\ne0$, substitution of \cref{eq:lengthprojection} gives
+\begin{equation}
+ \langle c,d\rangle
+ =\langle c,a\rangle
+  -\|c\|^2\frac{\langle c,a\rangle}{\|c\|^2}=0.
+\end{equation}
+When $c=0$, the same conclusion is immediate.  Both $a$ and $c$ have zero
+endpoint blocks, hence so does $d$.
+
+\textbf{Step 5: verify descent for the unsmoothed projected gradient.}
+Let $g$ denote $\nabla_qJ$ with its endpoint blocks set to zero and let
+$P_{c^\perp}$ be orthogonal projection within that endpoint-fixed subspace.
+Choosing $a=-g$ makes $d=-P_{c^\perp}g$.  Therefore
+\begin{equation}
+ DJ(q)[d]=\langle g,d\rangle
+ =-\langle g,P_{c^\perp}g\rangle
+ =-\|P_{c^\perp}g\|^2\le0.
+\end{equation}
+The final equality uses symmetry and idempotence of an orthogonal projection.
+No descent assertion follows after an arbitrary smoothing operator; this is
+why the implemented smoothed proposal is subjected to fresh evaluation.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:qmc-volume}]
+For each sample define
+\begin{equation}
+ d_j=\begin{cases}
+ \min_i\|Y_j-s_i(q)\|,&Y_j\in\Omega,\\
+ +\infty,&Y_j\notin\Omega.
+ \end{cases}
+\end{equation}
+Let $d_{(1)}\le\cdots\le d_{(M)}$ be the order statistics.  If
+$d_{(k)}<r<d_{(k+1)}$, exactly the first $k$ indicators in
+\cref{eq:qmcchannelvolume} equal one.  Hence
+\begin{equation}
+ \widehat V_M(q,r)=\frac{kV_B}{M}.
+\end{equation}
+Since $k$ is a nearest integer to $MV_\star/V_B$,
+\begin{equation}
+ \left|k-\frac{MV_\star}{V_B}\right|\le\frac12.
+\end{equation}
+Multiplication by $V_B/M$ proves \cref{eq:qmcvolumequantum}.  The distinctness
+assumption prevents ambiguity at the threshold.  If ties occur, a deterministic
+tie rule retains a one-quantum bound but need not attain exactly $k$ samples.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:fresh-shape}]
+Let $E_t$ be the simultaneous-coverage event inside
+\cref{eq:shapesimultaneouscoverage}, and let $B_t$ be the event that round $t$
+accepts a non-improving trial.  On $E_t$, every accepted index $k$ satisfies
+\begin{equation}
+ \Delta_{t,k}\le U_{t,k}<0.
+\end{equation}
+Consequently $B_t\subseteq E_t^c$.  Conditional coverage and the tower
+property imply
+\begin{align}
+ \Prob(B_t)
+ &=\E[\Prob(B_t\mid\mathcal F_{t-1})]\\
+ &\le\E[\Prob(E_t^c\mid\mathcal F_{t-1})]
+ \le\delta_t.
+\end{align}
+Finally, countable subadditivity gives
+\begin{equation}
+ \Prob\!\left(\bigcup_tB_t\right)
+ \le\sum_t\Prob(B_t)\le\sum_t\delta_t,
+\end{equation}
+which is \cref{eq:shapefamilywise}.  The direction, tested scales, common
+random numbers within each paired difference, and deterministic radius
+recalibration are all part of the conditioning history.  No correctness
+assumption about the Differential WoS proposal is used after that conditioning.
+\end{proof}
+
+\section{Reproducibility and Interpretation}
+\label{app:checklist}
+\label{app:claims}
+
+Detailed protocols appear in \cref{app:experiments,sec:critical}; the count--radius study retains all 72 designs and separates design-seed ranges from conditional evaluation uncertainty. Rendering cuts and scalar smoothing affect only visualization, not the physical domain or reported objectives.
+
+The deterministic capacity expansion uses the analytic hypotheses stated in the main text. Cross-fitted unbiasedness assumes exact marginal oracle means; implemented termination error remains separate. The finite-insertion and shape-acceptance results control erroneous acceptances under their coverage premises, rather than giving posterior probabilities conditional on an accepted design. No application result is presented as a proof that its finite-size, oracle-bias, or interval assumptions hold.

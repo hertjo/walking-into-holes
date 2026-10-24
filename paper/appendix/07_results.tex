@@ -1,0 +1,94 @@
+\section{Evaluation}
+\label{sec:results}
+
+We evaluate three claims: direct estimation avoids shrinking-target noise; local scores support useful cavity placement; and sparse queries can reduce computational cost relative to a global discretized solve. Matched pipelines on a finned housing, branching manifold, and annular spreader test placement and numerical cost under shared constraints. The Bunny supplies a detailed-geometry stress test and a count--radius study, while controlled experiments isolate statistical effects. Earlier thermal studies retain their original protocols and are summarized separately. \Cref{app:experiments,sec:critical} retain full protocols, secondary plots, solver checks, and all measured comparisons.
+
+\paragraph{Common physics and decision rule.}
+All 3D design studies solve $-\Delta u=f$ with nonnegative internal heating and ideal zero-temperature exterior and cavity walls. The sensor-protection pipelines and accessible-channel studies minimize the regional objective $J_q=\int qu/\int q$ with a distinct adjoint; the compact sensor weight in the new matched study is normalized to integrate to one. The earlier Bunny, housing-compliance, and guarded-validation studies minimize compliance $J=\int fu$ under prescribed removal and clearance constraints. Their relative reductions use a fixed original-domain normalization and fresh objective samples. For compliance, $p=u$ and the candidate benefit is $u^2$; a cross-fitted score uses distinct walk indices even when the same samples represent both fields. Each insertion changes the domain before the next score evaluation. The ranking studies use fresh shortlist samples. \Cref{sec:applicationvalidation} separately evaluates a guarded compliance selector.
+
+\paragraph{Measured comparisons.}
+The deterministic design baselines use a voxel adjoint field with either conjugate gradients or geometric multigrid; they evaluate the same topological score and share the candidate and cavity budgets. Random feasible placement tests whether the score helps beyond adding cold surface. Same-seed multiplication and finite-cavity differencing isolate estimator choices. Array-RQMC and neighbor reuse are studied separately as compatible accelerations. The external FEM experiment checks initial fields, and the probabilistic-shape and spectral-connectivity experiments check components; none is presented as a reproduced full external optimizer.
+
+\input{appendix/07f_submission_results}
+\input{appendix/07d_regional_results}
+\input{appendix/07e_accessible_results}
+
+\subsection{Thermal design on a finned housing}
+
+A closed 96,740-triangle procedural housing contains three localized Gaussian heat sources. Each method places six radius-$0.095$ cavities from 768 shared Sobol candidates. Sparse \method{} uses 12 scouting walks per feasible site and 192 fresh walks on a 24-site shortlist; a larger budget uses 96 and 768 walks. A predeclared field-error criterion selects the multigrid grid, $113\times73\times57$, from a resolution sweep. Both algorithms run in the same C++ executable. Selection time includes geometry acceleration and all six rounds of querying or global solving; it excludes file I/O, process startup, and the common independent objective evaluation.
+
+
+
+Across five complete stochastic design seeds, sparse \method{} reduces compliance by $68.90\%\pm0.84\%$ (standard error), compared with $70.36\%\pm0.08\%$ for the deterministic multigrid design, whose uncertainty comes from objective evaluation. Mean selection time is $0.432$ s versus $1.861$ s: $4.31\times$ faster while achieving $97.9\%$ of the measured reduction. The larger \method{} budget gives $69.39\%\pm0.51\%$ reduction in $1.731$ s, using $19.1$ MiB peak RSS versus $31.4$ MiB. Random placement gives $27.76\%\pm4.57\%$. These are quality--cost tradeoffs over the tested designs; the seed count does not establish equivalence or superiority in design quality. The multigrid sweep and resource curves appear in \cref{fig:housingtradeoffs}. This earlier compliance comparison uses a field-error-selected grid and excludes driver costs; the regional pipelines in \cref{sec:submissionstudy} include those costs and both cheaper grids. Its speed ratio should not be transferred between these protocols.
+
+An independent scikit-fem implementation on 393,616 tetrahedra checks the initial ranking. The 512-walk field has Pearson correlation $0.9943$ and $95\%$ top-20 overlap with that FEM field. Its boundary approximation and convergence are documented in \cref{fig:externalaudit}; the FEM audit is an accuracy comparison, not an optimized FEM timing baseline.
+
+\subsection{Detailed geometry and sparse-query scaling}
+
+We repair and close the Stanford Bunny~\cite{stanford1994bunny}, obtaining 69,674 triangles, and normalize its height to one. With affine heating $f(x,y,z)=1+0.65(y+0.5)$, each method places six radius-$0.05$ cavities among 1,024 candidates. \method{} uses a 12-walk scout and fresh 128-walk rescoring of 20 sites. Its measured compliance reduction is $47.77\%$, compared with $48.06\%$ for the $54\times64\times48$ voxel adjoint and $39.46\%$ for random placement. This single-run test demonstrates placement on detailed geometry; the replicated allocation study below supplies a broader design comparison.
+
+A separate matched C++ experiment isolates query cost on the original Bunny. At 64 requested sites, 512-walk \method{} takes $0.381$ s and $15.4$ MiB peak RSS; voxel FD/CG takes $0.528$ s and $80.7$ MiB. The corresponding relative score errors against an independent 16,384-walk reference are $5.89\%$ and $6.89\%$. This is $1.39\times$ faster evaluation with $81\%$ less peak memory, at similar measured error. The numerical reference itself has sampling and termination error. The methods tie near 96 sites, and at 384 sites the voxel solve is faster ($0.504$ s versus $2.10$ s). \Cref{fig:compiledbunny} reports the full sweep. These timings establish a sparse-query advantage, not a speedup for the displayed Bunny optimization.
+
+\input{appendix/07c_budget_results}
+
+\subsection{Estimator accuracy and sampling uncertainty}
+
+The annulus diagnostic has an exact capacity and cavity-hit probability, making the rare-event comparison analytically controlled. With 256 samples per estimate and 3,000 repetitions, fitted variance slopes versus capacity are $0.00$ for direct estimation, $-1.10$ for coupled differencing, and $-1.89$ for independent differencing. At the smallest tested capacity, direct variance is $8.26\times$ lower than the coupled baseline. This experiment tests the shrinking-target mechanism under its stated model; it does not rule out importance samplers conditioned on cavity hits.
+
+\begin{figure}[t]
+ \centering
+ \includegraphics[width=\textwidth]{figures/controlled-experiments.pdf}
+ \caption{Controlled tests of the statistical claims. (a) Direct \method{} has no insertion-radius input, so its measured variance is constant; coupled finite-cavity differencing follows the predicted $\rho^{-1}$ rare-event law, while independent solves approach the worse $\rho^{-2}$ law. Shading gives 95\% bootstrap intervals. (b) Same-seed multiplication inherits the full covariance bias and the product of sample means retains $1/N$ of it. The leave-diagonal-out estimator remains unbiased up to Monte Carlo error; independent batches are the unbiased no-reuse reference. (c) Reusing the most negative scout loses nominal coverage as the candidate count grows. Fresh validation and a simultaneous Bonferroni scout both meet the 5\% target; fresh validation controls the preselected-site test in this known-noise diagnostic.}
+ \label{fig:controlled}
+\end{figure}
+
+Correlated-pair tests confirm the covariance bias predicted for same-index products. Cross-fitting and fully independent primal/adjoint batches both remove it; cross-fitting is not uniformly lower variance. The manufactured harmonic fields in \cref{fig:manufactured} test this product algebra spatially. A separate Poisson-compliance disk test has a genuine analytic topological derivative, $D_T(z)=-(1-|z|^2)^2/16$. There, independently randomized Array-RQMC batches reduce MSE by $19.9\times$ relative to ordinary Monte Carlo at equal path count, while taking longer in the measured Python implementation (\cref{fig:accelerated}). Statistical efficiency and runtime are reported separately.
+
+The adaptive-selection test uses null candidates with known Gaussian noise. Selecting and testing with the same samples produces almost certain false acceptance among 256 sites; fresh validation and simultaneous Bonferroni bounds produce rates near the nominal $5\%$. This isolates selection error. It does not measure coverage for finite 3D insertions. The general-objective certificate also requires numerical remainder and bias bounds; the specialized cooling validator is evaluated separately below.
+
+\subsection{Compatibility with connected refinement}
+
+On the housing, a topological-score-weighted candidate graph initializes a connected 22-ball cavity between two internal terminals. Every trial enforces strict overlap and the same fixed-Sobol removed volume. Six Differential WoS refinement rounds propose control-point motions; fresh paired Student-$t$ tests with a Bonferroni allocation accept three steps. Independent evaluation reports a $2.086\%$ objective decrease from the graph initialization. The graph initialization itself does not measurably outperform the straight connection in this example. The channel remains sealed inside the housing, and the interval coverage relies on the paired-normal model. This experiment demonstrates compatibility between cavity initialization and existing-boundary refinement; it does not establish accessible coolant routing or a certified global topology optimum. \Cref{fig:housingchannels,fig:offsetseamsweep} report the geometry, derivative checks, and finite-offset sensitivity.
+
+\subsection{Minimum-benefit validation on application geometry}
+\label{sec:applicationvalidation}
+
+We separately deploy the average-trace certificate in a six-attempt design
+on each object. A scout-and-rescore pass fixes one finalist; fresh clipped
+walks then bound its finite benefit before insertion. The validator uses
+conservative triangle-box distance bounds, explicit source enclosures, and
+an error budget of $0.01$ across both objects and all predeclared sampling
+stages. Its probabilistic guarantee remains conditional on ideal sampling
+laws and the stated input-geometry assumptions.
+
+All twelve insertions pass the fixed absolute targets, yielding cumulative
+benefit lower bounds of $5.75\times10^{-4}$ for the Bunny and
+$6.21\times10^{-3}$ for the housing. Independent WoS evaluations estimate
+$8.45\times10^{-4}$ and $1.020\times10^{-2}$, respectively; a separate
+multigrid reference agrees on total benefits within $0.7\%$. The
+average-trace bound is substantially tighter than our temperature-floor
+bound on the same data (\cref{fig:applicationvalidation}). Eleven targets pass
+at 1,024 walks and one at 4,096 walks, but the full four-stage diagnostic costs
+$150.39$\,s and $52.17$\,s of validation time, versus $2.97$\,s and
+$0.53$\,s for scouting and rescoring. This is a conservative validation
+experiment, not an extension of the earlier ranking-only speed claim.
+\Cref{app:applicationcertificate} gives every proof, target, timing boundary,
+and numerical qualification.
+
+\begin{figure}[t]
+ \centering
+ \includegraphics[width=\textwidth]{figures/application-minimum-benefit.pdf}
+ \caption{\textbf{A finite benefit bound that can be evaluated before insertion.}
+ (a,b) The average-trace certificate is tighter than the temperature-floor
+ certificate and source-only bound on the same proposed cavities. Separate
+ WoS and multigrid evaluations estimate the actual benefit; error bars show
+ one spatial-block standard error for WoS. Percent axes use fixed scales
+ $0.002$ (Bunny) and $0.015$ (housing), not certified baseline objectives.
+ The dashed horizontal line marks the primary $0.1\%$-of-scale target.
+ (c) Larger validation batches tighten the first candidate's bound.
+ (d) Complete six-attempt kernel costs, with recorded first-passing prefixes
+ shown separately from the full diagnostic actually executed. The bounds
+ assume the stated conditional sampling laws and valid input geometry;
+ numerical guard audits are reported separately.}
+ \label{fig:applicationvalidation}
+\end{figure}

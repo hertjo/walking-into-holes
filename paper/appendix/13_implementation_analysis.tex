@@ -1,0 +1,189 @@
+\section{Source Integration and Connected Refinement}
+\label{app:channelimplementation}
+
+\subsection{Poisson source integration}
+
+For completeness, the inhomogeneous three-dimensional Poisson implementation
+used in our engineering benchmark samples the Green source term without a
+volume grid.  The following identity also fixes the normalization used in our
+implementation.
+
+\begin{proposition}[Unbiased source sample on a three-dimensional WoS ball]
+\label{prop:greenballsample}
+Let $B_R(x)\subset\Omega$, let $\Theta$ be uniform on $\mathbb S^2$, and let
+$T$ be independent of $\Theta$ with density $p_T(t)=6t(1-t)$ on $(0,1)$.
+For every measurable source $f$ with $\int_{B_R(x)}G_{B_R(x)}(x,y)|f(y)|\,dy<\infty$,
+\begin{equation}
+ \int_{B_R(x)}G_{B_R(x)}(x,y)f(y)\,dy
+ =\frac{R^2}{6}\,\E[f(x+RT\Theta)],
+ \label{eq:greenballsample}
+\end{equation}
+where $G_{B_R(x)}(x,y)=(4\pi)^{-1}
+(\|y-x\|^{-1}-R^{-1})$ is the Dirichlet Green kernel evaluated at the ball
+center.
+\end{proposition}
+
+\begin{proof}
+Denote the left-hand side of \cref{eq:greenballsample} by $I_R(x)$ and write
+$y=x+r\theta$.  Spherical coordinates, followed by $r=Rt$, give
+\begin{align*}
+ I_R(x)
+ &=\frac1{4\pi}\int_{\mathbb S^2}\int_0^R
+   \left(r-\frac{r^2}{R}\right)f(x+r\theta)\,dr\,d\theta\\
+ &=\frac{R^2}{4\pi}\int_{\mathbb S^2}\int_0^1
+   t(1-t)f(x+Rt\theta)\,dt\,d\theta.
+\end{align*}
+Uniform $\Theta$ has surface density $(4\pi)^{-1}$ and $T$ has density
+$6t(1-t)$; substituting both densities into the expectation on the right of
+\cref{eq:greenballsample} gives exactly the last integral.  Hence one draw of
+$(T,\Theta)$ yields an unbiased contribution $R^2f(x+RT\Theta)/6$.
+\end{proof}
+
+\subsection{Connected-channel parameterization and refinement}
+
+Topology creation need not end with disconnected cavities.  Let
+$q=(q_0,\ldots,q_m)\in(\R^3)^{m+1}$ be control points and let a fixed
+subdivision matrix $W\in\R^{L\times(m+1)}$ have nonnegative entries and row
+sums one.  Dense centers, the removed channel, and the retained domain are
+\begin{equation}
+ \begin{aligned}
+  s_i(q)&=\sum_{j=0}^{m}W_{ij}q_j,\\
+  H(q,r)&=\bigcup_{i=1}^{L}\overline B_r(s_i(q)),
+  &\Omega(q,r)&=\Omega\setminus H(q,r).
+ \end{aligned}
+ \label{eq:channelparameterization}
+\end{equation}
+Every accepted trial must satisfy $\|s_{i+1}-s_i\|<2r$ for all consecutive
+centers, checked again after radius recalibration.  Thus the interiors of
+successive balls overlap, making both the removed union and its open interior
+path connected.  The
+topology stage selects two separated terminals and connects them through a
+topological-score-weighted candidate graph; Differential WoS then moves the
+interior controls while the endpoints remain fixed.
+The current housing experiment keeps every ball strictly inside the housing;
+its terminals are interior design points.  It therefore demonstrates an
+internally connected cavity, not an inlet-to-outlet conduit or a guarantee of
+powder evacuation.  In particular, it would remain a void island under the
+exterior-reachability definition of Andrade et al.~\cite{andrade2026connectivity}.
+The two constraints must not be treated as interchangeable baselines.
+
+Let $\Sigma$ be the union of sphere-intersection seams on $\partial H$.  For
+an exposed patch $\Gamma_i$ and offset $\ell>0$, define the admissible part
+of that patch by
+\begin{equation}
+ \Gamma_{i,\ell}^{\mathrm{safe}}=
+ \left\{x\in\Gamma_i:
+ \operatorname{dist}(x,\Sigma)>\ell,\;
+ (x,x-\ell n(x)]\subset\Omega(q,r)\right\}.
+ \label{eq:channelsafepatch}
+\end{equation}
+The Euclidean seam distance is used here; replacing the unit strip width by
+any fixed positive multiple changes only constants.
+
+\begin{proposition}[Differential WoS center derivative]
+\label{prop:channel-diffwos}
+Fix $r>0$ and a regular channel configuration for which the exposed spherical
+patches $\Gamma_i\subset\partial H(q,r)$ are $C^2$ away from $\Sigma$.
+Assume the piecewise-smooth solution map is shape differentiable under
+independent center translations.  Moreover, for every compact probe set
+$K\Subset\Omega(q,r)$, assume there are $C_K,\ell_K>0$ such that, for
+$0<\ell\le\ell_K$ and $\xi=X_\tau$,
+\begin{align}
+ \sup_{y\in K}\E_y\!\left[
+  \mathbf 1_{\{I(\xi)=i,\,\xi\notin\Gamma_{i,\ell}^{\mathrm{safe}}\}}
+  |\partial_nu(\xi)|\right]&\le C_K\ell,
+ \label{eq:weightedseamstrip}\\
+ \sup_{x\in\Gamma_{i,\ell}^{\mathrm{safe}}}
+ \left|\frac{u(x-\ell n(x))}{\ell}+\partial_nu(x)\right|
+ &\le C_K\ell.
+ \label{eq:safenormaltaylor}
+\end{align}
+Let $u$ solve
+$-\Delta u=f$ in $\Omega(q,r)$ with
+zero Dirichlet data.  For $y\in\Omega(q,r)$, let $X_\tau$ be Brownian exit,
+$I(X_\tau)$ its exposed-ball index, and $n$ the outward normal of the retained
+domain.  If $U_x$ is an unbiased independent WoS estimate of $u(x)$, then
+\begin{equation}
+ G_{i,\ell}(y)=
+ \mathbf 1_{\{I(X_\tau)=i,\,
+ X_\tau\in\Gamma_{i,\ell}^{\mathrm{safe}}\}}
+ n(X_\tau)\frac{U_{X_\tau-\ell n(X_\tau)}}{\ell}
+ \label{eq:diffwoscenterestimator}
+\end{equation}
+satisfies, uniformly on compact probe sets,
+\begin{equation}
+ \E G_{i,\ell}(y)=\nabla_{s_i}u(y)+O(\ell)
+ \quad\text{as }\ell\downarrow0.
+ \label{eq:diffwoscenterbias}
+\end{equation}
+For any fixed finite set of interior probes, the weighted estimate has $O(\ell)$ bias for the corresponding weighted derivative sum. To assert this rate for compliance $J(q,r)=\int_{\Omega(q,r)}fu\,dx$, additionally assume that differentiation under the domain integral is valid and that, for all sufficiently small $\ell$, the pointwise estimator error is bounded by $\ell C(y)$ with $\int_{\Omega(q,r)}|f(y)|C(y)\,dy<\infty$. A finite probe rule then adds its separate quadrature error.
+\end{proposition}
+
+\begin{proposition}[Control chain rule and length tangency]
+\label{prop:channel-chainrule}
+Suppose $J$ is differentiable with respect to the dense centers at a regular
+configuration, and write $G_i=\nabla_{s_i}J$.  Then
+\begin{equation}
+ \nabla_{q_j}J=\sum_{i=1}^{L}W_{ij}G_i.
+ \label{eq:channelchainrule}
+\end{equation}
+For the centerline length
+$\mathcal L(q)=\sum_{j=0}^{m-1}\|q_{j+1}-q_j\|$, let $c$ be its gradient
+with the endpoint blocks set to zero.  Given any endpoint-fixed proposal $a$,
+define
+\begin{equation}
+ d=a-c\frac{\langle c,a\rangle}{\|c\|^2}
+ \quad(c\ne0),
+ \label{eq:lengthprojection}
+\end{equation}
+and $d=a$ if $c=0$.  Then the endpoints do not move and
+$D\mathcal L(q)[d]=0$.  In particular, let $g$ be the objective gradient with
+its endpoint blocks set to zero.  Choosing $a=-g$ gives
+$DJ(q)[d]=-\|P_{c^\perp}g\|^2\le0$.  Our implementation first
+smooths $a$ and therefore relies on fresh line-search validation, rather than
+this last inequality, for accepted descent.
+\end{proposition}
+
+The radius of every trial is recalibrated on one fixed Sobol set.  If
+$Y_1,\ldots,Y_M$ fill a box of volume $V_B$, define
+\begin{equation}
+ \widehat V_M(q,r)=\frac{V_B}{M}\sum_{k=1}^{M}
+ \mathbf 1_{\{Y_k\in\Omega,\;\min_i\|Y_k-s_i(q)\|\le r\}}.
+ \label{eq:qmcchannelvolume}
+\end{equation}
+
+\begin{proposition}[Discrete equal-volume calibration]
+\label{prop:qmc-volume}
+Let $k$ be the nearest integer to $MV_\star/V_B$.  If the $k$th and
+$(k+1)$st eligible center distances are distinct, choosing $r$ strictly
+between them gives exactly $k$ removed samples and
+\begin{equation}
+ |\widehat V_M(q,r)-V_\star|\le \frac{V_B}{2M}.
+ \label{eq:qmcvolumequantum}
+\end{equation}
+Thus all compared connected channels have the same discrete volume, up to one
+predeclared rounding quantum; this is a statement about the fixed QMC measure,
+not an exact analytic union-volume formula.
+\end{proposition}
+
+\begin{proposition}[Fresh paired shape acceptance]
+\label{prop:fresh-shape}
+At shape round $t$, condition on the complete history $\mathcal F_{t-1}$,
+including the Differential WoS direction and finitely many trial scales.  Let
+$\Delta_{t,k}=J(q_{t,k},r_{t,k})-J(q_t,r_t)$, where every $r_{t,k}$ obeys
+\cref{eq:qmcchannelvolume}.  Suppose simultaneous upper bounds satisfy
+\begin{equation}
+ \Prob\!\left(\Delta_{t,k}\le U_{t,k}\ \text{for every }k
+ \mid\mathcal F_{t-1}\right)\ge1-\delta_t.
+ \label{eq:shapesimultaneouscoverage}
+\end{equation}
+If a trial is accepted only when its $U_{t,k}<0$, then
+\begin{equation}
+ \Prob(\text{some accepted shape step is non-improving})
+ \le\sum_t\delta_t.
+ \label{eq:shapefamilywise}
+\end{equation}
+The conclusion is independent of bias in the proposed direction: coverage of
+the fresh objective difference, not gradient accuracy, certifies acceptance.
+\end{proposition}
+

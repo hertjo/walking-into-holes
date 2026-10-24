@@ -1,0 +1,100 @@
+canvas { width = 800
+ height = 650 }
+Colors {
+ color ink = #302c35
+ color muted = #756e7a
+ color line = #d8d2dc
+ color ground = #faf8fb
+ color purple = #9365a8
+ color pale = #eee5f3
+ color teal = #6997aa
+ color tealpale = #eaf1f4
+ color orange = #bd824b
+ color red = #ae7778
+ color grey = #e8e5e9
+ color white = #ffffff
+}
+Global {
+  shape s1 = Equation {
+    center: (-193.0000,-7.0000)
+    string: "D_T(z)="
+    fontSize: "51px"
+    fillColor: Colors.purple
+  }
+  shape s2 = Equation {
+    center: (-33.0000,-7.0000)
+    string: "-"
+    fontSize: "51px"
+    fillColor: Colors.ink
+  }
+  shape s3 = Equation {
+    center: (61.0000,-7.0000)
+    string: "u(z)"
+    fontSize: "55px"
+    fillColor: Colors.orange
+  }
+  shape s4 = Equation {
+    center: (214.0000,-7.0000)
+    string: "p(z)"
+    fontSize: "55px"
+    fillColor: Colors.teal
+  }
+  shape s5 = Line {
+    start: (14.0000,-52.0000)
+    end: (104.0000,-52.0000)
+    strokeColor: Colors.orange
+    strokeWidth: 1.5
+  }
+  shape s6 = Line {
+    start: (168.0000,-52.0000)
+    end: (260.0000,-52.0000)
+    strokeColor: Colors.teal
+    strokeWidth: 1.5
+  }
+  shape s7 = Text {
+    center: (61.0000,-86.0000)
+    string: "temperature"
+    fontFamily: "Nimbus Roman"
+    fontSize: "25px"
+    fontWeight: "400"
+    fillColor: Colors.orange
+    textAnchor: "middle"
+  }
+  shape s8 = Text {
+    center: (214.0000,-86.0000)
+    string: "influence"
+    fontFamily: "Nimbus Roman"
+    fontSize: "25px"
+    fontWeight: "400"
+    fillColor: Colors.teal
+    textAnchor: "middle"
+  }
+  shape s9 = Line {
+    start: (-345.0000,-143.0000)
+    end: (347.0000,-143.0000)
+    strokeColor: Colors.line
+    strokeWidth: 1
+  }
+  shape s10 = Equation {
+    center: (0.0000,-211.0000)
+    string: "\Delta J=4\pi\varepsilon D_T(z)+o(\varepsilon)"
+    fontSize: "35px"
+    fillColor: Colors.ink
+  }
+  shape s11 = Equation {
+    center: (0.0000,-287.0000)
+    string: "\varepsilon\to0,\qquad p=u"
+    fontSize: "29px"
+    fillColor: Colors.muted
+  }
+  layer s1 below s2
+  layer s2 below s3
+  layer s3 below s4
+  layer s4 below s5
+  layer s5 below s6
+  layer s6 below s7
+  layer s7 below s8
+  layer s8 below s9
+  layer s9 below s10
+  layer s10 below s11
+}

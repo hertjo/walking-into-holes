@@ -1,0 +1,13 @@
+{
+  "paths": 3,
+  "steps": 56,
+  "max_seed_replay_error": 7.850462293418876e-17,
+  "minimum_sphere_clearance": 5.0672417518720855e-08,
+  "minimum_projected_sphere_clearance_px": 0.014245150021793052,
+  "max_projection_error_px": 5.684341886080802e-14,
+  "all_paths_terminate_at_epsilon": true,
+  "animation_frames_checked": 288,
+  "max_animation_projection_error_px": 2.2914314707516465e-13,
+  "method": "Independent capsule distance formula using axial excess; seed replay; orthonormal projection; exact projected-capsule containment; frame-by-frame interpolation check.",
+  "rendering_scope": "SVG sphere outlines represent orthographic sphere silhouettes. Raster placement is rounded to subpixel/pixel precision. Straight segments show jumps, not Brownian paths. Separate capsule and Bunny examples share relative time only."
+}

@@ -1,0 +1,183 @@
+\section{Statistical Analysis}
+\label{sec:analysis}
+
+We now isolate the two statistical facts that make direct estimation
+preferable to finite-cavity differencing: its variance contains no vanishing
+geometric scale, and its uncertainty can be propagated into a valid
+topological decision.  All probability statements are with respect to the
+random-walk and cache randomness at a fixed candidate $z$.
+
+\begin{theorem}[Unbiasedness under correlated pairs]
+\label{thm:unbiased}
+Suppose \cref{eq:oraclemeans} holds, the pairs $X_i$ are i.i.d., and the first
+moments exist.  For every $N\ge2$,
+\begin{equation}
+ \E[\widehat{\DT}_N(z)]=\DT(z),
+\end{equation}
+even when $U_i$ and $P_i$ are arbitrarily dependent within a pair.
+\end{theorem}
+
+\begin{theorem}[Exact radius-independent variance]
+\label{thm:variance}
+Assume the oracle pairs are i.i.d. and $N\ge2$. Let $A:=U-h_z$, $B:=P$, $\mu_A:=\E A$, $\mu_B:=\E B$, and
+$c_{AB}:=\Cov(A,B)$.  If $\E A^2<\infty$ and $\E B^2<\infty$, then
+\begin{equation}
+ \Var(\widehat{\DT}_N)
+ =\frac{4}{N}\zeta_1
+  +\frac{2}{N(N-1)}\zeta_2,
+ \label{eq:ustatvariance}
+\end{equation}
+where
+\begin{align}
+ \zeta_1
+ &=\frac14\left(
+ \mu_B^2\Var A+\mu_A^2\Var B
+ +2\mu_A\mu_Bc_{AB}\right),
+ \label{eq:zetaone}\\
+ \zeta_2
+ &=\frac12\left(\Var A\,\Var B+c_{AB}^2\right).
+ \label{eq:zetatwo}
+\end{align}
+Consequently $\Var(\widehat{\DT}_N)=O(N^{-1})$.  No term depends on an
+insertion radius $\eps$.
+\end{theorem}
+
+We specialize the classical Hoeffding decomposition~\cite{hoeffding1948class};
+the complete algebra appears in \cref{app:ustat}.  Correlation inside a pair can
+increase or decrease the first-order variance through $c_{AB}$, but cannot
+create covariance bias because the diagonal products are absent.
+
+\begin{theorem}[Finite-sample confidence radius]
+\label{thm:concentration}
+Assume the unbiased i.i.d. oracle-pair hypotheses of \cref{thm:unbiased}, $N\ge2$, and $|U_i-h_z|\le M_U$ and $|P_i|\le M_P$ almost surely, and put
+$M=M_UM_P>0$. Then, for every $t>0$,
+\begin{equation}
+ \Prob\!\left(|\widehat{\DT}_N-\DT|\ge t\right)
+ \le2\exp\!\left(
+ -\frac{\lfloor N/2\rfloor t^2}{2M^2}\right).
+ \label{eq:hoeffdingtail}
+\end{equation}
+Equivalently, for every $\delta\in(0,1)$,
+\begin{equation}
+ \Prob\!\left[
+ |\widehat{\DT}_N-\DT|
+ \le M\sqrt{\frac{2\log(2/\delta)}{\lfloor N/2\rfloor}}
+ \right]\ge1-\delta.
+ \label{eq:hoeffdingradius}
+\end{equation}
+If $M=0$, the estimator and its target are identically zero, so coverage is deterministic. For $K$ candidates evaluated with arbitrary shared randomness, replacing
+$\delta$ by $\delta/K$ gives simultaneous coverage.
+\end{theorem}
+
+The proof averages over all pairings of the observations and applies
+Hoeffding's lemma before a Chernoff optimization; it does not treat the
+$N(N-1)$ cross-products as independent.  The displayed bound is deliberately
+conservative and assumption-transparent.  Experiments may additionally report
+empirical-Bernstein or bootstrap intervals, but only an interval with verified
+coverage may drive certification.
+
+\subsection{Why finite-cavity differencing becomes noisy}
+
+Consider a coupled per-path objective difference $Y_\eps=Q_\eps-Q_0$ and
+independent replicates $Y_\eps^{(1)},\ldots,Y_\eps^{(N)}$.  The natural
+finite-cavity estimator is
+\begin{equation}
+ \widehat{\DT}^{\mathrm{FD}}_{N,\eps}
+ :=\frac{1}{N\rho_z(\eps)}\sum_{i=1}^{N}Y_\eps^{(i)}.
+ \label{eq:fdbaseline}
+\end{equation}
+Common random numbers make $Y_\eps$ zero for paths whose outcome is unaffected
+by the cavity.  This is useful, but it exposes a rare event.
+
+\begin{assumption}[Rare-event coupling]
+\label{ass:rareevent}
+There is an event $A_\eps$ and constants $c_p,C_p,c_2,C_1>0$, independent of
+sufficiently small $\eps$, such that
+\begin{align}
+ c_p\rho_z(\eps)&\le\Prob(A_\eps)\le C_p\rho_z(\eps),
+ \label{eq:rareprob}\\
+ Y_\eps&=0\quad\text{on }A_\eps^c,
+ \label{eq:rarezero}\\
+ \E[Y_\eps^2\mid A_\eps]&\ge c_2,
+ \qquad |\E Y_\eps|\le C_1\rho_z(\eps).
+ \label{eq:raremoments}
+\end{align}
+\end{assumption}
+
+This captures couplings in which a path changes by $O(1)$ only when it reaches
+the small cavity's influence set, whose harmonic measure is
+$\Theta(\rho_z(\eps))$. The stopped-path harmonic-correction
+baseline in \cref{app:submissionstudy} explicitly uses the cavity-hit event.
+A generic shared-stream WoS subtraction need not vanish whenever the cavity
+is missed, because its walk spheres can already differ. The rare-event
+hypotheses must therefore be checked for the particular coupling; they do
+not follow from shared random numbers alone.
+
+\begin{theorem}[Rare-event variance barrier]
+\label{thm:rarevariance}
+Under \cref{ass:rareevent}, for every
+$\eps$ satisfying
+$\rho_z(\eps)\le c_pc_2/(2C_1^2)$,
+\begin{equation}
+ \Var[\widehat{\DT}^{\mathrm{FD}}_{N,\eps}]
+ \ge \frac{c_pc_2}{2N\rho_z(\eps)}.
+ \label{eq:rarevariance}
+\end{equation}
+Consequently, a variance bound independent of $\eps$ requires
+$N=\Omega(1/\rho_z(\eps))$ paths.
+\end{theorem}
+
+This is not a universal lower bound for an importance sampler that analytically
+conditions on hitting the cavity.  It is a precise diagnosis of the natural
+``insert, couple, subtract, divide'' baseline.
+
+\begin{corollary}[Candidate-map sample complexity]
+\label{cor:ranking}
+Under \cref{thm:concentration}, simultaneous error at most $\Delta$ for $K$
+candidates with probability at least $1-\delta$ is guaranteed whenever
+\begin{equation}
+ \left\lfloor\frac N2\right\rfloor
+ \ge\frac{2M^2}{\Delta^2}\log\frac{2K}{\delta}.
+ \label{eq:directcomplexity}
+\end{equation}
+Thus $N=O(M^2\Delta^{-2}\log(K/\delta))$, independently of $\eps$.
+Under \cref{ass:rareevent}, forcing the finite-difference variance below
+$\Delta^2$ requires
+\begin{equation}
+ N\ge\frac{c_pc_2}{2\Delta^2\rho_z(\eps)}.
+ \label{eq:fdcomplexity}
+\end{equation}
+\end{corollary}
+
+\subsection{Bias bookkeeping}
+
+The cross-fit removes correlation bias, but it cannot remove bias already
+present in either marginal PDE oracle.  The next result converts marginal
+bounds into a topological-derivative bias budget.
+
+\begin{proposition}[Propagation of marginal oracle bias]
+\label{prop:biaspropagation}
+Suppose the pairs remain i.i.d. across indices but
+\begin{equation}
+ |\E U-u(z)|\le\beta_U,
+ \qquad |\E P-p(z)|\le\beta_P.
+ \label{eq:marginalbias}
+\end{equation}
+Then
+\begin{equation}
+ |\E\widehat{\DT}_N-\DT|
+ \le |p(z)|\beta_U+|u(z)-h_z|\beta_P+\beta_U\beta_P.
+ \label{eq:productbias}
+\end{equation}
+\end{proposition}
+
+For unbiased Russian-roulette termination, the corresponding marginal bias is
+zero.  An $\eta$-shell termination rule or a truncated cache generally has
+nonzero $\beta_U,\beta_P$.  We require a conservative allocation of the right
+side of \cref{eq:productbias} into
+\begin{equation}
+ |\E\widehat{\DT}_N-\DT|
+ \le b_{\mathrm{term}}+b_{\mathrm{cache}}.
+ \label{eq:biasbudget}
+\end{equation}
+The bounds may come from analysis or certified a posteriori residuals. A calibration-based bound must itself control reference error and allocate confidence to the calibration; a high-accuracy reference or termination-tolerance sweep alone is insufficient. A statistical interval that omits these terms does not support the general-objective guarantee in \cref{sec:optimization}. The specialized one-sided cooling validator instead uses the proved sign of its truncation bias (\cref{prop:onesidedwos}).

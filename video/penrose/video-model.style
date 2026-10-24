@@ -1,0 +1,31 @@
+canvas { width = 800
+ height = 210 }
+Colors {
+ color ink = #302c35
+ color muted = #756e7a
+ color line = #d8d2dc
+ color ground = #faf8fb
+ color purple = #9365a8
+ color pale = #eee5f3
+ color teal = #6997aa
+ color tealpale = #eaf1f4
+ color orange = #bd824b
+ color red = #ae7778
+ color grey = #e8e5e9
+ color white = #ffffff
+}
+Global {
+  shape s1 = Equation {
+    center: (0.0000,52.0000)
+    string: "-\Delta u=f"
+    fontSize: "45px"
+    fillColor: Colors.orange
+  }
+  shape s2 = Equation {
+    center: (0.0000,-42.0000)
+    string: "u|_{\partial\Omega}=0"
+    fontSize: "37px"
+    fillColor: Colors.teal
+  }
+  layer s1 below s2
+}

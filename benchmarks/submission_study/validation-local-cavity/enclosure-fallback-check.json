@@ -1,0 +1,28 @@
+[
+  {
+    "case": "failed",
+    "summary": {
+      "total_seconds": 0.21322224,
+      "steps": 199085,
+      "caps": 0,
+      "peak_rss_megabytes": 24.1953125,
+      "distance_queries": 212058,
+      "parity_rays": 6837,
+      "enclosure_fallbacks": 1
+    },
+    "same_output": true
+  },
+  {
+    "case": "control",
+    "summary": {
+      "total_seconds": 0.201608202,
+      "steps": 205874,
+      "caps": 0,
+      "peak_rss_megabytes": 24.07421875,
+      "distance_queries": 219468,
+      "parity_rays": 7450,
+      "enclosure_fallbacks": 0
+    },
+    "same_output": true
+  }
+]

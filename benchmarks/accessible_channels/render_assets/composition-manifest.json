@@ -1,0 +1,27 @@
+{
+  "means": {
+    "wos_hot": 37.08489602773063,
+    "twos_sparse": 54.10134064714244,
+    "mg57": 57.545430820610065
+  },
+  "se_across_five_paired_seed_averages": {
+    "wos_hot": 1.281962128737306,
+    "twos_sparse": 0.718563464694861,
+    "mg57": 0.5955047000768268
+  },
+  "mean_seconds": {
+    "wos_hot": 1.0031673277015216,
+    "twos_sparse": 1.0161594157012588,
+    "mg57": 1.2592310301020917
+  },
+  "single_design_seed": 2026091600,
+  "single_design_side": 1,
+  "crop_relative": [
+    0,
+    0.14,
+    1,
+    0.93
+  ],
+  "data_source": "accessible_channels/output/results.csv",
+  "png_width": 8000
+}

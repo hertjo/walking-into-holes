@@ -1,0 +1,11 @@
+{
+  "designs": 50,
+  "selected_argmax_checks": 240,
+  "cross_product_rows": 28900,
+  "walk_steps_in_design_folders": 184376616,
+  "max_mg_relative_residual": 9.92603682714966e-09,
+  "max_shell_sensitivity_pp": 0.08397473139927225,
+  "max_grid_sensitivity_pp": 1.7207925643905608,
+  "max_reference_disagreement_pp": 3.1327476436288415,
+  "scope": "saved-data and geometry predicate audit; numerical references approximate; no physical flow or independent expert proof review"
+}

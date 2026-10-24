@@ -1,0 +1,62 @@
+{
+  "paths_per_field": 4096,
+  "sites_per_repetition": 512,
+  "repetitions": 5,
+  "replaced_indices": [
+    1040,
+    1048,
+    1072,
+    1168,
+    2140,
+    2148,
+    2172,
+    2268,
+    3240,
+    3248,
+    3272,
+    3368
+  ],
+  "duplicate_keys": {
+    "legacy": 4200,
+    "repaired": 0
+  },
+  "corrected_method_seed_runs": 25,
+  "full_replay_checks": [
+    {
+      "family": "raw",
+      "geometry": "housing",
+      "max_absolute_discrepancy": 8.643801820140684e-17,
+      "scale": 0.0940861572141288,
+      "sites": 8
+    },
+    {
+      "family": "raw",
+      "geometry": "branch",
+      "max_absolute_discrepancy": 9.71445146547012e-17,
+      "scale": 0.1631917599276764,
+      "sites": 8
+    },
+    {
+      "family": "raw",
+      "geometry": "ring",
+      "max_absolute_discrepancy": 3.469446951953614e-18,
+      "scale": 0.0864897004610222,
+      "sites": 8
+    },
+    {
+      "family": "raw",
+      "geometry": "bunny",
+      "max_absolute_discrepancy": 8.933825901280557e-17,
+      "scale": 0.175823226963942,
+      "sites": 8
+    },
+    {
+      "family": "analytic",
+      "geometry": "branch",
+      "max_absolute_discrepancy": 8.787458607995013e-17,
+      "scale": 0.1806565434377542,
+      "sites": 8
+    }
+  ],
+  "scope": "Corrected calibration fields; numerical roundoff audit, not exact-arithmetic identity. Legacy outputs retained and all replay work charged."
+}

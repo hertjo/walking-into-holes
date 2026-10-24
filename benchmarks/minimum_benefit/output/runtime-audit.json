@@ -1,0 +1,11 @@
+{
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "cpu_count": 9,
+  "omp_threads": 8,
+  "files": {
+    "run_application_validation.py": "5299d8afd4177ca332bdd5139513a32d098de0179db77317b02772d79dd10dcb",
+    "minimum_benefit.hpp": "411ff83d47441b693e1ab1a1dea6d53448028af7e611995e13c641f58f309749",
+    "wih_twos.cpp": "df8b9dbbcaeb9a19253284b901a5ce554d26fef8a8b1283eeb720d3203e8d7f4"
+  }
+}

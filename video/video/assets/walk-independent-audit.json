@@ -1,0 +1,378 @@
+{
+  "mesh_sha256": "700bdd9e0e7878b1e7d537db80d1b760ac658bf68b3dd5de5bcac4ca9e44c90f",
+  "bunny_paths": 3,
+  "bunny_steps": 48,
+  "independent_geometry": "NumPy point-to-triangle distance (plane plus edge regions); solid-angle winding number for interior classification",
+  "max_seed_replay_error": 0.0,
+  "max_jump_length_error": 2.7755575615628914e-17,
+  "max_radius_rule_error": 3.5128150388530344e-17,
+  "minimum_sphere_clearance": 6.964152812066748e-08,
+  "max_interior_winding_error": 3.3306690738754696e-16,
+  "all_paths_terminate_at_declared_epsilon": true,
+  "uniform_direction_generator": "Normalize three independent standard Gaussians; rotational invariance gives the uniform spherical law. Seeds are retained in source data.",
+  "direction_diagnostic": {
+    "n": 200000,
+    "mean": [
+      -0.00020224579888731924,
+      0.00021831623018023062,
+      0.0004913071018500256
+    ],
+    "second_moment": [
+      [
+        0.33333622265332064,
+        -0.0004431627980605397,
+        -0.0006598058578173573
+      ],
+      [
+        -0.0004431627980605397,
+        0.3327624138313601,
+        -0.0005896702873453461
+      ],
+      [
+        -0.0006598058578173573,
+        -0.0005896702873453461,
+        0.33390136351531946
+      ]
+    ],
+    "scope": "Diagnostic only; not evidence that a finite set of sample paths is uniformly distributed."
+  },
+  "animation_scope": "Straight moving segments interpolate WoS jumps for display; they do not depict Brownian trajectories. The capsule and Bunny are separate examples.",
+  "steps": [
+    {
+      "seed": 2026091801,
+      "step": 0,
+      "independent_distance": 0.2349865322650599,
+      "radius": 0.23496303361183338,
+      "boundary_gap": 2.3498653226511346e-05
+    },
+    {
+      "seed": 2026091801,
+      "step": 1,
+      "independent_distance": 0.10234579565666278,
+      "radius": 0.10233556107709711,
+      "boundary_gap": 1.0234579565671087e-05
+    },
+    {
+      "seed": 2026091801,
+      "step": 2,
+      "independent_distance": 0.08995723252750146,
+      "radius": 0.08994823680424872,
+      "boundary_gap": 8.995723252733234e-06
+    },
+    {
+      "seed": 2026091801,
+      "step": 3,
+      "independent_distance": 0.02919784799441282,
+      "radius": 0.02919492820961337,
+      "boundary_gap": 2.919784799448183e-06
+    },
+    {
+      "seed": 2026091801,
+      "step": 4,
+      "independent_distance": 0.05662652908396547,
+      "radius": 0.056620866431057064,
+      "boundary_gap": 5.662652908404453e-06
+    },
+    {
+      "seed": 2026091801,
+      "step": 5,
+      "independent_distance": 0.05643480731448858,
+      "radius": 0.056429163833757116,
+      "boundary_gap": 5.6434807314612034e-06
+    },
+    {
+      "seed": 2026091801,
+      "step": 6,
+      "independent_distance": 0.047952625859369456,
+      "radius": 0.04794783059678352,
+      "boundary_gap": 4.795262585934046e-06
+    },
+    {
+      "seed": 2026091802,
+      "step": 0,
+      "independent_distance": 0.2349865322650599,
+      "radius": 0.23496303361183338,
+      "boundary_gap": 2.3498653226511346e-05
+    },
+    {
+      "seed": 2026091802,
+      "step": 1,
+      "independent_distance": 0.09166192274463543,
+      "radius": 0.09165275655236096,
+      "boundary_gap": 9.166192274465135e-06
+    },
+    {
+      "seed": 2026091802,
+      "step": 2,
+      "independent_distance": 0.10247524079493417,
+      "radius": 0.10246499327085469,
+      "boundary_gap": 1.0247524079479153e-05
+    },
+    {
+      "seed": 2026091802,
+      "step": 3,
+      "independent_distance": 0.05277671226378918,
+      "radius": 0.05277143459256279,
+      "boundary_gap": 5.277671226391889e-06
+    },
+    {
+      "seed": 2026091802,
+      "step": 4,
+      "independent_distance": 0.041073180838683616,
+      "radius": 0.04106907352059975,
+      "boundary_gap": 4.1073180838679946e-06
+    },
+    {
+      "seed": 2026091802,
+      "step": 5,
+      "independent_distance": 0.0368199370151168,
+      "radius": 0.03681625502141531,
+      "boundary_gap": 3.6819937014875848e-06
+    },
+    {
+      "seed": 2026091802,
+      "step": 6,
+      "independent_distance": 0.0028205033460980047,
+      "radius": 0.002820221295763412,
+      "boundary_gap": 2.820503345927171e-07
+    },
+    {
+      "seed": 2026091802,
+      "step": 7,
+      "independent_distance": 0.0009008014891052939,
+      "radius": 0.0009007114089563694,
+      "boundary_gap": 9.008014892450573e-08
+    },
+    {
+      "seed": 2026091802,
+      "step": 8,
+      "independent_distance": 0.00159464694145657,
+      "radius": 0.0015944874767624129,
+      "boundary_gap": 1.5946469415707883e-07
+    },
+    {
+      "seed": 2026091802,
+      "step": 9,
+      "independent_distance": 0.0008067747855353924,
+      "radius": 0.0008066941080568158,
+      "boundary_gap": 8.067747857656068e-08
+    },
+    {
+      "seed": 2026091802,
+      "step": 10,
+      "independent_distance": 0.0008190666303929166,
+      "radius": 0.0008189847237298848,
+      "boundary_gap": 8.190666303184435e-08
+    },
+    {
+      "seed": 2026091802,
+      "step": 11,
+      "independent_distance": 0.0010860725577700504,
+      "radius": 0.001085963950514255,
+      "boundary_gap": 1.0860725579531043e-07
+    },
+    {
+      "seed": 2026091802,
+      "step": 12,
+      "independent_distance": 0.0008074225250870967,
+      "radius": 0.0008073417828345685,
+      "boundary_gap": 8.074225252817108e-08
+    },
+    {
+      "seed": 2026091802,
+      "step": 13,
+      "independent_distance": 0.0014368689573837554,
+      "radius": 0.0014367252704880055,
+      "boundary_gap": 1.436868957498897e-07
+    },
+    {
+      "seed": 2026091802,
+      "step": 14,
+      "independent_distance": 0.0015347643182156735,
+      "radius": 0.001534610841783834,
+      "boundary_gap": 1.5347643183942494e-07
+    },
+    {
+      "seed": 2026091802,
+      "step": 15,
+      "independent_distance": 0.0026688112253323206,
+      "radius": 0.0026685443442097524,
+      "boundary_gap": 2.6688112256820565e-07
+    },
+    {
+      "seed": 2026091802,
+      "step": 16,
+      "independent_distance": 0.0014421097211855345,
+      "radius": 0.001441965510213424,
+      "boundary_gap": 1.4421097211054015e-07
+    },
+    {
+      "seed": 2026091803,
+      "step": 0,
+      "independent_distance": 0.2349865322650599,
+      "radius": 0.23496303361183338,
+      "boundary_gap": 2.3498653226511346e-05
+    },
+    {
+      "seed": 2026091803,
+      "step": 1,
+      "independent_distance": 0.06099201982811376,
+      "radius": 0.06098592062613094,
+      "boundary_gap": 6.0992019828218225e-06
+    },
+    {
+      "seed": 2026091803,
+      "step": 2,
+      "independent_distance": 0.04586177302194157,
+      "radius": 0.045857186844639374,
+      "boundary_gap": 4.586177302194627e-06
+    },
+    {
+      "seed": 2026091803,
+      "step": 3,
+      "independent_distance": 0.08903171163382387,
+      "radius": 0.08902280846266049,
+      "boundary_gap": 8.903171163379686e-06
+    },
+    {
+      "seed": 2026091803,
+      "step": 4,
+      "independent_distance": 0.06526785805689694,
+      "radius": 0.06526133127109125,
+      "boundary_gap": 6.526785805691104e-06
+    },
+    {
+      "seed": 2026091803,
+      "step": 5,
+      "independent_distance": 0.02118996957593759,
+      "radius": 0.02118785057897999,
+      "boundary_gap": 2.118996957598679e-06
+    },
+    {
+      "seed": 2026091803,
+      "step": 6,
+      "independent_distance": 0.029651826059386512,
+      "radius": 0.029648860876780567,
+      "boundary_gap": 2.9651826059448605e-06
+    },
+    {
+      "seed": 2026091803,
+      "step": 7,
+      "independent_distance": 0.023625622393139332,
+      "radius": 0.023623259830900016,
+      "boundary_gap": 2.3625622393164125e-06
+    },
+    {
+      "seed": 2026091803,
+      "step": 8,
+      "independent_distance": 0.04615070833666104,
+      "radius": 0.04614609326582737,
+      "boundary_gap": 4.615070833664803e-06
+    },
+    {
+      "seed": 2026091803,
+      "step": 9,
+      "independent_distance": 0.027536431497806074,
+      "radius": 0.027533677854656286,
+      "boundary_gap": 2.753643149788071e-06
+    },
+    {
+      "seed": 2026091803,
+      "step": 10,
+      "independent_distance": 0.04621500211587476,
+      "radius": 0.04621038061566317,
+      "boundary_gap": 4.62150021159069e-06
+    },
+    {
+      "seed": 2026091803,
+      "step": 11,
+      "independent_distance": 0.06111086122657653,
+      "radius": 0.06110475014045388,
+      "boundary_gap": 6.111086122653764e-06
+    },
+    {
+      "seed": 2026091803,
+      "step": 12,
+      "independent_distance": 0.0969726018520808,
+      "radius": 0.09696290459189559,
+      "boundary_gap": 9.697260185209666e-06
+    },
+    {
+      "seed": 2026091803,
+      "step": 13,
+      "independent_distance": 0.05807916116721567,
+      "radius": 0.05807335325109895,
+      "boundary_gap": 5.807916116720713e-06
+    },
+    {
+      "seed": 2026091803,
+      "step": 14,
+      "independent_distance": 0.06027044122019504,
+      "radius": 0.060264414176073026,
+      "boundary_gap": 6.027044122010328e-06
+    },
+    {
+      "seed": 2026091803,
+      "step": 15,
+      "independent_distance": 0.061415480671999596,
+      "radius": 0.0614093391239324,
+      "boundary_gap": 6.141548067196967e-06
+    },
+    {
+      "seed": 2026091803,
+      "step": 16,
+      "independent_distance": 0.029225425127016123,
+      "radius": 0.029222502584503415,
+      "boundary_gap": 2.9225425127073212e-06
+    },
+    {
+      "seed": 2026091803,
+      "step": 17,
+      "independent_distance": 0.018191254563735142,
+      "radius": 0.018189435438278764,
+      "boundary_gap": 1.8191254563780512e-06
+    },
+    {
+      "seed": 2026091803,
+      "step": 18,
+      "independent_distance": 0.03453456749751815,
+      "radius": 0.0345311140407684,
+      "boundary_gap": 3.453456749749617e-06
+    },
+    {
+      "seed": 2026091803,
+      "step": 19,
+      "independent_distance": 0.019806491935013423,
+      "radius": 0.019804511285819934,
+      "boundary_gap": 1.980649193489281e-06
+    },
+    {
+      "seed": 2026091803,
+      "step": 20,
+      "independent_distance": 0.00801507184153515,
+      "radius": 0.008014270334350997,
+      "boundary_gap": 8.01507184152242e-07
+    },
+    {
+      "seed": 2026091803,
+      "step": 21,
+      "independent_distance": 0.0030545093147711024,
+      "radius": 0.0030542038638396245,
+      "boundary_gap": 3.05450931477845e-07
+    },
+    {
+      "seed": 2026091803,
+      "step": 22,
+      "independent_distance": 0.0006964152812865494,
+      "radius": 0.0006963456397584288,
+      "boundary_gap": 6.964152812066748e-08
+    },
+    {
+      "seed": 2026091803,
+      "step": 23,
+      "independent_distance": 0.001061599733422237,
+      "radius": 0.0010614935734488975,
+      "boundary_gap": 1.0615997333963088e-07
+    }
+  ]
+}

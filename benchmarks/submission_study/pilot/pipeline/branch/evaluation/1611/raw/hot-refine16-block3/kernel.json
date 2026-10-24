@@ -1,0 +1,10 @@
+{
+  "total_seconds": 9.326085467,
+  "peak_rss_megabytes": 13.96875,
+  "distance_queries": 5403499,
+  "parity_rays": 0,
+  "relative_residual": 0,
+  "steps": 5141355,
+  "caps": 0,
+  "request_wall_seconds": 9.339869732999432
+}

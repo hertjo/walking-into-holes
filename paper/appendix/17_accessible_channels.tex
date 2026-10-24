@@ -1,0 +1,131 @@
+\section{Accessible Ball-Union Channels}
+\label{app:accessible}
+
+\subsection{A geometric access guarantee}
+The following construction gives an explicit passage through an object.
+It does not assert a cooling rate, pressure drop, or manufacturing tolerance.
+Let $e$ be a unit vector, let $m\geq1$ be an integer, and put
+$c_j=c_0+jhe$ for $j=0,\ldots,m$, where $0<h<2r$. Define the open channel
+$C=\bigcup_{j=0}^m B_r(c_j)$ and
+$\rho=\sqrt{r^2-h^2/4}>0$.
+
+\begin{proposition}[A positive-width passage]
+\label{prop:channelcore}
+The channel $C$ is path connected and contains the straight tube
+\[
+ T=\{c_0+te+v:0\leq t\leq mh,\ v\cdot e=0,\ |v|<\rho\}.
+\]
+If $c_0$ and $c_m$ lie strictly on opposite sides of a slab containing
+the closed object, the removed set $C$ supplies an open route between
+the two exterior sides. In particular, the route has positive width;
+it is not merely a point-contact chain.
+\end{proposition}
+\begin{proof}
+\textbf{Step 1: choose a neighboring center.}
+For each $t\in[0,mh]$, rounding $t/h$ to a nearest integer gives
+$j\in\{0,\ldots,m\}$ with $|t-jh|\leq h/2$.
+\textbf{Step 2: bound the distance.}
+Orthogonality of $v$ and $e$ gives
+\[
+ |c_0+te+v-c_j|^2=(t-jh)^2+|v|^2
+ <h^2/4+\rho^2=r^2.
+\]
+Thus every point of $T$ belongs to an open ball in $C$.
+\textbf{Step 3: connect all channel points.}
+Any point of a ball can be connected to its center by a segment in that
+ball. The centerline belongs to $T$. Concatenating two radial segments
+with a centerline segment connects any two points of $C$.
+\textbf{Step 4: reach the exterior.}
+The endpoint centers lie in the exterior by the slab assumption.
+Following the centerline from one endpoint to the other therefore
+gives a route in $C$, including its portions removed from the object.
+The strict tube inequality establishes positive transverse clearance.
+Intersecting the tube with the object need not give a single component
+on an arbitrary shape, but every such portion communicates with the
+same open route. This statement does not require the remaining material
+to be connected.
+\end{proof}
+
+\begin{proposition}[Protection and channel separation]
+\label{prop:channelprotection}
+Let $a>0$ and $g\geq0$. For parallel channels of radius $r$, a transverse distance at least
+$r+a+g$ from a protected ball's center to the channel axis gives
+a gap of at least $g$ from that radius-$a$ ball. An axis separation
+of at least $2r+g$ gives a gap of at least $g$ between channels.
+\end{proposition}
+\begin{proof}
+\textbf{Step 1: enclose the channel.}
+Every channel ball lies in the radius-$r$ cylinder around its axis,
+so the union lies in that cylinder.
+\textbf{Step 2: project protected points.}
+Orthogonal projection onto the plane perpendicular to the axis cannot
+increase distances. A point in the protected ball projects at distance
+at most $a$ from its center's projection. A channel point projects at
+distance at most $r$ from its axis. The reverse triangle inequality
+therefore bounds their separation below by $(r+a+g)-a-r=g$.
+\textbf{Step 3: apply the same argument to two channels.}
+Their two projected radial distances are each at most $r$, giving
+the lower bound $(2r+g)-2r=g$.
+\end{proof}
+
+\subsection{What the construction does not prove}
+For the nonnegative-source, zero-Dirichlet model and a protected
+observation region, domain removal still gives a nonincreasing
+regional objective, provided the weak solutions and trace comparison
+used in \cref{app:regional} apply. To see this, set $D'=D\setminus
+\overline C$ and use exactly the difference $u_D-u_{D'}$ and its
+negative-part test from that proof. The new trace is nonnegative and
+the source agrees on $D'$, so the weighted integral difference is
+nonnegative. No assertion that the channel is infinitesimal is needed
+for this comparison.
+
+However, $-u(z)p(z)$ is the coefficient for a separated small ball.
+A channel consists of many overlapping balls and meets the exterior.
+The single-ball expansion therefore does not justify summing their
+coefficients or assigning a certified finite benefit to the whole
+channel. The experiment uses the point score as a placement heuristic,
+then independently evaluates the actual channel geometry. A stronger
+channel-shape derivative or finite-insertion theorem remains separate
+work. Nor does an open route justify ideal isothermal walls: flow,
+convective heat transfer, external manifolds, and pumping power are
+absent from the model.
+
+\subsection{Reproducible experiment}
+The new comparison uses two sensor positions, five paired candidate
+seeds, and five methods. Each design adds six vertical channels of
+radius $0.075$. Eighteen balls span $z=-0.45$ to $z=0.825$ with
+spacing $0.075$, so \cref{prop:channelcore} gives the exact core radius
+$0.075\sqrt{3}/2$. Endpoint coordinates are checked against the
+actual boundary mesh's bounds. Channel axes avoid the sensor ball
+and three radius-$0.07$ component balls, with a $0.02$ additional
+gap; channels have a $0.025$ mutual gap. Components are centered at
+the three prescribed source peaks. The Gaussian source tails remain
+a volumetric field on surviving material; this is not a fixed-power
+electronic-component model.
+
+Each seed gives 512 common candidate axes. Scores are queried at
+$z=-0.03$ in the current domain and all channel balls are added after
+each selection. Sparse \method{} and WoS hottest-point placement use
+12 scout walks and 192 fresh rescore walks on 24 candidates.
+Multigrid evaluates the same pointwise topological coefficient at
+$57\times37\times29$ or $113\times73\times57$ nodes; random feasible
+placement supplies a geometric control. Both solver families retain
+the outer mesh through each complete six-round design. Timings include
+candidate preparation, geometry setup, adaptive selection, I/O,
+and process startup and shutdown. Reference evaluations are separate.
+
+Four independently scrambled 128-point sensor-probe blocks and 256
+fresh walks per probe evaluate every final design. A separate
+$113\times73\times57$ grid provides another numerical reference.
+First-seed designs additionally receive a fourfold shell refinement
+and a $169\times109\times85$ grid check. Neither reference is exact.
+Four independent 32,768-point scrambled blocks estimate removed
+material volume and the removed fraction of the prescribed source.
+All methods share channel count, radius, axial extent, and constraints;
+the nonuniform housing thickness means their removed volumes are not
+exactly equal. We report those volumes rather than describing this as
+an equal-volume comparison. Port positions are optimized, not fixed
+connections to an external manifold.
+
+\input{tables/channel_table}
+\input{tables/channel_checks}
