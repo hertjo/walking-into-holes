@@ -12,6 +12,26 @@ independent of the cavity radius, and validation with fresh samples decides whet
 This repository contains the paper source, every benchmark and experiment behind its figures and tables, and the
 retained results.
 
+## Requirements
+
+- Python 3.10 or later with NumPy, SciPy, pandas and Matplotlib. The Bunny benchmarks also use libigl's Python
+  bindings (`libigl`, tested with 2.6.3).
+- For the compiled backends: CMake 3.18 or later, a C++17 compiler, Embree 4 and OpenMP. Each benchmark's README
+  gives its build path.
+- For the hero renders: the pinned packages in `figures/requirements-render.txt` (Mitsuba 3, trimesh, OIDN).
+- For the paper: [Tectonic](https://tectonic-typesetting.github.io) (`latexmk -pdf` works too).
+
+## Quick start
+
+```bash
+git clone https://github.com/hertjo/walking-into-holes.git
+cd walking-into-holes
+python -m venv .venv && source .venv/bin/activate
+pip install numpy scipy pandas matplotlib libigl
+make experiments      # controlled experiments: variance, correlation bias, adaptive selection (experiments/output/)
+make paper            # paper/main.pdf
+```
+
 ## Layout
 
 | Path | Contents |
